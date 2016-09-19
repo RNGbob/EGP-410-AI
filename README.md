@@ -1,5 +1,5 @@
-# EGP-410
-Template projects for base code for EGP 410 assignments.
+# AI Assignment 1 - 
+ Currently the template projects for base code for EGP 410 assignments. Built upon for assignment 1 requirements 
 
 #This repository contains three major directories:
  * DeanLib - Base utility library provided by Dean Lawson. Memory tracking and basic vector mathematics utilities.
