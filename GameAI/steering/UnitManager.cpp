@@ -13,7 +13,7 @@ UnitManager::~UnitManager()
 
 }
 
-void UnitManager::init(Sprite* playerSprite)
+void UnitManager::init(Sprite* &playerSprite, Sprite* enemySprite)
 {
 	// create plater unit
 	Vector2D pos(0.0f, 0.0f);

@@ -1,4 +1,7 @@
-
+#include "Game.h"
+#include "GameMessageManager.h"
+#include "PlayerMoveToMessage.h"
+#include "AddingMessage.h"
 #include "InputSystem.h"
 
 
@@ -8,7 +11,7 @@ InputSystem::InputSystem()
 }
 InputSystem::~InputSystem(){}
 
-void InputSystem::init(GameMessageManager* &mesman)
+void InputSystem::init( GameMessageManager* &mesman)
 {
 	mpMessageManger = mesman;
 }
@@ -29,45 +32,39 @@ void InputSystem::update()
 	al_get_mouse_state(&mouse); 
 	if (mouse.buttons & 1)
 	{
-		
+		Vector2D pos(mouse.x, mouse.y);
+		GameMessage* pMessage = new PlayerMoveToMessage(pos);
+		MESSAGE_MANAGER->addMessage(pMessage, 0);
 	}
-	else if (mouse.buttons & 2)
-	{
-		
-	}
+	else if (mouse.buttons & 2){}
 
 	ALLEGRO_KEYBOARD_STATE key;
 
 	al_get_keyboard_state(&key);
 
-	if ( al_key_down(&key, ALLEGRO_KEY_SPACE))
+	 if (al_key_down(&key, ALLEGRO_KEY_ESCAPE))
 	{
-		
+		 gpGame->endGame();
+	}
+	else if (al_key_down(&key, ALLEGRO_KEY_A))
+	{
+		GameMessage* pMessage = new AddingMessage(Arrive);
+		MESSAGE_MANAGER->addMessage(pMessage, 0);
+	}
+	else if (al_key_down(&key, ALLEGRO_KEY_S))
+	{
+		GameMessage* pMessage = new AddingMessage(Seek);
+		MESSAGE_MANAGER->addMessage(pMessage, 0);
+	}
+	else if (al_key_down(&key, ALLEGRO_KEY_D))
+	{
+		GameMessage* pMessage = new DeletingMessage();
+		MESSAGE_MANAGER->addMessage(pMessage, 0);
 	}
 	
-	else if (al_key_down(&key, ALLEGRO_KEY_ESCAPE))
-	{
-		
-	}
-	else if (al_key_down(&key, ALLEGRO_KEY_UP))
-	{
-		
-	}
-	else if (al_key_down(&key, ALLEGRO_KEY_DOWN))
-	{
-		
-	}
-	else if (al_key_down(&key, ALLEGRO_KEY_LEFT))
-	{
-		
-	}
-	else if (al_key_down(&key, ALLEGRO_KEY_RIGHT))
-	{
-		
-	}
 }
 
-
+/*//**/
 
 /*/
 //get input - should be moved someplace better

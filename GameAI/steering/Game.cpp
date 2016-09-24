@@ -177,6 +177,7 @@ bool Game::init()
 		pEnemyArrow = mpSpriteManager->createAndManageSprite( AI_ICON_SPRITE_ID, pAIBuffer, 0, 0, pAIBuffer->getWidth(), pAIBuffer->getHeight() );
 	}
 
+	/**/
 	//setup units
 	Vector2D pos( 0.0f, 0.0f );
 	Vector2D vel( 0.0f, 0.0f );
@@ -192,19 +193,19 @@ bool Game::init()
 	mpAIUnit2 = new KinematicUnit( pEnemyArrow, pos3, 1, vel2, 0.0f, 180.0f, 100.0f );
 	//give steering behavior
 	mpAIUnit2->dynamicSeek( mpUnit );  
-
+	/**/
 	return true;
 }
 
 void Game::cleanup()
 {
-	//delete units
+	/**///delete units
 	delete mpUnit;
 	mpUnit = NULL;
 	delete mpAIUnit;
 	mpAIUnit = NULL;
 	delete mpAIUnit2;
-	mpAIUnit2 = NULL;
+	mpAIUnit2 = NULL;/**/
 
 	//delete the timers
 	delete mpLoopTimer;
