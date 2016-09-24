@@ -61,6 +61,9 @@
     <ClCompile Include="UnitManager.cpp">
       <Filter>Source Files\Units</Filter>
     </ClCompile>
+    <ClCompile Include="AddingMessage.cpp">
+      <Filter>Source Files\Messaging</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicsBuffer.h">
@@ -122,6 +125,9 @@
     </ClInclude>
     <ClInclude Include="UnitManager.h">
       <Filter>Header Files\Units</Filter>
+    </ClInclude>
+    <ClInclude Include="AddingMessage.h">
+      <Filter>Header Files\Messaging</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
