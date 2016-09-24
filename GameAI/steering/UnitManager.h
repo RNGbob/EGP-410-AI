@@ -11,14 +11,14 @@ public:
 	UnitManager();
 	~UnitManager();
 
-	void init();
+	void init(Sprite* playerSprite);
 	void cleanup();
 	
 	void addUnit(Method steeringType, Sprite* &sprite);
 	void deleteUnit();
 	void deleteRandomUnit();
 
-	KinematicUnit* getPlayer() { return mPlayerUnit; }
+	KinematicUnit* getPlayer() const { return mPlayerUnit; }
 
 
 private:
