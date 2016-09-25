@@ -6,7 +6,7 @@
 class AddingMessage : public GameMessage
 {
 public:
-	AddingMessage(const Method steeringType);
+	AddingMessage(const Method steeringType); // takes enum of steering method for new entity
 	~AddingMessage();
 
 	void process();

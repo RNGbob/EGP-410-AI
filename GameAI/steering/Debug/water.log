@@ -1,5 +1,4 @@
-﻿  UnitManager.cpp
-c:\users\student\ai_assignment1\gameai\steering\unitmanager.cpp(52): warning C4018: '<': signed/unsigned mismatch
-c:\users\student\ai_assignment1\gameai\steering\unitmanager.cpp(60): warning C4018: '<': signed/unsigned mismatch
+﻿  Skipping... (no relevant changes detected)
+  AddingMessage.cpp
   water.vcxproj -> C:\Users\Student\AI_Assignment1\GameAI\steering\Debug\steering.exe
   water.vcxproj -> C:\Users\Student\AI_Assignment1\GameAI\steering\Debug\steering.pdb (Full PDB)

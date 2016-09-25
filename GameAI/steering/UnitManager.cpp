@@ -10,7 +10,21 @@ UnitManager::UnitManager()
 
 UnitManager::~UnitManager()
 {
+	
+	while (!mUnitList.empty())
+	{
+		delete mUnitList.back();
+		mUnitList.back() = NULL;
+		mUnitList.pop_back();
+	}
+	
+	mUnitList.clear();
+	
+	delete mPlayerUnit;
+	mPlayerUnit = NULL;
 
+	//delete mpSpriteManager;
+	mpSpriteManager = NULL;
 }
 
 void UnitManager::init(  SpriteManager* &mpSprMan)
@@ -19,31 +33,22 @@ void UnitManager::init(  SpriteManager* &mpSprMan)
 	mpSpriteManager = mpSprMan;
 
 	// create plater unit
-	Vector2D pos(0.0f, 0.0f);
+	Vector2D pos(100.0f, 100.0f);
 	Vector2D vel(0.0f, 0.0f);
 	mPlayerUnit = new KinematicUnit(mpSpriteManager->getSprite(PLAYER_ICON_SPRITE_ID), pos, 1, vel, 0.0f, 200.0f, 10.0f);
 }
 
 void UnitManager::cleanup()
 {
-	for ( std::vector<KinematicUnit*>::iterator  it = mUnitList.begin();  it !=mUnitList.end(); ++it)
-	{
-		delete (*it);
-	}
-	mUnitList.clear();
 	/*/
-	while (!mUnitList.empty())
+	for ( std::vector<KinematicUnit*>::iterator it = mUnitList.begin();  it !=mUnitList.end(); ++it)
 	{
-		delete mUnitList.back();
-		mUnitList.back() = NULL;
-		mUnitList.pop_back();
-	}/**/
-
-	delete mPlayerUnit;
-	mPlayerUnit = NULL;
-
-	//delete mpSpriteManager;
-	mpSpriteManager = NULL;
+		delete *it;
+	}
+	
+	
+	/**/
+	
 
 }
 
@@ -53,6 +58,7 @@ void UnitManager::update(float time)
 	{
 		mUnitList[i]->update(time);
 	}
+	mPlayerUnit->update(time);
 }
 
 void UnitManager::draw(GraphicsBuffer* gBuff)
@@ -61,6 +67,7 @@ void UnitManager::draw(GraphicsBuffer* gBuff)
 	{
 		mUnitList[i]->draw(gBuff);
 	}
+	mPlayerUnit->draw(gBuff);
 }
 
 void UnitManager::addUnit(Method steeringType)
@@ -98,14 +105,19 @@ void UnitManager::deleteUnit()
 
 void UnitManager::deleteRandomUnit()
 {
-	int index = rand() % (mUnitList.size());
+	
 
 	if (!mUnitList.empty())
 	{
+	int index = rand() % (mUnitList.size());
 	delete mUnitList[index];
 	mUnitList[index] = NULL;
 	
 	mUnitList.erase(mUnitList.begin() + index);
+	}
+	else
+	{
+		gpGame->endGame();
 	}
 	
 }

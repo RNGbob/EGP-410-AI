@@ -21,7 +21,7 @@ public:
 	void update(float time);
 	void draw(GraphicsBuffer* gBuff);
 
-	KinematicUnit* getPlayer() const { return mPlayerUnit; }
+	KinematicUnit* getPlayer(){ return mPlayerUnit; }
 
 
 private:
