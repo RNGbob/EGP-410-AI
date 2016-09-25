@@ -1,6 +1,6 @@
 #include "UnitManager.h"
 #include "KinematicUnit.h"
-
+#include "SpriteManager.h"
 
 
 UnitManager::UnitManager()
@@ -13,12 +13,17 @@ UnitManager::~UnitManager()
 
 }
 
-void UnitManager::init(Sprite* &playerSprite, Sprite* enemySprite)
+void UnitManager::init(const IDType &playerID, const IDType &enemyID,  SpriteManager* &mpSprMan)
 {
+	// spriteManager
+	mpSpriteManager = mpSprMan;
+	mEnemyID = enemyID;
+	
+	
 	// create plater unit
 	Vector2D pos(0.0f, 0.0f);
 	Vector2D vel(0.0f, 0.0f);
-	mPlayerUnit = new KinematicUnit(playerSprite, pos, 1, vel, 0.0f, 200.0f, 10.0f);
+	mPlayerUnit = new KinematicUnit(mpSpriteManager->getSprite(playerID), pos, 1, vel, 0.0f, 200.0f, 10.0f);
 }
 
 void UnitManager::cleanup()
@@ -33,9 +38,28 @@ void UnitManager::cleanup()
 	delete mPlayerUnit;
 	mPlayerUnit = NULL;
 
+	delete mpSpriteManager;
+	mpSpriteManager = NULL;
+
 }
 
-void UnitManager::addUnit(Method steeringType, Sprite* &sprite)
+void UnitManager::update(float time)
+{
+	for (int i = 0; i < mUnitList.size(); i++)
+	{
+		mUnitList[i]->update(time);
+	}
+}
+
+void UnitManager::draw(GraphicsBuffer* gBuff)
+{
+	for (int i = 0; i < mUnitList.size(); i++)
+	{
+		mUnitList[i]->draw(gBuff);
+	}
+}
+
+void UnitManager::addUnit(Method steeringType)
 {
 	Vector2D pos = mPlayerUnit->getPosition();
 	Vector2D vel(0.0f, 0.0f);
@@ -45,6 +69,7 @@ void UnitManager::addUnit(Method steeringType, Sprite* &sprite)
 	if (steeringType == Arrive)
 	{
 		pos.setX(pos.getX + 200); // 200p away in x
+		newUnit = new KinematicUnit(mpSpriteManager->getSprite(mEnemyID), pos, 1, vel, 0.0f, 180.0f, 100.0f);
 		newUnit->dynamicSeek(mPlayerUnit);
 		
 		// 200p away and arrive 
@@ -52,13 +77,10 @@ void UnitManager::addUnit(Method steeringType, Sprite* &sprite)
 	else if (steeringType == Seek)
 	{
 		pos.setX(pos.getX + 100); //100p away in x
-		newUnit = new KinematicUnit(sprite, pos, 1, vel, 0.0f, 180.0f, 100.0f);
+		newUnit = new KinematicUnit(mpSpriteManager->getSprite(mEnemyID), pos, 1, vel, 0.0f, 180.0f, 100.0f);
 		newUnit->dynamicSeek(mPlayerUnit);
 		//100p away and seek
 	}
-	
-	 //newUnit = new KinematicUnit(sprite, pos, 1, vel, 0.0f, 180.0f, 100.0f);
-	//mpAIUnit2->dynamicSeek( mpUnit ); 
 	mUnitList.push_back(newUnit);
 
 

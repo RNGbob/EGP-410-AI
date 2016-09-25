@@ -17,6 +17,8 @@
 #include "GameMessageManager.h"
 #include "Sprite.h"
 #include "SpriteManager.h"
+#include "UnitManager.h"
+#include "InputSystem.h"
 #include "Timer.h"
 #include "KinematicUnit.h"
 #include "PlayerMoveToMessage.h"
@@ -71,7 +73,13 @@ bool Game::init()
 
 	mpGraphicsBufferManager = new GraphicsBufferManager();
 	mpSpriteManager = new SpriteManager();
-
+	
+	
+	mpUnitManager = new UnitManager();
+	mpInputSystem = new InputSystem();
+	
+	
+	
 	//startup a lot of allegro stuff
 
 	//load image loader addon
@@ -153,6 +161,10 @@ bool Game::init()
 
 	mpMessageManager = new GameMessageManager();
 
+	mpInputSystem->init(mpMessageManager);
+
+
+
 	//load buffers
 	mBackgroundBufferID = mpGraphicsBufferManager->loadBuffer("wallpaper.bmp");
 	mPlayerIconBufferID = mpGraphicsBufferManager->loadBuffer("arrow.bmp");
@@ -176,6 +188,9 @@ bool Game::init()
 	{
 		pEnemyArrow = mpSpriteManager->createAndManageSprite( AI_ICON_SPRITE_ID, pAIBuffer, 0, 0, pAIBuffer->getWidth(), pAIBuffer->getHeight() );
 	}
+
+	
+	mpUnitManager->init(PLAYER_ICON_SPRITE_ID, AI_ICON_SPRITE_ID, mpSpriteManager);
 
 	/**/
 	//setup units
@@ -245,7 +260,7 @@ void Game::beginLoop()
 	mpLoopTimer->start();
 }
 	
-void Game::processLoop()
+void Game::processLoop() // all of this will change!!!!!!!!!!!!!!!!!!
 {
 	//update units
 	mpUnit->update( LOOP_TARGET_TIME/1000.0f );
