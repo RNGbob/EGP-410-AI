@@ -259,9 +259,27 @@ void Game::beginLoop()
 {
 	mpLoopTimer->start();
 }
-	
-void Game::processLoop() // all of this will change!!!!!!!!!!!!!!!!!!
+
+// These will be put into processLoop
+void  Game::input()
 {
+	mpInputSystem->update();
+}
+
+void  Game::update()
+{
+	mpUnitManager->update(LOOP_TARGET_TIME / 1000.0f);
+}
+void  Game::draw()
+{
+	mpUnitManager->draw(GRAPHICS_SYSTEM->getBackBuffer());
+}
+
+/**//**/
+
+void Game::processLoop() //order is either update,draw, processMsg,input OR update,draw.input, processMsg 
+{
+	/**/
 	//update units
 	mpUnit->update( LOOP_TARGET_TIME/1000.0f );
 	mpAIUnit->update( LOOP_TARGET_TIME/1000.0f );
@@ -275,9 +293,11 @@ void Game::processLoop() // all of this will change!!!!!!!!!!!!!!!!!!
 	mpUnit->draw( GRAPHICS_SYSTEM->getBackBuffer() );
 	mpAIUnit->draw( GRAPHICS_SYSTEM->getBackBuffer() );
 	mpAIUnit2->draw( GRAPHICS_SYSTEM->getBackBuffer() );
-
+	
+	/**/
+	
 	mpMessageManager->processMessagesForThisframe();
-
+	/**/
 	//get input - should be moved someplace better
 	ALLEGRO_MOUSE_STATE mouseState;
 	al_get_mouse_state( &mouseState );
@@ -315,7 +335,7 @@ void Game::processLoop() // all of this will change!!!!!!!!!!!!!!!!!!
 		{
 			mShouldExit = true;
 		}
-	}
+	}/**/
 }
 
 bool Game::endLoop()

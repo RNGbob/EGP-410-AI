@@ -1,11 +1,8 @@
 ﻿  UnitManager.cpp
 c:\users\student\ai_assignment1\gameai\steering\unitmanager.cpp : fatal error C1041: cannot open program database 'C:\Users\Student\AI_Assignment1\GameAI\steering\Debug\vc140.idb'; if multiple CL.EXE write to the same .PDB file, please use /FS
   PlayerMoveToMessage.cpp
-c:\users\student\ai_assignment1\gameai\steering\playermovetomessage.cpp : fatal error C1041: cannot open program database 'C:\Users\Student\AI_Assignment1\GameAI\steering\Debug\vc140.pdb'; if multiple CL.EXE write to the same .PDB file, please use /FS
   InputSystem.cpp
-c:\users\student\ai_assignment1\gameai\steering\inputsystem.cpp(18): warning C4150: deletion of pointer to incomplete type 'GameMessageManager'; no destructor called
-  c:\users\student\ai_assignment1\gameai\steering\inputsystem.h(7): note: see declaration of 'GameMessageManager'
-  AddingMessage.cpp
+  Game.cpp
   Generating Code...
   Compiling...
   main.cpp
@@ -13,6 +10,5 @@ c:\users\student\ai_assignment1\gameai\steering\inputsystem.cpp(18): warning C41
   KinematicUnit.cpp
   GraphicsSystem.cpp
   GameMessageManager.cpp
-  GameMessage.cpp
-  Game.cpp
+  AddingMessage.cpp
   Generating Code...

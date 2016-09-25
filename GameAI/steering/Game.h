@@ -52,6 +52,9 @@ public:
 	inline ALLEGRO_FONT* getFont() const { return mpFont; };
 	inline void endGame(){ mShouldExit = true; }
 
+	void input();
+	void update();
+	void draw();
 
 	/**/
 	inline KinematicUnit* getPlayerUnit() { return mpUnit; };//should be someplace else
