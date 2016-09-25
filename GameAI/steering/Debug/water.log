@@ -1,14 +1,5 @@
 ﻿  UnitManager.cpp
-c:\users\student\ai_assignment1\gameai\steering\unitmanager.cpp : fatal error C1041: cannot open program database 'C:\Users\Student\AI_Assignment1\GameAI\steering\Debug\vc140.idb'; if multiple CL.EXE write to the same .PDB file, please use /FS
-  PlayerMoveToMessage.cpp
-  InputSystem.cpp
-  Game.cpp
-  Generating Code...
-  Compiling...
-  main.cpp
-  KinematicWanderSteering.cpp
-  KinematicUnit.cpp
-  GraphicsSystem.cpp
-  GameMessageManager.cpp
-  AddingMessage.cpp
-  Generating Code...
+c:\users\student\ai_assignment1\gameai\steering\unitmanager.cpp(52): warning C4018: '<': signed/unsigned mismatch
+c:\users\student\ai_assignment1\gameai\steering\unitmanager.cpp(60): warning C4018: '<': signed/unsigned mismatch
+  water.vcxproj -> C:\Users\Student\AI_Assignment1\GameAI\steering\Debug\steering.exe
+  water.vcxproj -> C:\Users\Student\AI_Assignment1\GameAI\steering\Debug\steering.pdb (Full PDB)

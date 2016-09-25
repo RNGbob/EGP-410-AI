@@ -1,6 +1,6 @@
 #pragma once
 #include "GameMessage.h"
-#include "Game.h"
+//#include "Game.h"
 
 
 class AddingMessage : public GameMessage

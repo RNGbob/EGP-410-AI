@@ -188,11 +188,10 @@ bool Game::init()
 	{
 		pEnemyArrow = mpSpriteManager->createAndManageSprite( AI_ICON_SPRITE_ID, pAIBuffer, 0, 0, pAIBuffer->getWidth(), pAIBuffer->getHeight() );
 	}
-
 	
-	mpUnitManager->init(PLAYER_ICON_SPRITE_ID, AI_ICON_SPRITE_ID, mpSpriteManager);
+	mpUnitManager->init( mpSpriteManager); 
 
-	/**/
+	/*/
 	//setup units
 	Vector2D pos( 0.0f, 0.0f );
 	Vector2D vel( 0.0f, 0.0f );
@@ -212,9 +211,19 @@ bool Game::init()
 	return true;
 }
 
+KinematicUnit* Game::getPlayerUnit()
+{
+	return mpUnitManager->getPlayer();
+}
+
+UnitManager* Game::getUnitManager()
+{
+	return mpUnitManager;
+}
+
 void Game::cleanup()
 {
-	/**///delete units
+	/*///delete units
 	delete mpUnit;
 	mpUnit = NULL;
 	delete mpAIUnit;
@@ -238,6 +247,14 @@ void Game::cleanup()
 	mpSpriteManager = NULL;
 	delete mpMessageManager;
 	mpMessageManager = NULL;
+
+	//delete unitmanager/Inputsystem
+	//mpUnitManager->cleanup();
+	delete mpUnitManager;
+	mpUnitManager = NULL;
+	mpInputSystem->cleanup();
+	delete mpInputSystem;
+	mpInputSystem = NULL;
 
 	al_destroy_sample(mpSample);
 	mpSample = NULL;
@@ -272,6 +289,8 @@ void  Game::update()
 }
 void  Game::draw()
 {
+	Sprite* pBackgroundSprite = mpSpriteManager->getSprite(BACKGROUND_SPRITE_ID);
+	pBackgroundSprite->draw(*(mpGraphicsSystem->getBackBuffer()), 0, 0);
 	mpUnitManager->draw(GRAPHICS_SYSTEM->getBackBuffer());
 }
 
@@ -279,7 +298,7 @@ void  Game::draw()
 
 void Game::processLoop() //order is either update,draw, processMsg,input OR update,draw.input, processMsg 
 {
-	/**/
+	/*/
 	//update units
 	mpUnit->update( LOOP_TARGET_TIME/1000.0f );
 	mpAIUnit->update( LOOP_TARGET_TIME/1000.0f );
@@ -295,9 +314,13 @@ void Game::processLoop() //order is either update,draw, processMsg,input OR upda
 	mpAIUnit2->draw( GRAPHICS_SYSTEM->getBackBuffer() );
 	
 	/**/
-	
+	update();
+	draw();
 	mpMessageManager->processMessagesForThisframe();
-	/**/
+	input();
+	mpGraphicsSystem->swap();
+
+	/*/
 	//get input - should be moved someplace better
 	ALLEGRO_MOUSE_STATE mouseState;
 	al_get_mouse_state( &mouseState );

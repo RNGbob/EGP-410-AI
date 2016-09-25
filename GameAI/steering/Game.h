@@ -56,9 +56,10 @@ public:
 	void update();
 	void draw();
 
-	/**/
-	inline KinematicUnit* getPlayerUnit() { return mpUnit; };//should be someplace else
-	inline KinematicUnit* getAIUnit() { return mpAIUnit; };//should be someplace else
+	
+	KinematicUnit* getPlayerUnit();
+	UnitManager* getUnitManager();
+	/*/inline KinematicUnit* getAIUnit() { return mpAIUnit; };//should be someplace else
 	inline KinematicUnit* getAIUnit2() { return mpAIUnit2; };//should be someplace else/**/
 
 private:
@@ -79,7 +80,7 @@ private:
 	IDType mPlayerIconBufferID;
 	IDType mEnemyIconBufferID;
 
-	/**/
+	/*/
 	KinematicUnit* mpUnit;
 	KinematicUnit* mpAIUnit;
 	KinematicUnit* mpAIUnit2;/**/
