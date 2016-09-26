@@ -15,12 +15,19 @@ class SpriteManager;
 class KinematicUnit;
 class GameMessageManager;
 class Timer;
+class UnitManager;
+class InputSystem;
 
 const IDType BACKGROUND_SPRITE_ID = 0;
 const IDType PLAYER_ICON_SPRITE_ID = 1;
 const IDType AI_ICON_SPRITE_ID = 2;
 
 const float LOOP_TARGET_TIME = 33.3f;//how long should each frame of execution take? 30fps = 33.3ms/frame
+
+enum Method
+{
+	Arrive, Seek, Wander
+};
 
 class Game:public Trackable
 {
@@ -43,16 +50,25 @@ public:
 	inline Timer* getMasterTimer() const { return mpMasterTimer; };
 	inline double getCurrentTime() const { return mpMasterTimer->getElapsedTime(); };
 	inline ALLEGRO_FONT* getFont() const { return mpFont; };
+	inline void endGame(){ mShouldExit = true; }
 
-	inline KinematicUnit* getPlayerUnit() { return mpUnit; };//should be someplace else
-	inline KinematicUnit* getAIUnit() { return mpAIUnit; };//should be someplace else
-	inline KinematicUnit* getAIUnit2() { return mpAIUnit2; };//should be someplace else
+	void input();
+	void update();
+	void draw();
+
+	
+	KinematicUnit* getPlayerUnit();
+	UnitManager* getUnitManager();
+	/*/inline KinematicUnit* getAIUnit() { return mpAIUnit; };//should be someplace else
+	inline KinematicUnit* getAIUnit2() { return mpAIUnit2; };//should be someplace else/**/
 
 private:
 	GraphicsSystem* mpGraphicsSystem;
 	GraphicsBufferManager* mpGraphicsBufferManager;
 	SpriteManager* mpSpriteManager;
 	GameMessageManager* mpMessageManager;
+	UnitManager* mpUnitManager;
+	InputSystem* mpInputSystem;
 	Timer* mpLoopTimer;
 	Timer* mpMasterTimer;
 	bool mShouldExit;
@@ -64,9 +80,10 @@ private:
 	IDType mPlayerIconBufferID;
 	IDType mEnemyIconBufferID;
 
+	/*/
 	KinematicUnit* mpUnit;
 	KinematicUnit* mpAIUnit;
-	KinematicUnit* mpAIUnit2;
+	KinematicUnit* mpAIUnit2;/**/
 };
 
 float genRandomBinomial();//range -1:1 from "Artificial Intelligence for Games", Millington and Funge
