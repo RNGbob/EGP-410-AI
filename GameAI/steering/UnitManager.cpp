@@ -44,10 +44,7 @@ void UnitManager::cleanup()
 	for ( std::vector<KinematicUnit*>::iterator it = mUnitList.begin();  it !=mUnitList.end(); ++it)
 	{
 		delete *it;
-	}
-	
-	
-	/**/
+	}/**/
 	
 
 }
@@ -81,7 +78,7 @@ void UnitManager::addUnit(Method steeringType)
 	{
 		pos.setX(pos.getX() + 200); // 200p away in x
 		newUnit = new KinematicUnit(mpSpriteManager->getSprite(AI_ICON_SPRITE_ID), pos, 1, vel, 0.0f, 180.0f, 100.0f);
-		newUnit->dynamicSeek(mPlayerUnit);
+		newUnit->dynamicArrive(mPlayerUnit);
 		
 		// 200p away and arrive 
 	}

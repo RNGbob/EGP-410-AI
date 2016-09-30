@@ -102,19 +102,29 @@ void KinematicUnit::wander()
 
 void KinematicUnit::dynamicSeek( KinematicUnit* pTarget )
 {
-	DynamicSeekSteering* pDynamicSeekSteering = new DynamicSeekSteering( this, gpGame->getPlayerUnit() );
+	DynamicSeekSteering* pDynamicSeekSteering = new DynamicSeekSteering( this, pTarget);//gpGame->getPlayerUnit()
 	setSteering( pDynamicSeekSteering );
 }
 
 void KinematicUnit::dynamicFlee( KinematicUnit* pTarget )
 {
-	DynamicSeekSteering* pDynamicSeekSteering = new DynamicSeekSteering( this, gpGame->getPlayerUnit(), true );
+	DynamicSeekSteering* pDynamicSeekSteering = new DynamicSeekSteering( this, pTarget, true );
 	setSteering( pDynamicSeekSteering );
 }
 
 void KinematicUnit::dynamicArrive( KinematicUnit* pTarget )
 {
-	DynamicArriveSteering* pDynamicArriveSteering = new DynamicArriveSteering( this, gpGame->getPlayerUnit() );
+	DynamicArriveSteering* pDynamicArriveSteering = new DynamicArriveSteering( this, pTarget );
 	setSteering( pDynamicArriveSteering );
+}
+
+void KinematicUnit::wanderSeek(KinematicUnit * pTarget)
+{
+
+
+}
+
+void KinematicUnit::wanderFlee(KinematicUnit * pTarget)
+{
 }
 

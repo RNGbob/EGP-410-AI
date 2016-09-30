@@ -48,6 +48,8 @@ public:
 	void dynamicSeek( KinematicUnit* pTarget );
 	void dynamicFlee( KinematicUnit* pTarget );
 	void dynamicArrive( KinematicUnit* pTarget );
+	void wanderSeek(KinematicUnit* pTarget); 
+	void wanderFlee(KinematicUnit* pTarget);
 
 private:
 	Sprite* mpSprite;
