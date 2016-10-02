@@ -26,7 +26,7 @@ const float LOOP_TARGET_TIME = 33.3f;//how long should each frame of execution t
 
 enum Method
 {
-	Arrive, Seek, Wander
+	Arrive, Seek, Wander, WanderSeek, WanderFlee
 };
 
 class Game:public Trackable

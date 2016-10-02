@@ -9,6 +9,8 @@
 #include "KinematicWanderSteering.h"
 #include "DynamicSeekSteering.h"
 #include "DynamicArriveSteering.h"
+#include "DynamicWanderSeekSteering.h"
+#include "UnitManager.h"
 
 using namespace std;
 
@@ -18,14 +20,17 @@ KinematicUnit::KinematicUnit(Sprite *pSprite, const Vector2D &position, float or
 :Kinematic( position, orientation, velocity, rotationVel )
 ,mpSprite(pSprite)
 ,mpCurrentSteering(NULL)
+,mpGroupSteering(NULL)
 ,mMaxVelocity(maxVelocity)
 ,mMaxAcceleration(maxAcceleration)
+,mIsPlayer(false)
 {
 }
 
 KinematicUnit::~KinematicUnit()
 {
 	delete mpCurrentSteering;
+	delete mpGroupSteering;
 }
 
 void KinematicUnit::draw( GraphicsBuffer* pBuffer )
@@ -33,12 +38,13 @@ void KinematicUnit::draw( GraphicsBuffer* pBuffer )
 	mpSprite->draw( *pBuffer, mPosition.getX(), mPosition.getY(), mOrientation );
 }
 
-void KinematicUnit::update(float time)
+void KinematicUnit::update(float time, const std::vector<KinematicUnit*> &units)
 {
 	Steering* steering;
 	if( mpCurrentSteering != NULL )
 	{
 		steering = mpCurrentSteering->getSteering();
+		// steering = determineSteering(units); // determines priority steering based on surrounding units
 	}
 	else
 	{
@@ -75,6 +81,20 @@ void KinematicUnit::setSteering( Steering* pSteering )
 {
 	delete mpCurrentSteering;
 	mpCurrentSteering = pSteering;
+}
+
+void KinematicUnit::setGroupSteering(Steering* pSteering)
+{
+	delete mpGroupSteering;
+	mpGroupSteering = pSteering;
+}
+
+float KinematicUnit::getDistance(KinematicUnit * other)
+{
+	float xLength = this->getPosition().getX() - other->getPosition().getX();
+	float yLength = this->getPosition().getY() - other->getPosition().getY();
+
+	return sqrt(yLength*yLength*xLength*xLength);
 }
 
 void KinematicUnit::setNewOrientation()
@@ -120,11 +140,49 @@ void KinematicUnit::dynamicArrive( KinematicUnit* pTarget )
 
 void KinematicUnit::wanderSeek(KinematicUnit * pTarget)
 {
-
+	DynamicWanderSeekSteering* pDynamicWanderSeekSteering = new DynamicWanderSeekSteering(this, pTarget);
+	setSteering(pDynamicWanderSeekSteering);
 
 }
 
 void KinematicUnit::wanderFlee(KinematicUnit * pTarget)
 {
+	DynamicWanderSeekSteering* pDynamicWanderSeekSteering = new DynamicWanderSeekSteering(this, pTarget, true);
+	setSteering(pDynamicWanderSeekSteering);
+
+}
+
+// determines steering for AI unit. if another unit is close enough to it it will switch to flee from that unit instead of whatever its regular steering is.
+// can include collision logic later
+Steering* KinematicUnit::determineSteering(const std::vector<KinematicUnit*> &units)
+{
+	
+	delete mpGroupSteering;
+	mpGroupSteering = NULL;
+	KinematicUnit* closest = nullptr;
+	float smallest = 50.0f; // arbitrary for now 
+	
+	if (!mIsPlayer)
+	{
+		for (int i = 0; i < units.size(); ++i)
+		{
+			if (getDistance(units[i]) < smallest)
+			{
+				closest = units[i];
+				smallest = getDistance(units[i]);
+			}
+		}
+		if (closest != nullptr)
+		{
+			DynamicSeekSteering* pDynamicSeekSteering = new DynamicSeekSteering(this, closest, true); 
+			setGroupSteering(pDynamicSeekSteering);
+
+			return mpGroupSteering->getSteering();
+		}
+		return mpCurrentSteering->getSteering();
+
+	}
+	else {return mpCurrentSteering->getSteering();}
+
 }
 

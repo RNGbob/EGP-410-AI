@@ -36,6 +36,7 @@ void UnitManager::init(  SpriteManager* &mpSprMan)
 	Vector2D pos(100.0f, 100.0f);
 	Vector2D vel(0.0f, 0.0f);
 	mPlayerUnit = new KinematicUnit(mpSpriteManager->getSprite(PLAYER_ICON_SPRITE_ID), pos, 1, vel, 0.0f, 200.0f, 10.0f);
+	mPlayerUnit->setPlayer();
 }
 
 void UnitManager::cleanup()
@@ -53,9 +54,9 @@ void UnitManager::update(float time)
 {
 	for (int i = 0; i < mUnitList.size(); i++)
 	{
-		mUnitList[i]->update(time);
+		mUnitList[i]->update(time, mUnitList);
 	}
-	mPlayerUnit->update(time);
+	mPlayerUnit->update(time, mUnitList);
 }
 
 void UnitManager::draw(GraphicsBuffer* gBuff)
@@ -77,7 +78,7 @@ void UnitManager::addUnit(Method steeringType)
 	if (steeringType == Arrive)
 	{
 		pos.setX(pos.getX() + 200); // 200p away in x
-		newUnit = new KinematicUnit(mpSpriteManager->getSprite(AI_ICON_SPRITE_ID), pos, 1, vel, 0.0f, 180.0f, 100.0f);
+		newUnit = new KinematicUnit(mpSpriteManager->getSprite(AI_ICON_SPRITE_ID), pos, 1, vel, 0.0f, 100.0f, 10.0f);
 		newUnit->dynamicArrive(mPlayerUnit);
 		
 		// 200p away and arrive 
@@ -85,7 +86,7 @@ void UnitManager::addUnit(Method steeringType)
 	else if (steeringType == Seek)
 	{
 		pos.setX(pos.getX() + 100); //100p away in x
-		newUnit = new KinematicUnit(mpSpriteManager->getSprite(AI_ICON_SPRITE_ID), pos, 1, vel, 0.0f, 180.0f, 100.0f);
+		newUnit = new KinematicUnit(mpSpriteManager->getSprite(AI_ICON_SPRITE_ID), pos, 1, vel, 0.0f, 100.0f, 10.0f);
 		newUnit->dynamicSeek(mPlayerUnit);
 		//100p away and seek
 	}

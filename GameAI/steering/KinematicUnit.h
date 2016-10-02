@@ -2,6 +2,7 @@
 
 #include "Kinematic.h"
 #include "Steering.h"
+#include <vector>
 
 /*KinematicUnit - a unit that is derived from the Kinematic class.  Adds behaviors and max speeds and a current Steering.
 
@@ -33,13 +34,15 @@ public:
 	Vector2D getVelocity() const { return mVelocity; };
 	float getMaxAcceleration() const { return mMaxAcceleration; };
 	void setVelocity( const Vector2D& velocity ){ mVelocity = velocity; };
+	inline void setPlayer() { mIsPlayer = true; }
+	float getDistance(KinematicUnit* other);
 
 	virtual void setNewOrientation();//face the direction you are moving
 
 	//draw yourself to the indicated buffer
 	void draw( GraphicsBuffer* pBuffer );
 	//move according to the current velocities and update velocities based on current Steering
-	void update(float time);
+	void update(float time, const std::vector<KinematicUnit*> &units);
 
 	//initiate behaviors
 	void seek( const Vector2D& target );
@@ -51,13 +54,20 @@ public:
 	void wanderSeek(KinematicUnit* pTarget); 
 	void wanderFlee(KinematicUnit* pTarget);
 
+	Steering* determineSteering(const std::vector<KinematicUnit*> &units);
+
+
 private:
 	Sprite* mpSprite;
 	Steering* mpCurrentSteering;
+	Steering* mpGroupSteering;
 	Vector2D mTarget;//used only for Kinematic seek and arrive
 	float mMaxVelocity;
 	float mMaxAcceleration;
 
+	bool mIsPlayer;
+
 	void setSteering( Steering* pSteering );
+	void setGroupSteering(Steering* pSteering);
 
 };
