@@ -38,6 +38,10 @@ Game::Game()
 	,mpFont(NULL)
 	,mpSample(NULL)
 	,mBackgroundBufferID(INVALID_ID)
+	, mEnemyVel(100)
+	, mReactionRadius(200)
+	, mAngularVel(10)
+	, mAvoidRadius(50)
 	//,mSmurfBufferID(INVALID_ID)
 {
 }
@@ -209,8 +213,6 @@ UnitManager* Game::getUnitManager()
 
 void Game::cleanup()
 {
-	
-
 	//delete unitmanager/Inputsystem
 	//mpUnitManager->cleanup();
 	delete mpUnitManager;
@@ -260,6 +262,55 @@ void Game::beginLoop()
 	mpLoopTimer->start();
 }
 
+int Game::getValue(ChangeableVal val)
+{
+	switch (val)
+	{
+	case EnemyVel:
+		return mEnemyVel;
+		break;
+	case ReactionRadius:
+		return mReactionRadius;
+		break;
+	case AngularVel:
+		return mAngularVel;
+		break;
+	case AvoidRadius:
+		return mAvoidRadius;
+		break;
+	default:
+		break;
+	}
+	
+	
+	
+	return 0;
+}
+
+void Game::setValue(ChangeableVal val, int direction) // direction is either 1 or -1
+{
+	int speed = 1;
+	switch (val)
+	{
+	case EnemyVel:
+		mEnemyVel += (direction*speed);
+		break;
+	case ReactionRadius:
+		mReactionRadius += (direction*speed);
+		break;
+	case AngularVel:
+		mAngularVel += (direction*speed);
+		break;
+	case AvoidRadius:
+		mAvoidRadius += (direction*speed);
+		break;
+	default:
+		break;
+	}
+
+
+}
+
 // These will be put into processLoop
 void  Game::input()
 {
@@ -283,7 +334,6 @@ void Game::processLoop() //order is either update,draw, processMsg,input OR upda
 {
 	/*/
 	/**/
-	
 	// replacing entirety of old method
 	update();
 	draw();
@@ -292,7 +342,6 @@ void Game::processLoop() //order is either update,draw, processMsg,input OR upda
 	mpGraphicsSystem->swap();
 
 	/*/
-	
 	/**/
 }
 

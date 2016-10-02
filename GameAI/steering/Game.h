@@ -29,6 +29,11 @@ enum Method
 	Arrive, Seek, Wander, WanderSeek, WanderFlee
 };
 
+enum ChangeableVal
+{
+	EnemyVel, ReactionRadius, AngularVel, AvoidRadius
+};
+
 class Game:public Trackable
 {
 public:
@@ -51,6 +56,10 @@ public:
 	inline double getCurrentTime() const { return mpMasterTimer->getElapsedTime(); };
 	inline ALLEGRO_FONT* getFont() const { return mpFont; };
 	inline void endGame(){ mShouldExit = true; }
+	// changeble values for Assignment2 debug state.
+	int getValue(ChangeableVal val);
+	void setValue(ChangeableVal val , int direction);
+
 
 	void input();
 	void update();
@@ -61,6 +70,8 @@ public:
 	UnitManager* getUnitManager();
 	/*/inline KinematicUnit* getAIUnit() { return mpAIUnit; };//should be someplace else
 	inline KinematicUnit* getAIUnit2() { return mpAIUnit2; };//should be someplace else/**/
+
+
 
 private:
 	GraphicsSystem* mpGraphicsSystem;
@@ -79,6 +90,9 @@ private:
 	IDType mBackgroundBufferID;
 	IDType mPlayerIconBufferID;
 	IDType mEnemyIconBufferID;
+
+	// changeable values for gamestate;
+	int mEnemyVel, mReactionRadius, mAngularVel, mAvoidRadius;
 
 	/*/
 	KinematicUnit* mpUnit;
