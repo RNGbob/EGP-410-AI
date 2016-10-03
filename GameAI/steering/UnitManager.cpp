@@ -78,7 +78,7 @@ void UnitManager::addUnit(Method steeringType)
 	if (steeringType == Arrive)
 	{
 		pos.setX(pos.getX() + 200); // 200p away in x
-		newUnit = new KinematicUnit(mpSpriteManager->getSprite(AI_ICON_SPRITE_ID), pos, 1, vel, 0.0f, 100.0f, 10.0f);
+		newUnit = new KinematicUnit(mpSpriteManager->getSprite(AI_ICON_SPRITE_ID), pos, 1, vel, 0.0f, gpGame->getValue(EnemyVel), gpGame->getValue(AngularVel));
 		newUnit->dynamicArrive(mPlayerUnit);
 		
 		// 200p away and arrive 
@@ -86,7 +86,7 @@ void UnitManager::addUnit(Method steeringType)
 	else if (steeringType == Seek)
 	{
 		pos.setX(pos.getX() + 100); //100p away in x
-		newUnit = new KinematicUnit(mpSpriteManager->getSprite(AI_ICON_SPRITE_ID), pos, 1, vel, 0.0f, 100.0f, 10.0f);
+		newUnit = new KinematicUnit(mpSpriteManager->getSprite(AI_ICON_SPRITE_ID), pos, 1, vel, 0.0f, gpGame->getValue(EnemyVel), gpGame->getValue(AngularVel));
 		newUnit->dynamicSeek(mPlayerUnit);
 		//100p away and seek
 	}

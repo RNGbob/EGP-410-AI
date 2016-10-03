@@ -54,8 +54,8 @@ public:
 	void wanderSeek(KinematicUnit* pTarget); 
 	void wanderFlee(KinematicUnit* pTarget);
 
-	Steering* determineSteering(const std::vector<KinematicUnit*> &units);
-
+	//Steering* determineSteering(const std::vector<KinematicUnit*> &units);
+	Steering* appliedSeperation(const std::vector<KinematicUnit*> &units);
 
 private:
 	Sprite* mpSprite;

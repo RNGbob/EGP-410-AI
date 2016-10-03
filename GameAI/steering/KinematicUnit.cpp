@@ -44,7 +44,7 @@ void KinematicUnit::update(float time, const std::vector<KinematicUnit*> &units)
 	if( mpCurrentSteering != NULL )
 	{
 		steering = mpCurrentSteering->getSteering();
-		// steering = determineSteering(units); // determines priority steering based on surrounding units
+		// steering = appliedSteering(units); // determines steering with seperation from surrounding units
 	}
 	else
 	{
@@ -64,6 +64,7 @@ void KinematicUnit::update(float time, const std::vector<KinematicUnit*> &units)
 		setRotationalVelocity( 0.0f );
 		steering->setAngular( 0.0f );
 	}
+
 
 	//move the unit using current velocities
 	Kinematic::update( time );
@@ -152,8 +153,43 @@ void KinematicUnit::wanderFlee(KinematicUnit * pTarget)
 
 }
 
-// determines steering for AI unit. if another unit is close enough to it it will switch to flee from that unit instead of whatever its regular steering is.
-// can include collision logic later
+
+// applies seperation for all nonplayer entities on a seperate steering copied from current steering
+
+Steering * KinematicUnit::appliedSeperation(const std::vector<KinematicUnit*>& units)
+{
+	delete mpGroupSteering;
+	mpGroupSteering = mpCurrentSteering;
+	
+	Vector2D direction;
+	float distance, strength;
+	
+	if (!mIsPlayer)
+	{
+
+		for (int i = 0; i < units.size(); ++i)
+		{
+			direction = units[i]->getPosition() - this->getPosition();
+			distance = direction.getLength();
+			if (distance < gpGame->getValue(AvoidRadius))
+			{
+				strength = min(1*distance*distance, this->mMaxAcceleration);// arbitrary decay coefficient
+				
+				direction.normalize();
+
+				mpGroupSteering->setLinear(mpGroupSteering->getLinear() + (direction*strength));
+			}
+		}
+
+		return mpGroupSteering;
+
+	}
+	else { return mpCurrentSteering->getSteering(); }
+	
+	return  mpCurrentSteering->getSteering();;
+}
+
+/*
 Steering* KinematicUnit::determineSteering(const std::vector<KinematicUnit*> &units)
 {
 	
@@ -184,5 +220,4 @@ Steering* KinematicUnit::determineSteering(const std::vector<KinematicUnit*> &un
 	}
 	else {return mpCurrentSteering->getSteering();}
 
-}
-
+}*/

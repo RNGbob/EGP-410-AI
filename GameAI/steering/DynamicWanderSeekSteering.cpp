@@ -16,7 +16,7 @@ Steering* DynamicWanderSeekSteering::getSteering()
 	float xLength = mpTarget->getPosition().getX() - mpMover->getPosition().getX();
 	float yLength = mpTarget->getPosition().getY() - mpMover->getPosition().getY();
 	
-	if (abs(sqrt(yLength*yLength*xLength*xLength)) < 200) // arbitrary for now
+	if (abs(sqrt(yLength*yLength*xLength*xLength)) < gpGame->getValue(ReactionRadius)) // arbitrary for now
 	{
 
 		if (!mShouldFlee)
