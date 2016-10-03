@@ -181,7 +181,7 @@ Steering * KinematicUnit::appliedSeperation(const std::vector<KinematicUnit*>& u
 			}
 		}
 
-		return mpGroupSteering;
+		return mpGroupSteering->getSteering();;
 
 	}
 	else { return mpCurrentSteering->getSteering(); }
@@ -189,6 +189,9 @@ Steering * KinematicUnit::appliedSeperation(const std::vector<KinematicUnit*>& u
 	return  mpCurrentSteering->getSteering();;
 }
 
+
+
+// suedo arbitration thing
 /*
 Steering* KinematicUnit::determineSteering(const std::vector<KinematicUnit*> &units)
 {

@@ -326,6 +326,7 @@ void  Game::draw()
 	Sprite* pBackgroundSprite = mpSpriteManager->getSprite(BACKGROUND_SPRITE_ID);
 	pBackgroundSprite->draw(*(mpGraphicsSystem->getBackBuffer()), 0, 0);
 	mpUnitManager->draw(GRAPHICS_SYSTEM->getBackBuffer());
+	mpInputSystem->draw();
 }
 
 /**//**/

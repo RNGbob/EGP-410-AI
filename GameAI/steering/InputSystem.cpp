@@ -1,8 +1,10 @@
+
 #include "Game.h"
 #include "GameMessageManager.h"
 #include "PlayerMoveToMessage.h"
 #include "AddingMessage.h"
 #include "InputSystem.h"
+#include <string>
 #include <sstream>
 
 
@@ -49,14 +51,14 @@ void InputSystem::update()
 	{
 		 gpGame->endGame();
 	}
-	else if (al_key_down(&key, ALLEGRO_KEY_A))
+	else if (al_key_down(&key, ALLEGRO_KEY_F))
 	{
-		GameMessage* pMessage = new AddingMessage(Arrive);
+		GameMessage* pMessage = new AddingMessage(WanderFlee);
 		MESSAGE_MANAGER->addMessage(pMessage, 0);
 	}
 	else if (al_key_down(&key, ALLEGRO_KEY_S))
 	{
-		GameMessage* pMessage = new AddingMessage(Seek);
+		GameMessage* pMessage = new AddingMessage(WanderSeek);
 		MESSAGE_MANAGER->addMessage(pMessage, 0);
 	}
 	else if (al_key_down(&key, ALLEGRO_KEY_D))
@@ -67,3 +69,21 @@ void InputSystem::update()
 	
 }
 
+void InputSystem::draw()
+{
+		ALLEGRO_MOUSE_STATE mouseState;
+		al_get_mouse_state( &mouseState );
+
+		//create mouse text
+		
+		std::stringstream mousePos;
+		mousePos << mouseState.x << ":" << mouseState.y;
+
+		//write text at mouse position
+		al_draw_text( gpGame->getFont(), al_map_rgb( 255, 255, 255 ), mouseState.x, mouseState.y, ALLEGRO_ALIGN_CENTRE, mousePos.str().c_str() );
+
+}
+
+/* 
+		
+*/

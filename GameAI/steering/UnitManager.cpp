@@ -70,11 +70,28 @@ void UnitManager::draw(GraphicsBuffer* gBuff)
 
 void UnitManager::addUnit(Method steeringType)
 {
-	Vector2D pos = mPlayerUnit->getPosition();
+	double theta = rand() % 2*PI;
+	
+	Vector2D pos(mPlayerUnit->getPosition().getX()*200*sin(theta), mPlayerUnit->getPosition().getY() * 200 * cos(theta));
+
 	Vector2D vel(0.0f, 0.0f);
 	KinematicUnit* newUnit;
 
-
+	switch (steeringType)
+	{
+	case WanderSeek:
+		newUnit = new KinematicUnit(mpSpriteManager->getSprite(AI_ICON_SPRITE_ID), pos, 1, vel, 0.0f, gpGame->getValue(EnemyVel), gpGame->getValue(AngularVel));
+		newUnit->wanderSeek(mPlayerUnit);
+		break;
+	case WanderFlee:
+		newUnit = new KinematicUnit(mpSpriteManager->getSprite(AI_ICON_SPRITE_ID), pos, 1, vel, 0.0f, gpGame->getValue(EnemyVel), gpGame->getValue(AngularVel));
+		newUnit->wanderFlee(mPlayerUnit);
+		break;
+	default:
+		break;
+	}
+	
+	/*
 	if (steeringType == Arrive)
 	{
 		pos.setX(pos.getX() + 200); // 200p away in x
@@ -89,7 +106,8 @@ void UnitManager::addUnit(Method steeringType)
 		newUnit = new KinematicUnit(mpSpriteManager->getSprite(AI_ICON_SPRITE_ID), pos, 1, vel, 0.0f, gpGame->getValue(EnemyVel), gpGame->getValue(AngularVel));
 		newUnit->dynamicSeek(mPlayerUnit);
 		//100p away and seek
-	}
+	}*/
+
 	mUnitList.push_back(newUnit);
 
 
