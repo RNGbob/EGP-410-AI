@@ -13,10 +13,12 @@ DynamicWanderSeekSteering::DynamicWanderSeekSteering(KinematicUnit *pMover, Kine
 
 Steering* DynamicWanderSeekSteering::getSteering()
 {
-	float xLength = mpTarget->getPosition().getX() - mpMover->getPosition().getX();
-	float yLength = mpTarget->getPosition().getY() - mpMover->getPosition().getY();
-	
-	if (abs(sqrt(yLength*yLength*xLength*xLength)) < gpGame->getValue(ReactionRadius)) // arbitrary for now
+	//float xLength = mpTarget->getPosition().getX() - mpMover->getPosition().getX();
+	//float yLength = mpTarget->getPosition().getY() - mpMover->getPosition().getY();
+	Vector2D distanceVec = mpTarget->getPosition() - mpMover->getPosition();
+	float distance = distanceVec.getLength();
+
+	if ( distance < gpGame->getValue(ReactionRadius)) //sqrt(yLength*yLength*xLength*xLength)
 	{
 
 		if (!mShouldFlee)

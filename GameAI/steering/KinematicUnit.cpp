@@ -30,7 +30,7 @@ KinematicUnit::KinematicUnit(Sprite *pSprite, const Vector2D &position, float or
 KinematicUnit::~KinematicUnit()
 {
 	delete mpCurrentSteering;
-	delete mpGroupSteering;
+	//delete mpGroupSteering;
 }
 
 void KinematicUnit::draw( GraphicsBuffer* pBuffer )
@@ -43,8 +43,8 @@ void KinematicUnit::update(float time, const std::vector<KinematicUnit*> &units)
 	Steering* steering;
 	if( mpCurrentSteering != NULL )
 	{
-		steering = mpCurrentSteering->getSteering();
-		// steering = appliedSteering(units); // determines steering with seperation from surrounding units
+		//steering = mpCurrentSteering->getSteering();
+		steering = appliedSeperation(units); // determines steering with seperation from surrounding units
 	}
 	else
 	{
@@ -92,10 +92,9 @@ void KinematicUnit::setGroupSteering(Steering* pSteering)
 
 float KinematicUnit::getDistance(KinematicUnit * other)
 {
-	float xLength = this->getPosition().getX() - other->getPosition().getX();
-	float yLength = this->getPosition().getY() - other->getPosition().getY();
-
-	return sqrt(yLength*yLength*xLength*xLength);
+	Vector2D distanceVec = other->getPosition() - this->getPosition();
+	float distance = distanceVec.getLength();
+	return distance;
 }
 
 void KinematicUnit::setNewOrientation()
@@ -158,7 +157,9 @@ void KinematicUnit::wanderFlee(KinematicUnit * pTarget)
 
 Steering * KinematicUnit::appliedSeperation(const std::vector<KinematicUnit*>& units)
 {
-	delete mpGroupSteering;
+
+	//delete mpGroupSteering;
+	
 	mpGroupSteering = mpCurrentSteering;
 	
 	Vector2D direction;

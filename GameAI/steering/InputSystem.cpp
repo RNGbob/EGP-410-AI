@@ -18,6 +18,7 @@ InputSystem::~InputSystem(){}
 void InputSystem::init( GameMessageManager* &mesman)
 {
 	mpMessageManger = mesman;
+	mDebuging = false;
 }
 
 void InputSystem::cleanup()// easier to call rather than depending on destructor call;
@@ -82,6 +83,11 @@ void InputSystem::draw()
 		//write text at mouse position
 		al_draw_text( gpGame->getFont(), al_map_rgb( 255, 255, 255 ), mouseState.x, mouseState.y, ALLEGRO_ALIGN_CENTRE, mousePos.str().c_str() );
 
+}
+
+void InputSystem::switchDebug()
+{
+	mDebuging = !mDebuging;
 }
 
 /* 

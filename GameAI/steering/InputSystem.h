@@ -20,10 +20,11 @@ public:
 	
 	void update();
 	void draw();
+	void switchDebug();
 
 private:
 	GameMessageManager* mpMessageManger;
-
+	bool mDebuging;
 };
 
 
