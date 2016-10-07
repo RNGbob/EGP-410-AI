@@ -70,9 +70,10 @@ void UnitManager::draw(GraphicsBuffer* gBuff)
 
 void UnitManager::addUnit(Method steeringType)
 {
-	double theta = rand() % 2*PI;
+	double theta = rand() % 360;//2*PI;
 	
-	Vector2D pos(mPlayerUnit->getPosition().getX()*200*sin(theta), mPlayerUnit->getPosition().getY() * 200 * cos(theta));
+	Vector2D pos(mPlayerUnit->getPosition().getX() + (200 * sin(theta)), mPlayerUnit->getPosition().getY() + (200 * cos(theta))); 
+	
 
 	Vector2D vel(0.0f, 0.0f);
 	KinematicUnit* newUnit;

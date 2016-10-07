@@ -174,7 +174,7 @@ Steering * KinematicUnit::appliedSeperation(const std::vector<KinematicUnit*>& u
 			distance = direction.getLength();
 			if (distance < gpGame->getValue(AvoidRadius))
 			{
-				strength = min(1*distance*distance, this->mMaxAcceleration);// arbitrary decay coefficient
+				strength = min(100*distance*distance, this->mMaxAcceleration);// arbitrary decay coefficient
 				
 				direction.normalize();
 

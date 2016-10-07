@@ -38,7 +38,7 @@ Game::Game()
 	,mpFont(NULL)
 	,mpSample(NULL)
 	,mBackgroundBufferID(INVALID_ID)
-	, mEnemyVel(100)
+	, mEnemyVel(150)
 	, mReactionRadius(250)
 	, mAngularVel(10)
 	, mAvoidRadius(50)
@@ -325,8 +325,12 @@ void  Game::draw()
 {
 	Sprite* pBackgroundSprite = mpSpriteManager->getSprite(BACKGROUND_SPRITE_ID);
 	pBackgroundSprite->draw(*(mpGraphicsSystem->getBackBuffer()), 0, 0);
+	
 	mpUnitManager->draw(GRAPHICS_SYSTEM->getBackBuffer());
 	mpInputSystem->draw();
+
+	
+
 }
 
 /**//**/
@@ -340,6 +344,7 @@ void Game::processLoop() //order is either update,draw, processMsg,input OR upda
 	draw();
 	mpMessageManager->processMessagesForThisframe();
 	input();
+	al_draw_line(100.0f, 0.0f, 500.0f, 0.0f, al_map_rgb(0,0,0), 50.0f);
 	mpGraphicsSystem->swap();
 
 	/*/
