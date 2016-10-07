@@ -25,6 +25,7 @@ KinematicUnit::KinematicUnit(Sprite *pSprite, const Vector2D &position, float or
 ,mMaxAcceleration(maxAcceleration)
 ,mIsPlayer(false)
 {
+	mDimension = pSprite->getDim();
 }
 
 KinematicUnit::~KinematicUnit()

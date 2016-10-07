@@ -36,6 +36,7 @@ public:
 	void setVelocity( const Vector2D& velocity ){ mVelocity = velocity; };
 	inline void setPlayer() { mIsPlayer = true; }
 	float getDistance(KinematicUnit* other);
+	Vector2D getDimension() const { return mDimension; }
 
 	virtual void setNewOrientation();//face the direction you are moving
 
@@ -64,6 +65,7 @@ private:
 	Vector2D mTarget;//used only for Kinematic seek and arrive
 	float mMaxVelocity;
 	float mMaxAcceleration;
+	Vector2D mDimension;
 
 	bool mIsPlayer;
 

@@ -3,6 +3,7 @@
 
 #include "GraphicsSystem.h"
 #include "Game.h"
+#include "Wall.h"
 #include <vector>
 
 class Wall;
@@ -15,7 +16,7 @@ public:
 	~WallManager();
 
 	void draw();
-	void addWall();
+	void addWall(Vector2D start, Vector2D end, float width);
 	bool checkCollision(KinematicUnit* unit);
 
 private:

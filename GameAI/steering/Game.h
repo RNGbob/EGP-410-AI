@@ -18,6 +18,7 @@ class GameMessageManager;
 class Timer;
 class UnitManager;
 class InputSystem;
+class WallManager;
 
 const IDType BACKGROUND_SPRITE_ID = 0;
 const IDType PLAYER_ICON_SPRITE_ID = 1;
@@ -81,6 +82,7 @@ private:
 	GameMessageManager* mpMessageManager;
 	UnitManager* mpUnitManager;
 	InputSystem* mpInputSystem;
+	WallManager* mpWallManager;
 	Timer* mpLoopTimer;
 	Timer* mpMasterTimer;
 	bool mShouldExit;

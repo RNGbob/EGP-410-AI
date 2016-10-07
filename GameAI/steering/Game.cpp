@@ -19,6 +19,7 @@
 #include "SpriteManager.h"
 #include "UnitManager.h"
 #include "InputSystem.h"
+#include "WallManager.h"
 #include "Timer.h"
 #include "KinematicUnit.h"
 #include "PlayerMoveToMessage.h"
@@ -81,7 +82,7 @@ bool Game::init()
 	// initializing ne managers
 	mpUnitManager = new UnitManager();
 	mpInputSystem = new InputSystem();
-	
+	mpWallManager = new WallManager();
 	
 	
 	//startup a lot of allegro stuff
@@ -197,6 +198,9 @@ bool Game::init()
 	// units reference spritemanager when creating entities
 	mpUnitManager->init( mpSpriteManager); 
 
+	//construct walls
+	//mpWallManager->addWall(Vector2D(), Vector2D(), 50.0f)
+
 	
 	return true;
 }
@@ -220,7 +224,9 @@ void Game::cleanup()
 	//mpInputSystem->cleanup();
 	delete mpInputSystem;
 	mpInputSystem = NULL;
-	
+
+	delete mpWallManager;
+	mpWallManager = NULL;
 	
 	//delete the timers
 	delete mpLoopTimer;
@@ -344,7 +350,7 @@ void Game::processLoop() //order is either update,draw, processMsg,input OR upda
 	draw();
 	mpMessageManager->processMessagesForThisframe();
 	input();
-	al_draw_line(100.0f, 0.0f, 500.0f, 0.0f, al_map_rgb(0,0,0), 50.0f);
+	//al_draw_line(100.0f, 0.0f, 500.0f, 0.0f, al_map_rgb(127,0,127), 50.0f);
 	mpGraphicsSystem->swap();
 
 	/*/
