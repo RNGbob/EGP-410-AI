@@ -9,7 +9,7 @@ Champlain College
 2011
 */
 #include <allegro5/allegro.h>
-
+#include "Vector2D.h"
 #include "Trackable.h"
 
 class GraphicsBuffer;
@@ -22,9 +22,9 @@ public:
 
 	//draw the contents of the sprite to a GraphicsBuffer - may be rotated
 	void draw( GraphicsBuffer& dest, float dx, float dy, float rotationInRadians = 0, int flags = 0 );
-
+	 Vector2D getDim() { return Vector2D(mWidth, mHeight); }
 private:
-ALLEGRO_BITMAP* mpBitmap;//subBitmap based off the GraphicsBuffer object is contructed with
+	ALLEGRO_BITMAP* mpBitmap;//subBitmap based off the GraphicsBuffer object is contructed with
 	int mWidth;
 	int mHeight;
 };

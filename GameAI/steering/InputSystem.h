@@ -3,6 +3,8 @@
 
 #include "GraphicsSystem.h"
 #include "Game.h"
+#include <string>
+#include <sstream>
 
 class GameMessageManager;
 
@@ -17,10 +19,13 @@ public:
 	void cleanup();
 	
 	void update();
+	void draw();
+	void switchDebug();
 
 private:
 	GameMessageManager* mpMessageManger;
-
+	bool mDebuging;
+	ChangeableVal mDebugVal;
 };
 
 

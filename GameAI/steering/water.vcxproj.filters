@@ -64,6 +64,21 @@
     <ClCompile Include="AddingMessage.cpp">
       <Filter>Source Files\Messaging</Filter>
     </ClCompile>
+    <ClCompile Include="DynamicWanderSeekSteering.cpp">
+      <Filter>Source Files\Steering</Filter>
+    </ClCompile>
+    <ClCompile Include="Wall.cpp">
+      <Filter>Source Files\Enviro</Filter>
+    </ClCompile>
+    <ClCompile Include="WallManager.cpp">
+      <Filter>Source Files\Enviro</Filter>
+    </ClCompile>
+    <ClCompile Include="BoxCollider.cpp">
+      <Filter>Source Files\Enviro</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugMessage.cpp">
+      <Filter>Source Files\Messaging</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicsBuffer.h">
@@ -129,6 +144,21 @@
     <ClInclude Include="AddingMessage.h">
       <Filter>Header Files\Messaging</Filter>
     </ClInclude>
+    <ClInclude Include="DynamicWanderSeekSteering.h">
+      <Filter>Header Files\Steering</Filter>
+    </ClInclude>
+    <ClInclude Include="Wall.h">
+      <Filter>Header Files\Enviro</Filter>
+    </ClInclude>
+    <ClInclude Include="WallManager.h">
+      <Filter>Header Files\Enviro</Filter>
+    </ClInclude>
+    <ClInclude Include="BoxCollider.h">
+      <Filter>Header Files\Enviro</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugMessage.h">
+      <Filter>Header Files\Messaging</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
@@ -166,6 +196,12 @@
     </Filter>
     <Filter Include="Source Files\Units">
       <UniqueIdentifier>{820b8d07-ae99-4b13-b15d-e6e6c1e3fbbc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Enviro">
+      <UniqueIdentifier>{62ff5cdf-ee8d-41f6-9391-8b18ecf6b92e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Enviro">
+      <UniqueIdentifier>{b891f6cf-01ad-429e-964e-e8ebb53b7492}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

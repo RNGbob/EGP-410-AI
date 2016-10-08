@@ -19,6 +19,7 @@
 #include "SpriteManager.h"
 #include "UnitManager.h"
 #include "InputSystem.h"
+#include "WallManager.h"
 #include "Timer.h"
 #include "KinematicUnit.h"
 #include "PlayerMoveToMessage.h"
@@ -38,6 +39,10 @@ Game::Game()
 	,mpFont(NULL)
 	,mpSample(NULL)
 	,mBackgroundBufferID(INVALID_ID)
+	, mEnemyVel(150)
+	, mReactionRadius(250)
+	, mAngularVel(10)
+	, mAvoidRadius(250)
 	//,mSmurfBufferID(INVALID_ID)
 {
 }
@@ -77,7 +82,7 @@ bool Game::init()
 	// initializing ne managers
 	mpUnitManager = new UnitManager();
 	mpInputSystem = new InputSystem();
-	
+	mpWallManager = new WallManager();
 	
 	
 	//startup a lot of allegro stuff
@@ -193,6 +198,12 @@ bool Game::init()
 	// units reference spritemanager when creating entities
 	mpUnitManager->init( mpSpriteManager); 
 
+	//construct walls
+	//mpWallManager->addWall(Vector2D(), Vector2D(), 50.0f);
+	mpWallManager->addWall(Vector2D(0,0), Vector2D(WIDTH,0), 50.0f);
+	mpWallManager->addWall(Vector2D(0,0), Vector2D(0,HEIGHT), 50.0f);
+	mpWallManager->addWall(Vector2D(0,HEIGHT), Vector2D(WIDTH,HEIGHT), 50.0f);
+	mpWallManager->addWall(Vector2D(WIDTH,0), Vector2D(WIDTH,HEIGHT), 50.0f);
 	
 	return true;
 }
@@ -207,10 +218,13 @@ UnitManager* Game::getUnitManager()
 	return mpUnitManager;
 }
 
+WallManager * Game::getWallManager()
+{
+	return mpWallManager;
+}
+
 void Game::cleanup()
 {
-	
-
 	//delete unitmanager/Inputsystem
 	//mpUnitManager->cleanup();
 	delete mpUnitManager;
@@ -218,7 +232,9 @@ void Game::cleanup()
 	//mpInputSystem->cleanup();
 	delete mpInputSystem;
 	mpInputSystem = NULL;
-	
+
+	delete mpWallManager;
+	mpWallManager = NULL;
 	
 	//delete the timers
 	delete mpLoopTimer;
@@ -260,6 +276,56 @@ void Game::beginLoop()
 	mpLoopTimer->start();
 }
 
+int Game::getValue(ChangeableVal val)
+{
+	switch (val)
+	{
+	case EnemyVel:
+		return mEnemyVel;
+		break;
+	case ReactionRadius:
+		return mReactionRadius;
+		break;
+	case AngularVel:
+		return mAngularVel;
+		break;
+	case AvoidRadius:
+		return mAvoidRadius;
+		break;
+	default:
+		break;
+	}
+	
+	
+	
+	return 0;
+}
+
+void Game::setValue(ChangeableVal val, int direction) // direction is either 1 or -1
+{
+	int speed = 1;
+	switch (val)
+	{
+	case EnemyVel:
+		mEnemyVel += (direction*speed);
+		mpUnitManager->changeVels1(mEnemyVel);
+		break;
+	case ReactionRadius:
+		mReactionRadius += (direction*speed);
+		break;
+	case AngularVel:
+		mAngularVel += (direction*speed);
+		break;
+	case AvoidRadius:
+		mAvoidRadius += (direction*speed);
+		break;
+	default:
+		break;
+	}
+
+
+}
+
 // These will be put into processLoop
 void  Game::input()
 {
@@ -274,7 +340,13 @@ void  Game::draw()
 {
 	Sprite* pBackgroundSprite = mpSpriteManager->getSprite(BACKGROUND_SPRITE_ID);
 	pBackgroundSprite->draw(*(mpGraphicsSystem->getBackBuffer()), 0, 0);
+	
 	mpUnitManager->draw(GRAPHICS_SYSTEM->getBackBuffer());
+	mpWallManager->draw();
+	mpInputSystem->draw();
+
+	
+
 }
 
 /**//**/
@@ -283,16 +355,15 @@ void Game::processLoop() //order is either update,draw, processMsg,input OR upda
 {
 	/*/
 	/**/
-	
 	// replacing entirety of old method
 	update();
 	draw();
 	mpMessageManager->processMessagesForThisframe();
 	input();
+	//al_draw_line(100.0f, 0.0f, 500.0f, 0.0f, al_map_rgb(127,0,127), 50.0f);
 	mpGraphicsSystem->swap();
 
 	/*/
-	
 	/**/
 }
 
