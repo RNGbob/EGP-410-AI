@@ -1,6 +1,4 @@
-﻿  UnitManager.cpp
-c:\users\student\ai_assignment2\gameai\steering\unitmanager.cpp(56): warning C4018: '<': signed/unsigned mismatch
-c:\users\student\ai_assignment2\gameai\steering\unitmanager.cpp(65): warning C4018: '<': signed/unsigned mismatch
-c:\users\student\ai_assignment2\gameai\steering\unitmanager.cpp(74): warning C4018: '<': signed/unsigned mismatch
+﻿  Wall.cpp
+cl : Command line warning D9028: minimal rebuild failure, reverting to normal build
   water.vcxproj -> C:\Users\Student\AI_Assignment2\GameAI\steering\Debug\steering.exe
   water.vcxproj -> C:\Users\Student\AI_Assignment2\GameAI\steering\Debug\steering.pdb (Full PDB)

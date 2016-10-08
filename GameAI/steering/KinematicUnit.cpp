@@ -76,7 +76,7 @@ void KinematicUnit::update(float time, const std::vector<KinematicUnit*> &units)
 		if (mIsPlayer)
 		{
 			
-			arrive(Vector2D(mPosition-(mVelocity*-0.25)));
+			arrive(Vector2D(mPosition-(mVelocity*-0.25))); // will smash into wall infinitle otherwise without pathfinding
 
 		}
 	}

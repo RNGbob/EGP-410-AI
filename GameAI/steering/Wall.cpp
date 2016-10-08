@@ -15,7 +15,7 @@ mWidth(width)
 	//checks vertical or horizontal then makes new vectors for collision math.
 	if (mStart.getX()==mEnd.getX())
 	{
-		mBox = BoxCollider(Vector2D(mStart.getX()- (mWidth / 4), mStart.getY() ), Vector2D(mWidth, abs(mStart.getY() - mEnd.getY())));
+		mBox = BoxCollider(Vector2D(mStart.getX()- (mWidth / 4), mStart.getY() ), Vector2D(mWidth, abs(mStart.getY() - mEnd.getY()))); //  4 was best approximation :|
 	}
 	else if (mStart.getY() == mEnd.getY())
 	{
