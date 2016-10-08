@@ -76,6 +76,9 @@
     <ClCompile Include="BoxCollider.cpp">
       <Filter>Source Files\Enviro</Filter>
     </ClCompile>
+    <ClCompile Include="DebugMessage.cpp">
+      <Filter>Source Files\Messaging</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicsBuffer.h">
@@ -152,6 +155,9 @@
     </ClInclude>
     <ClInclude Include="BoxCollider.h">
       <Filter>Header Files\Enviro</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugMessage.h">
+      <Filter>Header Files\Messaging</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

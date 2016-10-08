@@ -13,7 +13,7 @@ public:
 	Wall(Vector2D start, Vector2D end, float width);
 	~Wall();
 
-	bool checkCollision(KinematicUnit* unit);
+	bool checkCollision(BoxCollider* unit);
 	
 	void draw();
 
@@ -21,10 +21,8 @@ public:
 private:
 	Vector2D mStart;
 	Vector2D mEnd;
-	Vector2D mCorner;
-	Vector2D mDim;
 	float mWidth;
-
+	BoxCollider mBox;
 
 
 

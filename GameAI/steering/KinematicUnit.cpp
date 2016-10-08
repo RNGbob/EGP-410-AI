@@ -26,7 +26,7 @@ KinematicUnit::KinematicUnit(Sprite *pSprite, const Vector2D &position, float or
 ,mMaxAcceleration(maxAcceleration)
 ,mIsPlayer(false)
 {
-	mDimension = pSprite->getDim();
+	mBox = BoxCollider(mPosition,pSprite->getDim());
 }
 
 KinematicUnit::~KinematicUnit()
@@ -43,6 +43,7 @@ void KinematicUnit::draw( GraphicsBuffer* pBuffer )
 void KinematicUnit::update(float time, const std::vector<KinematicUnit*> &units)
 {
 	Steering* steering;
+	mBox.setPos(mPosition);
 	if( mpCurrentSteering != NULL )
 	{
 		//steering = mpCurrentSteering->getSteering();
@@ -66,12 +67,18 @@ void KinematicUnit::update(float time, const std::vector<KinematicUnit*> &units)
 		setRotationalVelocity( 0.0f );
 		steering->setAngular( 0.0f );
 	}
-	if (gpGame->getWallManager()->checkCollision(this))
+	if (gpGame->getWallManager()->checkCollision(&mBox))
 	{
 		//cout << "COLLISION";
-		Vector2D bounce = mVelocity*-3;
+		Vector2D bounce = mVelocity*-2;
 		this->setVelocity(bounce);
 		steering= &gNullSteering;
+		if (mIsPlayer)
+		{
+			
+			arrive(Vector2D(mPosition-(mVelocity*-0.25)));
+
+		}
 	}
 
 	//move the unit using current velocities
@@ -182,9 +189,9 @@ Steering * KinematicUnit::appliedSeperation(const std::vector<KinematicUnit*>& u
 		{
 			direction = units[i]->getPosition() - this->getPosition();
 			distance = direction.getLength();
-			if (distance < gpGame->getValue(AvoidRadius))
+			if (distance < 50)
 			{
-				strength = min(250*distance*distance, this->mMaxAcceleration);// arbitrary decay coefficient
+				strength = min(gpGame->getValue(AvoidRadius)*distance*distance, this->mMaxAcceleration);// arbitrary decay coefficient
 				
 				direction.normalize();
 

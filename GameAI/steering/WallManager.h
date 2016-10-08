@@ -17,7 +17,7 @@ public:
 
 	void draw();
 	void addWall(Vector2D start, Vector2D end, float width);
-	bool checkCollision(KinematicUnit* unit);
+	bool checkCollision(BoxCollider* unit);
 
 private:
 

@@ -6,6 +6,7 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_audio.h>
+#include "BoxCollider.h"
 #include <string>
 #include <sstream>
 
@@ -19,6 +20,7 @@ class Timer;
 class UnitManager;
 class InputSystem;
 class WallManager;
+
 
 const IDType BACKGROUND_SPRITE_ID = 0;
 const IDType PLAYER_ICON_SPRITE_ID = 1;

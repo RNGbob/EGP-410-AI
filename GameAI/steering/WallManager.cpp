@@ -29,7 +29,7 @@ void WallManager::addWall(Vector2D start, Vector2D end, float width)
 	mWalls.push_back(newWall);
 }
 
-bool WallManager::checkCollision(KinematicUnit * unit)
+bool WallManager::checkCollision(BoxCollider* unit)
 {
 	bool collision =false;
 

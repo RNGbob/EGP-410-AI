@@ -42,7 +42,7 @@ Game::Game()
 	, mEnemyVel(150)
 	, mReactionRadius(250)
 	, mAngularVel(10)
-	, mAvoidRadius(50)
+	, mAvoidRadius(250)
 	//,mSmurfBufferID(INVALID_ID)
 {
 }
@@ -308,6 +308,7 @@ void Game::setValue(ChangeableVal val, int direction) // direction is either 1 o
 	{
 	case EnemyVel:
 		mEnemyVel += (direction*speed);
+		mpUnitManager->changeVels1(mEnemyVel);
 		break;
 	case ReactionRadius:
 		mReactionRadius += (direction*speed);

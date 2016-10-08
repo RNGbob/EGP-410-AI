@@ -69,6 +69,16 @@ void UnitManager::draw(GraphicsBuffer* gBuff)
 	mPlayerUnit->draw(gBuff);
 }
 
+void UnitManager::changeVels1(float val)
+{
+	for (int i = 0; i < mUnitList.size(); i++)
+	{
+		mUnitList[i]->setMaxVelocity(val);
+	}
+}
+
+
+
 void UnitManager::addUnit(Method steeringType)
 {
 	double theta = rand() % 360;//2*PI;
@@ -82,11 +92,11 @@ void UnitManager::addUnit(Method steeringType)
 	switch (steeringType)
 	{
 	case WanderSeek:
-		newUnit = new KinematicUnit(mpSpriteManager->getSprite(AI_ICON_SPRITE_ID), pos, 1, vel, 0.0f, gpGame->getValue(EnemyVel), gpGame->getValue(AngularVel));
+		newUnit = new KinematicUnit(mpSpriteManager->getSprite(AI_ICON_SPRITE_ID), pos, 1, vel, 0.0f, gpGame->getValue(EnemyVel), 50.f);
 		newUnit->wanderSeek(mPlayerUnit);
 		break;
 	case WanderFlee:
-		newUnit = new KinematicUnit(mpSpriteManager->getSprite(AI_ICON_SPRITE_ID), pos, 1, vel, 0.0f, gpGame->getValue(EnemyVel), gpGame->getValue(AngularVel));
+		newUnit = new KinematicUnit(mpSpriteManager->getSprite(AI_ICON_SPRITE_ID), pos, 1, vel, 0.0f, gpGame->getValue(EnemyVel), 50.0f);
 		newUnit->wanderFlee(mPlayerUnit);
 		break;
 	default:

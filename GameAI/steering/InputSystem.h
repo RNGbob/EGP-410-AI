@@ -25,7 +25,7 @@ public:
 private:
 	GameMessageManager* mpMessageManger;
 	bool mDebuging;
-	bool mAdding;
+	ChangeableVal mDebugVal;
 };
 
 
