@@ -1,6 +1,7 @@
 #include "UnitManager.h"
 #include "KinematicUnit.h"
 #include "SpriteManager.h"
+#include "WallManager.h"
 
 
 UnitManager::UnitManager()
@@ -27,7 +28,7 @@ UnitManager::~UnitManager()
 	mpSpriteManager = NULL;
 }
 
-void UnitManager::init(  SpriteManager* &mpSprMan)
+void UnitManager::init( SpriteManager* &mpSprMan)
 {
 	// spriteManager
 	mpSpriteManager = mpSprMan;

@@ -30,5 +30,6 @@ private:
 	KinematicUnit* mPlayerUnit; // I sometimes go back and forth from a seperate player unit or tracking the unit within Unit list
 	SpriteManager* mpSpriteManager;
 	
+	
 };
 

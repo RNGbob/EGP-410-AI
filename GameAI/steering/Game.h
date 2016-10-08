@@ -70,6 +70,7 @@ public:
 	
 	KinematicUnit* getPlayerUnit();
 	UnitManager* getUnitManager();
+	WallManager* getWallManager();
 	/*/inline KinematicUnit* getAIUnit() { return mpAIUnit; };//should be someplace else
 	inline KinematicUnit* getAIUnit2() { return mpAIUnit2; };//should be someplace else/**/
 

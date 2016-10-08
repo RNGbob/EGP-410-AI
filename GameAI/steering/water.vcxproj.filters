@@ -73,6 +73,9 @@
     <ClCompile Include="WallManager.cpp">
       <Filter>Source Files\Enviro</Filter>
     </ClCompile>
+    <ClCompile Include="BoxCollider.cpp">
+      <Filter>Source Files\Enviro</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicsBuffer.h">
@@ -145,6 +148,9 @@
       <Filter>Header Files\Enviro</Filter>
     </ClInclude>
     <ClInclude Include="WallManager.h">
+      <Filter>Header Files\Enviro</Filter>
+    </ClInclude>
+    <ClInclude Include="BoxCollider.h">
       <Filter>Header Files\Enviro</Filter>
     </ClInclude>
   </ItemGroup>

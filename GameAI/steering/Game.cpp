@@ -199,8 +199,11 @@ bool Game::init()
 	mpUnitManager->init( mpSpriteManager); 
 
 	//construct walls
-	//mpWallManager->addWall(Vector2D(), Vector2D(), 50.0f)
-
+	//mpWallManager->addWall(Vector2D(), Vector2D(), 50.0f);
+	mpWallManager->addWall(Vector2D(0,0), Vector2D(WIDTH,0), 50.0f);
+	mpWallManager->addWall(Vector2D(0,0), Vector2D(0,HEIGHT), 50.0f);
+	mpWallManager->addWall(Vector2D(0,HEIGHT), Vector2D(WIDTH,HEIGHT), 50.0f);
+	mpWallManager->addWall(Vector2D(WIDTH,0), Vector2D(WIDTH,HEIGHT), 50.0f);
 	
 	return true;
 }
@@ -213,6 +216,11 @@ KinematicUnit* Game::getPlayerUnit()
 UnitManager* Game::getUnitManager()
 {
 	return mpUnitManager;
+}
+
+WallManager * Game::getWallManager()
+{
+	return mpWallManager;
 }
 
 void Game::cleanup()
@@ -333,6 +341,7 @@ void  Game::draw()
 	pBackgroundSprite->draw(*(mpGraphicsSystem->getBackBuffer()), 0, 0);
 	
 	mpUnitManager->draw(GRAPHICS_SYSTEM->getBackBuffer());
+	mpWallManager->draw();
 	mpInputSystem->draw();
 
 	

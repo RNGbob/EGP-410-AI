@@ -36,7 +36,7 @@ bool Wall::checkCollision(KinematicUnit* unit)
 		mCorner.getY() > (unit->getPosition().getY() + unit->getDimension().getY())
 		)
 		{return false;}
-	else { return false; }
+	else { return true; }
 		
 		
 		
@@ -49,7 +49,7 @@ bool Wall::checkCollision(KinematicUnit* unit)
 
 
 
-	return false;
+	
 }
 
 void Wall::draw()

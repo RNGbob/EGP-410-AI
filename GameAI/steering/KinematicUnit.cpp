@@ -11,6 +11,7 @@
 #include "DynamicArriveSteering.h"
 #include "DynamicWanderSeekSteering.h"
 #include "UnitManager.h"
+#include "WallManager.h"
 
 using namespace std;
 
@@ -65,12 +66,20 @@ void KinematicUnit::update(float time, const std::vector<KinematicUnit*> &units)
 		setRotationalVelocity( 0.0f );
 		steering->setAngular( 0.0f );
 	}
-
+	if (gpGame->getWallManager()->checkCollision(this))
+	{
+		//cout << "COLLISION";
+		Vector2D bounce = mVelocity*-3;
+		this->setVelocity(bounce);
+		steering= &gNullSteering;
+	}
 
 	//move the unit using current velocities
 	Kinematic::update( time );
 	//calculate new velocities
 	calcNewVelocities( *steering, time, mMaxVelocity, 25.0f );
+
+
 	//move to oposite side of screen if we are off
 	GRAPHICS_SYSTEM->wrapCoordinates( mPosition );
 
@@ -175,7 +184,7 @@ Steering * KinematicUnit::appliedSeperation(const std::vector<KinematicUnit*>& u
 			distance = direction.getLength();
 			if (distance < gpGame->getValue(AvoidRadius))
 			{
-				strength = min(100*distance*distance, this->mMaxAcceleration);// arbitrary decay coefficient
+				strength = min(250*distance*distance, this->mMaxAcceleration);// arbitrary decay coefficient
 				
 				direction.normalize();
 

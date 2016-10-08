@@ -1,3 +1,5 @@
-﻿  Game.cpp
+﻿  KinematicUnit.cpp
+c:\users\student\ai_assignment2\gameai\steering\kinematicunit.cpp(181): warning C4018: '<': signed/unsigned mismatch
+AddingMessage.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/SAFESEH' specification
   water.vcxproj -> C:\Users\Student\AI_Assignment2\GameAI\steering\Debug\steering.exe
   water.vcxproj -> C:\Users\Student\AI_Assignment2\GameAI\steering\Debug\steering.pdb (Full PDB)

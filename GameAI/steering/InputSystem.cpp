@@ -19,6 +19,12 @@ void InputSystem::init( GameMessageManager* &mesman)
 {
 	mpMessageManger = mesman;
 	mDebuging = false;
+	mAdding = true;
+	// make string streams
+
+
+
+
 }
 
 void InputSystem::cleanup()// easier to call rather than depending on destructor call;
@@ -66,6 +72,24 @@ void InputSystem::update()
 	{
 		GameMessage* pMessage = new DeletingMessage();
 		MESSAGE_MANAGER->addMessage(pMessage, 0);
+	}
+	else if (mDebuging)
+	{
+		if (al_key_down(&key, ALLEGRO_KEY_F))
+		{
+			GameMessage* pMessage = new AddingMessage(WanderFlee);
+			MESSAGE_MANAGER->addMessage(pMessage, 0);
+		}
+		else if (al_key_down(&key, ALLEGRO_KEY_S))
+		{
+			GameMessage* pMessage = new AddingMessage(WanderSeek);
+			MESSAGE_MANAGER->addMessage(pMessage, 0);
+		}
+		else if (al_key_down(&key, ALLEGRO_KEY_D))
+		{
+			GameMessage* pMessage = new DeletingMessage();
+			MESSAGE_MANAGER->addMessage(pMessage, 0);
+		}
 	}
 	
 }
