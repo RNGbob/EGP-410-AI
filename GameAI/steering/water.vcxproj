@@ -12,9 +12,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AddingMessage.h" />
+    <ClInclude Include="BoxCollider.h" />
+    <ClInclude Include="DebugMessage.h" />
     <ClInclude Include="Defines.h" />
     <ClInclude Include="DynamicArriveSteering.h" />
     <ClInclude Include="DynamicSeekSteering.h" />
+    <ClInclude Include="DynamicWanderSeekSteering.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameMessage.h" />
     <ClInclude Include="GameMessageManager.h" />
@@ -32,11 +35,16 @@
     <ClInclude Include="SpriteManager.h" />
     <ClInclude Include="Steering.h" />
     <ClInclude Include="UnitManager.h" />
+    <ClInclude Include="Wall.h" />
+    <ClInclude Include="WallManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AddingMessage.cpp" />
+    <ClCompile Include="BoxCollider.cpp" />
+    <ClCompile Include="DebugMessage.cpp" />
     <ClCompile Include="DynamicArriveSteering.cpp" />
     <ClCompile Include="DynamicSeekSteering.cpp" />
+    <ClCompile Include="DynamicWanderSeekSteering.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameMessage.cpp" />
     <ClCompile Include="GameMessageManager.cpp" />
@@ -55,6 +63,8 @@
     <ClCompile Include="SpriteManager.cpp" />
     <ClCompile Include="Steering.cpp" />
     <ClCompile Include="UnitManager.cpp" />
+    <ClCompile Include="Wall.cpp" />
+    <ClCompile Include="WallManager.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{07ED8114-0659-4424-9468-50DBBEA5882A}</ProjectGuid>
