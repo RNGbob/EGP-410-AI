@@ -24,7 +24,8 @@ public:
 
 
 	KinematicUnit* getPlayer(){ return mPlayerUnit; }
-
+	KinematicUnit* getUnit(int i) { return mUnitList[i]; } // safe as long as i is set to be under list.size()
+	int getSize() { return mUnitList.size(); }
 
 private:
 
