@@ -7,17 +7,15 @@ class KinematicUnit;
 class AlignmentSteering : public Steering
 {
 public:
-	AlignmentSteering(KinematicUnit* pMover, KinematicUnit* pTarget);
+	AlignmentSteering(KinematicUnit* pMover);
 	~AlignmentSteering();
 
-	void setTarget(KinematicUnit* pTarget) { mpTarget = pTarget; };
+	//void setTarget(KinematicUnit* pTarget) { mpTarget = pTarget; };
 
 	virtual Steering* getSteering();
 
 private:
-	KinematicUnit* mpTarget;
 	KinematicUnit* mpMover;
-	//std::vector<KinematicUnit*> 
 
 };
 

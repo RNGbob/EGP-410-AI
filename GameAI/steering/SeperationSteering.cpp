@@ -4,6 +4,8 @@
 #include "Game.h"
 
 SeperationSteering::SeperationSteering(KinematicUnit * pMover, KinematicUnit * pTarget)
+:mpMover(pMover)
+, mpTarget(pTarget)
 {
 }
 
@@ -20,9 +22,9 @@ Steering * SeperationSteering::getSteering()
 		if (gpGame->getUnitManager()->getUnit(i) != mpMover)
 		{
 
-			if (gpGame->getUnitManager()->getUnit(i)->getDistance(mpMover) < 500)
+			if (gpGame->getUnitManager()->getUnit(i)->getDistance(mpMover) > 30)
 			{
-				mLinear += gpGame->getUnitManager()->getUnit(i)->getPosition();
+				mLinear += gpGame->getUnitManager()->getUnit(i)->getPosition()- mpMover->getPosition();
 				boidCount++;
 			}
 		}
