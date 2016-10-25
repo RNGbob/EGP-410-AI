@@ -6,15 +6,14 @@ class KinematicUnit;
 class CohesionSteering : public Steering
 {
 public:
-	CohesionSteering(KinematicUnit* pMover, KinematicUnit* pTarget);
+	CohesionSteering(KinematicUnit* pMover);
 	~CohesionSteering();
 
-	void setTarget(KinematicUnit* pTarget) { mpTarget = pTarget; };
 
 	virtual Steering* getSteering();
 
 private:
-	KinematicUnit* mpTarget;
+	
 	KinematicUnit* mpMover;
 
 

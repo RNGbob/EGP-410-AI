@@ -3,9 +3,9 @@
 #include "UnitManager.h"
 #include "Game.h"
 
-CohesionSteering::CohesionSteering(KinematicUnit * pMover, KinematicUnit * pTarget)
+CohesionSteering::CohesionSteering(KinematicUnit * pMover)
 :mpMover(pMover)
-, mpTarget(pTarget)
+
 {
 }
 

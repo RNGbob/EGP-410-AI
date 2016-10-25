@@ -85,10 +85,10 @@
     <ClCompile Include="SeperationSteering.cpp">
       <Filter>Source Files\Steering</Filter>
     </ClCompile>
-    <ClCompile Include="VelocityMatchSteering.cpp">
+    <ClCompile Include="AlignmentSteering.cpp">
       <Filter>Source Files\Steering</Filter>
     </ClCompile>
-    <ClCompile Include="AlignmentSteering.cpp">
+    <ClCompile Include="BoidSteering.cpp">
       <Filter>Source Files\Steering</Filter>
     </ClCompile>
   </ItemGroup>
@@ -177,10 +177,10 @@
     <ClInclude Include="SeperationSteering.h">
       <Filter>Header Files\Steering</Filter>
     </ClInclude>
-    <ClInclude Include="VelocityMatchSteering.h">
+    <ClInclude Include="AlignmentSteering.h">
       <Filter>Header Files\Steering</Filter>
     </ClInclude>
-    <ClInclude Include="AlignmentSteering.h">
+    <ClInclude Include="BoidSteering.h">
       <Filter>Header Files\Steering</Filter>
     </ClInclude>
   </ItemGroup>

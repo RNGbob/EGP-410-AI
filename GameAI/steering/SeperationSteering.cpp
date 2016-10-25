@@ -3,9 +3,9 @@
 #include "UnitManager.h"
 #include "Game.h"
 
-SeperationSteering::SeperationSteering(KinematicUnit * pMover, KinematicUnit * pTarget)
+SeperationSteering::SeperationSteering(KinematicUnit * pMover)
 :mpMover(pMover)
-, mpTarget(pTarget)
+
 {
 }
 

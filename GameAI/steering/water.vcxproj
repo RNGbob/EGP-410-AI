@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClInclude Include="AddingMessage.h" />
     <ClInclude Include="AlignmentSteering.h" />
+    <ClInclude Include="BoidSteering.h" />
     <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="CohesionSteering.h" />
     <ClInclude Include="DebugMessage.h" />
@@ -38,13 +39,13 @@
     <ClInclude Include="SpriteManager.h" />
     <ClInclude Include="Steering.h" />
     <ClInclude Include="UnitManager.h" />
-    <ClInclude Include="VelocityMatchSteering.h" />
     <ClInclude Include="Wall.h" />
     <ClInclude Include="WallManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AddingMessage.cpp" />
     <ClCompile Include="AlignmentSteering.cpp" />
+    <ClCompile Include="BoidSteering.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="CohesionSteering.cpp" />
     <ClCompile Include="DebugMessage.cpp" />
@@ -70,7 +71,6 @@
     <ClCompile Include="SpriteManager.cpp" />
     <ClCompile Include="Steering.cpp" />
     <ClCompile Include="UnitManager.cpp" />
-    <ClCompile Include="VelocityMatchSteering.cpp" />
     <ClCompile Include="Wall.cpp" />
     <ClCompile Include="WallManager.cpp" />
   </ItemGroup>
