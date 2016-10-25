@@ -18,7 +18,7 @@ public:
 
 	virtual Steering* getSteering();
 
-	bool isFree();
+	bool isFree();// determine if boid is alone or within a group
 
 private:
 	KinematicUnit* mpMover;
