@@ -56,7 +56,19 @@ void InputSystem::update()
 	{
 		 gpGame->endGame();
 	}
-	else if (al_key_down(&key, ALLEGRO_KEY_F))
+	else if (al_key_down(&key, ALLEGRO_KEY_I))
+	{
+		for (int i = 0; i < 5; ++i)
+		{
+			GameMessage* pMessage = new AddingMessage(Boids);
+			MESSAGE_MANAGER->addMessage(pMessage, 0);
+		}
+		
+		
+		
+		 
+	}
+	/*else if (al_key_down(&key, ALLEGRO_KEY_F))
 	{
 		GameMessage* pMessage = new AddingMessage(WanderFlee);
 		MESSAGE_MANAGER->addMessage(pMessage, 0);
@@ -70,8 +82,8 @@ void InputSystem::update()
 	{
 		GameMessage* pMessage = new DeletingMessage();
 		MESSAGE_MANAGER->addMessage(pMessage, 0);
-	}
-	else if (al_key_down(&key, ALLEGRO_KEY_I))
+	}*/
+	else if (al_key_down(&key, ALLEGRO_KEY_P))
 	{
 		switchDebug();
 	}

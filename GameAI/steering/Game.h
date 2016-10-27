@@ -30,12 +30,12 @@ const float LOOP_TARGET_TIME = 33.3f;//how long should each frame of execution t
 
 enum Method
 {
-	Arrive, Seek, Wander, WanderSeek, WanderFlee
+	Arrive, Seek, Wander, WanderSeek, WanderFlee, Boids
 };
 
 enum ChangeableVal
 {
-	EnemyVel, ReactionRadius, AngularVel, AvoidRadius
+	EnemyVel, ReactionRadius, AngularVel, AvoidRadius, AlignWeight, CohesionWeight, SeperateWeight
 };
 
 class Game:public Trackable
@@ -99,6 +99,7 @@ private:
 
 	// changeable values for gamestate;
 	int mEnemyVel, mReactionRadius, mAngularVel, mAvoidRadius;
+	int mAlignWeight, mCohesionWeight, mSeperateWeight;
 
 	/*/
 	KinematicUnit* mpUnit;

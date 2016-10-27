@@ -43,6 +43,9 @@ Game::Game()
 	, mReactionRadius(250)
 	, mAngularVel(10)
 	, mAvoidRadius(250)
+	, mAlignWeight(1)
+	, mCohesionWeight(1)
+	, mSeperateWeight(2)
 	//,mSmurfBufferID(INVALID_ID)
 {
 }

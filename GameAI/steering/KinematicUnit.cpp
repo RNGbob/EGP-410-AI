@@ -10,6 +10,7 @@
 #include "DynamicSeekSteering.h"
 #include "DynamicArriveSteering.h"
 #include "DynamicWanderSeekSteering.h"
+#include "BoidSteering.h"
 #include "UnitManager.h"
 #include "WallManager.h"
 
@@ -46,8 +47,8 @@ void KinematicUnit::update(float time, const std::vector<KinematicUnit*> &units)
 	mBox.setPos(mPosition);
 	if( mpCurrentSteering != NULL )
 	{
-		//steering = mpCurrentSteering->getSteering();
-		steering = appliedSeperation(units); // determines steering with seperation from surrounding units
+		steering = mpCurrentSteering->getSteering();
+		//steering = appliedSeperation(units); // determines steering with seperation from surrounding units
 	}
 	else
 	{
@@ -70,8 +71,9 @@ void KinematicUnit::update(float time, const std::vector<KinematicUnit*> &units)
 	if (gpGame->getWallManager()->checkCollision(&mBox))
 	{
 		//cout << "COLLISION";
-		Vector2D bounce = mVelocity*-2;
+		Vector2D bounce = mVelocity*-5;
 		this->setVelocity(bounce);
+		this->mpCurrentSteering->setLinear(bounce);
 		steering= &gNullSteering;
 		if (mIsPlayer)
 		{
@@ -166,6 +168,13 @@ void KinematicUnit::wanderFlee(KinematicUnit * pTarget)
 {
 	DynamicWanderSeekSteering* pDynamicWanderSeekSteering = new DynamicWanderSeekSteering(this, pTarget, true);
 	setSteering(pDynamicWanderSeekSteering);
+
+}
+
+void KinematicUnit::boid(KinematicUnit * pTarget)
+{
+	BoidSteering* pBoidSteering = new BoidSteering(this);
+	setSteering(pBoidSteering);
 
 }
 

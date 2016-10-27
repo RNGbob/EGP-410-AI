@@ -17,7 +17,8 @@ AddingMessage::~AddingMessage(){}
 
 void AddingMessage::process()
 {
-	gpGame->getUnitManager()->addUnit(mType); // or something like when game.cpp is changed
+	gpGame->getUnitManager()->addUnit(mType);
+
 }
 
 
