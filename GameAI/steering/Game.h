@@ -7,6 +7,7 @@
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_audio.h>
 #include "BoxCollider.h"
+#include "CircleCollider.h"
 #include <string>
 #include <sstream>
 
@@ -27,6 +28,10 @@ const IDType PLAYER_ICON_SPRITE_ID = 1;
 const IDType AI_ICON_SPRITE_ID = 2;
 
 const float LOOP_TARGET_TIME = 33.3f;//how long should each frame of execution take? 30fps = 33.3ms/frame
+
+const int WIDTH = 1024;
+const int HEIGHT = 768;
+
 
 enum Method
 {

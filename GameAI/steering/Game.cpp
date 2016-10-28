@@ -26,8 +26,6 @@
 
 Game* gpGame = NULL;
 
-const int WIDTH = 1024;
-const int HEIGHT = 768;
 
 Game::Game()
 	:mpGraphicsSystem(NULL)

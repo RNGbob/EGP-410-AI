@@ -71,7 +71,7 @@ void KinematicUnit::update(float time, const std::vector<KinematicUnit*> &units)
 	if (gpGame->getWallManager()->checkCollision(&mBox))
 	{
 		//cout << "COLLISION";
-		Vector2D bounce = mVelocity*-5;
+		Vector2D bounce =  Vector2D((WIDTH / 2), (HEIGHT / 2)) - mPosition;  // seek center
 		this->setVelocity(bounce);
 		this->mpCurrentSteering->setLinear(bounce);
 		steering= &gNullSteering;

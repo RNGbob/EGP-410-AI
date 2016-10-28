@@ -1,29 +1,27 @@
 #pragma once
-
 #include "GraphicsSystem.h"
 #include "GraphicsBuffer.h"
 #include "Game.h"
 #include "KinematicUnit.h"
 
 
-class Wall :public Trackable
+class Pillar :public Trackable
 {
 public:
-	Wall();
-	Wall(Vector2D start, Vector2D end, float width);
-	~Wall();
+	Pillar();
+	Pillar(Vector2D pos, float radius);
+	~Pillar();
 
 	bool checkCollision(BoxCollider* unit);
 	bool checkCollision(CircleCollider* unit);
-	
+
 	void draw();
 
 
 private:
-	Vector2D mStart;
-	Vector2D mEnd;
-	float mWidth;
-	BoxCollider mBox;
+	Vector2D mPos;
+	float mRadius;
+	CircleCollider mCircle;
 
 
 

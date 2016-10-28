@@ -1,4 +1,5 @@
 #include "BoxCollider.h"
+#include "CircleCollider.h"
 
 BoxCollider::BoxCollider()
 {
@@ -15,7 +16,7 @@ BoxCollider::~BoxCollider()
 {
 }
 
-bool BoxCollider::checkBoxCollison(BoxCollider* &other)
+bool BoxCollider::checkCollison(BoxCollider* &other)
 {
 	if (other->getPos().getX() > (mPos.getX() + mDim.getX()) ||
 		other->getPos().getY() > (mPos.getY() + mDim.getY()) ||
@@ -28,4 +29,18 @@ bool BoxCollider::checkBoxCollison(BoxCollider* &other)
 	else { return true; }
 
 
+}
+
+bool BoxCollider::checkCollison(CircleCollider *& other)
+{
+	if (other->getPos().getX() - other->getRadius() > (mPos.getX() + mDim.getX()) ||
+		other->getPos().getY() - other->getRadius() > (mPos.getY() + mDim.getY()) ||
+		mPos.getX() > (other->getPos().getX() + other->getRadius()) ||
+		mPos.getY() > (other->getPos().getY() + other->getRadius())
+		)
+	{
+		return false;
+	}
+	else { return true; }
+	
 }

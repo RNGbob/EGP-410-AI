@@ -39,7 +39,7 @@ Steering* BoidSteering::getSteering()
 	mpCohese->getSteering();
 	mpSeperate->getSteering();
 		
-	mLinear += (mpAlign->getLinear()* 10 ) + (mpCohese->getLinear()* 5 ) + (mpSeperate->getLinear()* 8 ); // arbitrary vals for now
+	mLinear += (mpAlign->getLinear()* 10 ) + (mpCohese->getLinear()* 4 ) + (mpSeperate->getLinear()* 12 ); // arbitrary vals for now
 
 	mLinear.normalize();
 	mLinear *= mpMover->getMaxVelocity();
