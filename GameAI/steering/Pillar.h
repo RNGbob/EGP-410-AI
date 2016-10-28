@@ -12,6 +12,9 @@ public:
 	Pillar(Vector2D pos, float radius);
 	~Pillar();
 
+	Vector2D getPos()const { return mPos; }
+	float getRadius()const { return mRadius; }
+
 	bool checkCollision(BoxCollider* unit);
 	bool checkCollision(CircleCollider* unit);
 

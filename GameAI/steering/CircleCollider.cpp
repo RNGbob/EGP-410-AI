@@ -19,8 +19,8 @@ bool CircleCollider::checkCollison(BoxCollider *& other)
 {
 	if (mPos.getX() - mRadius > (other->getPos().getX() + other->getDim().getX()) ||
 		mPos.getY() - mRadius > (other->getPos().getY() + other->getDim().getY()) ||
-		mPos.getX() > (other->getPos().getX() + other->getDim().getX()) ||
-		mPos.getY() > (other->getPos().getY() + other->getDim().getY()))
+		other->getPos().getX() > mPos.getX() + mRadius   ||
+		other->getPos().getY() > mPos.getY() + mRadius  )
 	{
 		return false;
 	}

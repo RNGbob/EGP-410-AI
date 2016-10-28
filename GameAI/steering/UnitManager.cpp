@@ -92,17 +92,17 @@ void UnitManager::addUnit(Method steeringType)
 	switch (steeringType)
 	{
 	case Boids:
-		newUnit = new KinematicUnit(mpSpriteManager->getSprite(AI_ICON_SPRITE_ID), pos, 1, vel, 0.0f, gpGame->getValue(EnemyVel), 50.f);
+		newUnit = new KinematicUnit(mpSpriteManager->getSprite(AI_ICON_SPRITE_ID), pos, 1, vel, 10.0f, gpGame->getValue(EnemyVel), 50.f);
 		newUnit->boid(mPlayerUnit);
 		mUnitList.push_back(newUnit);
 		break;
 	case WanderSeek:
-		newUnit = new KinematicUnit(mpSpriteManager->getSprite(AI_ICON_SPRITE_ID), pos, 1, vel, 0.0f, gpGame->getValue(EnemyVel), 50.f);
+		newUnit = new KinematicUnit(mpSpriteManager->getSprite(AI_ICON_SPRITE_ID), pos, 1, vel, 10.0f, gpGame->getValue(EnemyVel), 50.f);
 		newUnit->wanderSeek(mPlayerUnit);
 		mUnitList.push_back(newUnit);
 		break;
 	case WanderFlee:
-		newUnit = new KinematicUnit(mpSpriteManager->getSprite(AI_ICON_SPRITE_ID), pos, 1, vel, 0.0f, gpGame->getValue(EnemyVel), 50.0f);
+		newUnit = new KinematicUnit(mpSpriteManager->getSprite(AI_ICON_SPRITE_ID), pos, 1, vel, 10.0f, gpGame->getValue(EnemyVel), 50.0f);
 		newUnit->wanderFlee(mPlayerUnit);
 		mUnitList.push_back(newUnit);
 		break;

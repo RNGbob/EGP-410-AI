@@ -10,7 +10,7 @@ BoidSteering::BoidSteering(KinematicUnit * pMover)
 	mpAlign = new AlignmentSteering(mpMover);
 	mpCohese = new CohesionSteering(mpMover);
 	mpSeperate = new SeperationSteering(mpMover);
-
+	mApplyDirectly = true;
 }
 
 BoidSteering::~BoidSteering()
@@ -22,6 +22,7 @@ BoidSteering::~BoidSteering()
 
 Steering* BoidSteering::getSteering()
 {
+	
 	//mLinear = Vector2D();
 
 	/*if (isFree())
@@ -56,7 +57,7 @@ bool BoidSteering::isFree()
 	{
 		if (gpGame->getUnitManager()->getUnit(i) != mpMover)
 		{
-			if (gpGame->getUnitManager()->getUnit(i)->getDistance(mpMover) < 300)
+			if (gpGame->getUnitManager()->getUnit(i)->getDistance(mpMover) < 200)
 			{
 				return false;
 			}

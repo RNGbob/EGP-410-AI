@@ -25,7 +25,7 @@ Steering * SeperationSteering::getSteering()
 
 			if (gpGame->getUnitManager()->getUnit(i)->getDistance(mpMover) < 50)
 			{
-				mLinear += ( gpGame->getUnitManager()->getUnit(i)->getPosition() - mpMover->getPosition());
+				mLinear += ( gpGame->getUnitManager()->getUnit(i)->getPosition() - mpMover->getPosition()) * max( (100 / gpGame->getUnitManager()->getUnit(i)->getDistance(mpMover)),1);
 				boidCount++;
 			}
 		}

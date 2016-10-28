@@ -22,7 +22,7 @@ Steering * AlignmentSteering::getSteering()
 		if (gpGame->getUnitManager()->getUnit(i) != mpMover)
 		{
 
-			if (gpGame->getUnitManager()->getUnit(i)->getDistance(mpMover) < 300)
+			if (gpGame->getUnitManager()->getUnit(i)->getDistance(mpMover) < 200)
 			{
 				mLinear += gpGame->getUnitManager()->getUnit(i)->getVelocity();
 				++boidCount;

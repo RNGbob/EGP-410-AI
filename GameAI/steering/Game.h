@@ -21,6 +21,7 @@ class Timer;
 class UnitManager;
 class InputSystem;
 class WallManager;
+class Pillar;
 
 
 const IDType BACKGROUND_SPRITE_ID = 0;
@@ -65,6 +66,10 @@ public:
 	inline double getCurrentTime() const { return mpMasterTimer->getElapsedTime(); };
 	inline ALLEGRO_FONT* getFont() const { return mpFont; };
 	inline void endGame(){ mShouldExit = true; }
+
+	inline Pillar* getPillars()const { return mpCenterPillar; }// will probably change to a manager at some point
+	
+	
 	// changeble values for Assignment2 debug state.
 	int getValue(ChangeableVal val);
 	void setValue(ChangeableVal val , int direction);
@@ -105,6 +110,8 @@ private:
 	// changeable values for gamestate;
 	int mEnemyVel, mReactionRadius, mAngularVel, mAvoidRadius;
 	int mAlignWeight, mCohesionWeight, mSeperateWeight;
+
+	Pillar* mpCenterPillar;
 
 	/*/
 	KinematicUnit* mpUnit;

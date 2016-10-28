@@ -20,6 +20,7 @@
 #include "UnitManager.h"
 #include "InputSystem.h"
 #include "WallManager.h"
+#include "Pillar.h"
 #include "Timer.h"
 #include "KinematicUnit.h"
 #include "PlayerMoveToMessage.h"
@@ -84,7 +85,7 @@ bool Game::init()
 	mpUnitManager = new UnitManager();
 	mpInputSystem = new InputSystem();
 	mpWallManager = new WallManager();
-	
+	mpCenterPillar = new Pillar(Vector2D(WIDTH / 2, HEIGHT / 2), 30);
 	
 	//startup a lot of allegro stuff
 
@@ -236,6 +237,9 @@ void Game::cleanup()
 
 	delete mpWallManager;
 	mpWallManager = NULL;
+
+	delete mpCenterPillar;
+	mpCenterPillar = NULL;
 	
 	//delete the timers
 	delete mpLoopTimer;
@@ -344,6 +348,7 @@ void  Game::draw()
 	
 	mpUnitManager->draw(GRAPHICS_SYSTEM->getBackBuffer());
 	mpWallManager->draw();
+	mpCenterPillar->draw();
 	mpInputSystem->draw();
 
 	
