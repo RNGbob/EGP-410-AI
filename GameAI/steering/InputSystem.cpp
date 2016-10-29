@@ -53,7 +53,7 @@ void InputSystem::update()
 	{
 		 gpGame->endGame();
 	}
-	else if (firstPress(mKey, mPrevKey, ALLEGRO_KEY_I)) //(al_key_down(&mKey, ALLEGRO_KEY_I)) && !(al_key_down(&mPrevKey, ALLEGRO_KEY_I))
+	else if (firstPress(mKey, mPrevKey, ALLEGRO_KEY_I)) //
 	{
 		for (int i = 0; i < 5; ++i)
 		{
@@ -72,39 +72,35 @@ void InputSystem::update()
 		GameMessage* pMessage = new AddingMessage(WanderSeek);
 		MESSAGE_MANAGER->addMessage(pMessage, 0);
 	}*/
-	else if (al_key_down(&mKey, ALLEGRO_KEY_D))
+	else if (firstPress(mKey, mPrevKey, ALLEGRO_KEY_D))
 	{
 		GameMessage* pMessage = new DeletingMessage();
 		MESSAGE_MANAGER->addMessage(pMessage, 0);
 	}
-	else if (al_key_down(&mKey, ALLEGRO_KEY_P))
+	else if (firstPress(mKey, mPrevKey, ALLEGRO_KEY_P))
 	{
 		switchDebug();
 	}
 	else if (mDebuging)
 	{
-		if (al_key_down(&mKey, ALLEGRO_KEY_V))// enemy velocity
+		if (firstPress(mKey, mPrevKey, ALLEGRO_KEY_C))// enemy velocity
 		{
-			mDebugVal = EnemyVel;
+			mDebugVal = CohesionWeight;
 		}
-		else if (al_key_down(&mKey, ALLEGRO_KEY_R))// reaction radius
+		else if (firstPress(mKey, mPrevKey, ALLEGRO_KEY_S))// reaction radius
 		{
-			mDebugVal = ReactionRadius;
+			mDebugVal = SeperateWeight;
 		}
-		else if (al_key_down(&mKey, ALLEGRO_KEY_A))// angular velocity
+		else if (firstPress(mKey, mPrevKey, ALLEGRO_KEY_A))// angular velocity
 		{
-			mDebugVal = AngularVel;
+			mDebugVal = AlignWeight;
 		}
-		else if (al_key_down(&mKey, ALLEGRO_KEY_B)) // Avoid radius
-		{
-			mDebugVal = AvoidRadius;
-		}
-		else if (al_key_down(&mKey, ALLEGRO_KEY_MINUS)) 
+		else if (firstPress(mKey, mPrevKey, ALLEGRO_KEY_MINUS))
 		{
 			GameMessage* pMessage = new DebugMessage(mDebugVal, -1);
 			MESSAGE_MANAGER->addMessage(pMessage, 0);
 		}
-		else if (al_key_down(&mKey, ALLEGRO_KEY_EQUALS)) 
+		else if (firstPress(mKey, mPrevKey, ALLEGRO_KEY_EQUALS) )
 		{
 			GameMessage* pMessage = new DebugMessage(mDebugVal, 1);
 			MESSAGE_MANAGER->addMessage(pMessage, 0);
@@ -127,10 +123,10 @@ void InputSystem::draw()
 		//write text at mouse position
 		al_draw_text( gpGame->getFont(), al_map_rgb( 255, 255, 255 ), mouseState.x, mouseState.y, ALLEGRO_ALIGN_CENTRE, mousePos.str().c_str() );
 
-		std::string d1 = "V : Enemy Velocity " + std::to_string(gpGame->getValue(EnemyVel)),
-			d2 = "R : Reaction Radius " + std::to_string(gpGame->getValue(ReactionRadius)),
-			d3 = "A : Angular Velocity " + std::to_string(gpGame->getValue(AngularVel)),
-			d4 = "B : Seperation Strength " + std::to_string(gpGame->getValue(AvoidRadius));
+		std::string d1 = "C : Cohesion Weight " + std::to_string(gpGame->getValue(CohesionWeight)),
+			d2 = "S : Seperation Weight " + std::to_string(gpGame->getValue(SeperateWeight)),
+			d3 = "A : Alignment Weight " + std::to_string(gpGame->getValue(AlignWeight));
+			
 		
 		
 		
@@ -142,7 +138,6 @@ void InputSystem::draw()
 			al_draw_text(gpGame->getFont(), al_map_rgb(127, 0, 127), 30, 90, ALLEGRO_ALIGN_LEFT, d1.c_str());//
 			al_draw_text(gpGame->getFont(), al_map_rgb(127, 0, 127), 30, 120, ALLEGRO_ALIGN_LEFT, d2.c_str());//+ 
 			al_draw_text(gpGame->getFont(), al_map_rgb(127, 0, 127), 30, 150, ALLEGRO_ALIGN_LEFT, d3.c_str());//+ 
-			al_draw_text(gpGame->getFont(), al_map_rgb(127, 0, 127), 30, 180, ALLEGRO_ALIGN_LEFT, d4.c_str());//+
 
 		}
 
