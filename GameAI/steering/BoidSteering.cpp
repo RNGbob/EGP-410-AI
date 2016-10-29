@@ -25,22 +25,13 @@ Steering* BoidSteering::getSteering()
 	
 	//mLinear = Vector2D();
 
-	/*if (isFree())
-	{
-		// wander
-		mLinear = mpMover->getOrientationAsVector() * mpMover->getMaxVelocity();
-		mAngular = mpMover->getOrientation() * (genRandomBinomial() * MAX_WANDER_ROTATION);
-	}
-	else
-	{
-		
-	}*/
-
 	mpAlign->getSteering();
 	mpCohese->getSteering();
 	mpSeperate->getSteering();
 		
-	mLinear += (mpAlign->getLinear()* 15 ) + (mpCohese->getLinear()* 4 ) + (mpSeperate->getLinear()* 12 ); // arbitrary vals for now
+	mLinear += (mpAlign->getLinear()* gpGame->getValue(AlignWeight) ) + 
+		(mpCohese->getLinear()*  gpGame->getValue(CohesionWeight)) + 
+		(mpSeperate->getLinear()* gpGame->getValue(SeperateWeight)); 
 
 	mLinear.normalize();
 	mLinear *= mpMover->getMaxVelocity();

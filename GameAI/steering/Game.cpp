@@ -42,9 +42,9 @@ Game::Game()
 	, mReactionRadius(250)
 	, mAngularVel(10)
 	, mAvoidRadius(250)
-	, mAlignWeight(1)
-	, mCohesionWeight(1)
-	, mSeperateWeight(2)
+	, mAlignWeight(5)
+	, mCohesionWeight(2)
+	, mSeperateWeight(6)
 	//,mSmurfBufferID(INVALID_ID)
 {
 }
@@ -297,6 +297,15 @@ int Game::getValue(ChangeableVal val)
 	case AvoidRadius:
 		return mAvoidRadius;
 		break;
+	case AlignWeight:
+		return mAlignWeight;
+		break;
+	case CohesionWeight:
+		return mCohesionWeight;
+		break;
+	case SeperateWeight:
+		return mSeperateWeight;
+		break;
 	default:
 		break;
 	}
@@ -323,6 +332,15 @@ void Game::setValue(ChangeableVal val, int direction) // direction is either 1 o
 		break;
 	case AvoidRadius:
 		mAvoidRadius += (direction*speed);
+		break;
+	case AlignWeight:
+		mAlignWeight += (direction*speed);
+		break;
+	case CohesionWeight:
+		mCohesionWeight += (direction*speed);
+		break;
+	case SeperateWeight:
+		mSeperateWeight += (direction*speed);
 		break;
 	default:
 		break;
