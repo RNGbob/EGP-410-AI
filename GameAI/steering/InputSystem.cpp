@@ -49,9 +49,16 @@ void InputSystem::update()
 
 	al_get_keyboard_state(&mKey);
 
-	 if (al_key_down(&mKey, ALLEGRO_KEY_ESCAPE))
+	if (al_key_down(&mKey, ALLEGRO_KEY_ESCAPE))
 	{
 		 gpGame->endGame();
+	}
+	else if (al_key_down(&mKey, ALLEGRO_KEY_LCTRL) || al_key_down(&mKey, ALLEGRO_KEY_RCTRL))//
+	{
+		if (firstPress(mKey, mPrevKey, ALLEGRO_KEY_S))
+		{
+			gpGame->getDataManager()->save();
+		}
 	}
 	else if (firstPress(mKey, mPrevKey, ALLEGRO_KEY_I)) //
 	{
@@ -62,16 +69,6 @@ void InputSystem::update()
 		}
 	
 	}
-	/*else if (al_key_down(&mKey, ALLEGRO_KEY_F))
-	{
-		GameMessage* pMessage = new AddingMessage(WanderFlee);
-		MESSAGE_MANAGER->addMessage(pMessage, 0);
-	}
-	else if (al_key_down(&mKey, ALLEGRO_KEY_S))
-	{
-		GameMessage* pMessage = new AddingMessage(WanderSeek);
-		MESSAGE_MANAGER->addMessage(pMessage, 0);
-	}*/
 	else if (firstPress(mKey, mPrevKey, ALLEGRO_KEY_D))
 	{
 		GameMessage* pMessage = new DeletingMessage();
@@ -106,6 +103,8 @@ void InputSystem::update()
 			MESSAGE_MANAGER->addMessage(pMessage, 0);
 		}
 	}
+	
+	
 	mPrevKey = mKey;
 	mPrevMouse = mMouse;
 }

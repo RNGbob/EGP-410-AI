@@ -8,6 +8,7 @@
 #include <allegro5/allegro_audio.h>
 #include "BoxCollider.h"
 #include "CircleCollider.h"
+#include "DataManager.h"
 #include <string>
 #include <sstream>
 
@@ -21,6 +22,7 @@ class Timer;
 class UnitManager;
 class InputSystem;
 class WallManager;
+class DataManager;
 class Pillar;
 
 
@@ -36,12 +38,23 @@ const int HEIGHT = 768;
 
 enum Method
 {
-	Arrive, Seek, Wander, WanderSeek, WanderFlee, Boids
+	Arrive, 
+	Seek, 
+	Wander, 
+	WanderSeek, 
+	WanderFlee, 
+	Boids
 };
 
 enum ChangeableVal
 {
-	EnemyVel, ReactionRadius, AngularVel, AvoidRadius, AlignWeight, CohesionWeight, SeperateWeight
+	EnemyVel, 
+	ReactionRadius, 
+	AngularVel, 
+	AvoidRadius, 
+	AlignWeight, 
+	CohesionWeight, 
+	SeperateWeight
 };
 
 class Game:public Trackable
@@ -69,20 +82,18 @@ public:
 
 	inline Pillar* getPillars()const { return mpCenterPillar; }// will probably change to a manager at some point
 	
-	
-	// changeble values for Assignment2 debug state.
 	int getValue(ChangeableVal val);
-	void setValue(ChangeableVal val , int direction);
-
+	void setValue(ChangeableVal val, int value);
+	void modValue(ChangeableVal val , int direction);
 
 	void input();
 	void update();
 	void draw();
-
 	
 	KinematicUnit* getPlayerUnit();
 	UnitManager* getUnitManager();
 	WallManager* getWallManager();
+	DataManager* getDataManager();
 	/*/inline KinematicUnit* getAIUnit() { return mpAIUnit; };//should be someplace else
 	inline KinematicUnit* getAIUnit2() { return mpAIUnit2; };//should be someplace else/**/
 
@@ -91,6 +102,7 @@ public:
 private:
 	GraphicsSystem* mpGraphicsSystem;
 	GraphicsBufferManager* mpGraphicsBufferManager;
+	DataManager* mpDataManager;
 	SpriteManager* mpSpriteManager;
 	GameMessageManager* mpMessageManager;
 	UnitManager* mpUnitManager;

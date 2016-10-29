@@ -23,9 +23,10 @@ Steering * SeperationSteering::getSteering()
 		if (gpGame->getUnitManager()->getUnit(i) != mpMover)
 		{
 
-			if (gpGame->getUnitManager()->getUnit(i)->getDistance(mpMover) < 50)
+			if (gpGame->getUnitManager()->getUnit(i)->getDistance(mpMover) < gpGame->getValue(AvoidRadius))
 			{
-				mLinear += ( gpGame->getUnitManager()->getUnit(i)->getPosition() - mpMover->getPosition()) * max( (100 / gpGame->getUnitManager()->getUnit(i)->getDistance(mpMover)),1);
+				mLinear += ( gpGame->getUnitManager()->getUnit(i)->getPosition() - mpMover->getPosition()) 
+					* max( (gpGame->getValue(AvoidRadius) / gpGame->getUnitManager()->getUnit(i)->getDistance(mpMover)),1); // if closer force is stronger
 				boidCount++;
 			}
 		}

@@ -39,12 +39,12 @@ Game::Game()
 	,mpSample(NULL)
 	,mBackgroundBufferID(INVALID_ID)
 	, mEnemyVel(150)
-	, mReactionRadius(250)
+	, mReactionRadius(150)
 	, mAngularVel(10)
-	, mAvoidRadius(250)
-	, mAlignWeight(5)
-	, mCohesionWeight(2)
-	, mSeperateWeight(6)
+	, mAvoidRadius(50)
+	//, mAlignWeight(5)
+	//, mCohesionWeight(2)
+	//, mSeperateWeight(6)
 	//,mSmurfBufferID(INVALID_ID)
 {
 }
@@ -86,6 +86,10 @@ bool Game::init()
 	mpInputSystem = new InputSystem();
 	mpWallManager = new WallManager();
 	mpCenterPillar = new Pillar(Vector2D(WIDTH / 2, HEIGHT / 2), 30);
+	
+	mpDataManager = new DataManager();
+	mpDataManager->load();
+
 	
 	//startup a lot of allegro stuff
 
@@ -225,6 +229,11 @@ WallManager * Game::getWallManager()
 	return mpWallManager;
 }
 
+DataManager * Game::getDataManager()
+{
+	return mpDataManager;
+}
+
 void Game::cleanup()
 {
 	//delete unitmanager/Inputsystem
@@ -237,6 +246,9 @@ void Game::cleanup()
 
 	delete mpWallManager;
 	mpWallManager = NULL;
+
+	delete mpDataManager;
+	mpDataManager = NULL;
 
 	delete mpCenterPillar;
 	mpCenterPillar = NULL;
@@ -310,12 +322,41 @@ int Game::getValue(ChangeableVal val)
 		break;
 	}
 	
-	
-	
 	return 0;
 }
 
-void Game::setValue(ChangeableVal val, int direction) // direction is either 1 or -1
+void Game::setValue(ChangeableVal val, int value)
+{
+	switch (val)
+	{
+	case EnemyVel:
+		mEnemyVel = value;
+		mpUnitManager->changeVels1(mEnemyVel);
+		break;
+	case ReactionRadius:
+		mReactionRadius = value;
+		break;
+	case AngularVel:
+		mAngularVel = value;
+		break;
+	case AvoidRadius:
+		mAvoidRadius = value;
+		break;
+	case AlignWeight:
+		mAlignWeight = value;
+		break;
+	case CohesionWeight:
+		mCohesionWeight = value;
+		break;
+	case SeperateWeight:
+		mSeperateWeight = value;
+		break;
+	default:
+		break;
+	}
+}
+
+void Game::modValue(ChangeableVal val, int direction) // direction is either 1 or -1
 {
 	int speed = 1;
 	switch (val)

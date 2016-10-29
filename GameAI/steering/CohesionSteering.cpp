@@ -23,7 +23,7 @@ Steering * CohesionSteering::getSteering()
 		if (gpGame->getUnitManager()->getUnit(i) != mpMover)
 		{
 
-			if (gpGame->getUnitManager()->getUnit(i)->getDistance(mpMover) < 200)
+			if (gpGame->getUnitManager()->getUnit(i)->getDistance(mpMover) < gpGame->getValue(ReactionRadius))
 			{
 				mLinear += gpGame->getUnitManager()->getUnit(i)->getPosition();
 				++boidCount;
