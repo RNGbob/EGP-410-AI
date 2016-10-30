@@ -83,7 +83,7 @@ void UnitManager::addUnit(Method steeringType)
 {
 	double theta = rand() % 360;//2*PI;
 	
-	Vector2D pos(mPlayerUnit->getPosition().getX() + (200 * sin(theta)), mPlayerUnit->getPosition().getY() + (200 * cos(theta))); 
+	Vector2D pos(mPlayerUnit->getPosition().getX() + (100 * sin(theta)), mPlayerUnit->getPosition().getY() + (100 * cos(theta))); 
 	
 
 	Vector2D vel(0.0f, 0.0f);
@@ -91,36 +91,29 @@ void UnitManager::addUnit(Method steeringType)
 
 	switch (steeringType)
 	{
+	case Boids:
+		newUnit = new KinematicUnit(mpSpriteManager->getSprite(AI_ICON_SPRITE_ID), pos, 1, vel, 10.0f, gpGame->getValue(EnemyVel), 50.f);
+		newUnit->boid(mPlayerUnit);
+		mUnitList.push_back(newUnit);
+		break;
 	case WanderSeek:
-		newUnit = new KinematicUnit(mpSpriteManager->getSprite(AI_ICON_SPRITE_ID), pos, 1, vel, 0.0f, gpGame->getValue(EnemyVel), 50.f);
+		newUnit = new KinematicUnit(mpSpriteManager->getSprite(AI_ICON_SPRITE_ID), pos, 1, vel, 10.0f, gpGame->getValue(EnemyVel), 50.f);
 		newUnit->wanderSeek(mPlayerUnit);
+		mUnitList.push_back(newUnit);
 		break;
 	case WanderFlee:
-		newUnit = new KinematicUnit(mpSpriteManager->getSprite(AI_ICON_SPRITE_ID), pos, 1, vel, 0.0f, gpGame->getValue(EnemyVel), 50.0f);
+		newUnit = new KinematicUnit(mpSpriteManager->getSprite(AI_ICON_SPRITE_ID), pos, 1, vel, 10.0f, gpGame->getValue(EnemyVel), 50.0f);
 		newUnit->wanderFlee(mPlayerUnit);
+		mUnitList.push_back(newUnit);
 		break;
 	default:
 		break;
 	}
 	
 	/*
-	if (steeringType == Arrive)
-	{
-		pos.setX(pos.getX() + 200); // 200p away in x
-		newUnit = new KinematicUnit(mpSpriteManager->getSprite(AI_ICON_SPRITE_ID), pos, 1, vel, 0.0f, gpGame->getValue(EnemyVel), gpGame->getValue(AngularVel));
-		newUnit->dynamicArrive(mPlayerUnit);
-		
-		// 200p away and arrive 
-	}
-	else if (steeringType == Seek)
-	{
-		pos.setX(pos.getX() + 100); //100p away in x
-		newUnit = new KinematicUnit(mpSpriteManager->getSprite(AI_ICON_SPRITE_ID), pos, 1, vel, 0.0f, gpGame->getValue(EnemyVel), gpGame->getValue(AngularVel));
-		newUnit->dynamicSeek(mPlayerUnit);
-		//100p away and seek
-	}*/
+	*/
 
-	mUnitList.push_back(newUnit);
+	
 
 
 }

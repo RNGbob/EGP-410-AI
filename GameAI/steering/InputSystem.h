@@ -22,10 +22,21 @@ public:
 	void draw();
 	void switchDebug();
 
+	bool firstPress(ALLEGRO_KEYBOARD_STATE& now, ALLEGRO_KEYBOARD_STATE& last, int key);
+	bool firstPress(ALLEGRO_MOUSE_STATE& now, ALLEGRO_MOUSE_STATE& last, int mouseButton);
+
 private:
 	GameMessageManager* mpMessageManger;
 	bool mDebuging;
 	ChangeableVal mDebugVal;
+
+	ALLEGRO_MOUSE_STATE mMouse;
+	ALLEGRO_MOUSE_STATE mPrevMouse;
+
+	ALLEGRO_KEYBOARD_STATE mKey;
+	ALLEGRO_KEYBOARD_STATE mPrevKey;
+
+
 };
 
 

@@ -42,3 +42,17 @@ bool WallManager::checkCollision(BoxCollider* unit)
 	
 	return collision;
 }
+
+bool WallManager::checkCollision(CircleCollider * unit)
+{
+	bool collision = false;
+
+	for each (Wall* wall in mWalls)
+	{
+		collision = wall->checkCollision(unit);
+		if (collision) { break; }
+	}
+
+
+	return collision;
+}

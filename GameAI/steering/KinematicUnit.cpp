@@ -10,8 +10,10 @@
 #include "DynamicSeekSteering.h"
 #include "DynamicArriveSteering.h"
 #include "DynamicWanderSeekSteering.h"
+#include "BoidSteering.h"
 #include "UnitManager.h"
 #include "WallManager.h"
+#include "Pillar.h"
 
 using namespace std;
 
@@ -46,8 +48,7 @@ void KinematicUnit::update(float time, const std::vector<KinematicUnit*> &units)
 	mBox.setPos(mPosition);
 	if( mpCurrentSteering != NULL )
 	{
-		//steering = mpCurrentSteering->getSteering();
-		steering = appliedSeperation(units); // determines steering with seperation from surrounding units
+		steering = mpCurrentSteering->getSteering();
 	}
 	else
 	{
@@ -70,15 +71,20 @@ void KinematicUnit::update(float time, const std::vector<KinematicUnit*> &units)
 	if (gpGame->getWallManager()->checkCollision(&mBox))
 	{
 		//cout << "COLLISION";
-		Vector2D bounce = mVelocity*-2;
+		Vector2D bounce =  Vector2D((WIDTH / 2), (HEIGHT / 2)) - mPosition;  // seek center
 		this->setVelocity(bounce);
+		this->mpCurrentSteering->setLinear(bounce);
 		steering= &gNullSteering;
 		if (mIsPlayer)
 		{
-			
-			arrive(Vector2D(mPosition-(mVelocity*-0.25))); // will smash into wall infinitle otherwise without pathfinding
-
+			arrive(Vector2D(mPosition-(mVelocity*-0.25))); // will smash into wall infinitely otherwise without pathfinding
 		}
+	}
+	if (gpGame->getPillars()->checkCollision(&mBox))
+	{
+		Vector2D swerve = (gpGame->getPillars()->getPos() - mPosition)*5; 
+		mVelocity += Vector2D(swerve.getY(),swerve.getX());//swerve vector that moves to side of circle
+		mpCurrentSteering->setLinear(Vector2D(swerve.getY(), swerve.getX()));
 	}
 
 	//move the unit using current velocities
@@ -91,7 +97,7 @@ void KinematicUnit::update(float time, const std::vector<KinematicUnit*> &units)
 	GRAPHICS_SYSTEM->wrapCoordinates( mPosition );
 
 	//set the orientation to match the direction of travel
-	//setNewOrientation();
+	setNewOrientation();
 }
 
 //private - deletes old Steering before setting
@@ -169,76 +175,11 @@ void KinematicUnit::wanderFlee(KinematicUnit * pTarget)
 
 }
 
-
-// applies seperation for all nonplayer entities on a seperate steering copied from current steering
-
-Steering * KinematicUnit::appliedSeperation(const std::vector<KinematicUnit*>& units)
+void KinematicUnit::boid(KinematicUnit * pTarget)
 {
+	BoidSteering* pBoidSteering = new BoidSteering(this);
+	setSteering(pBoidSteering);
 
-	//delete mpGroupSteering;
-	
-	mpGroupSteering = mpCurrentSteering;
-	
-	Vector2D direction;
-	float distance, strength;
-	
-	if (!mIsPlayer)
-	{
-
-		for (int i = 0; i < units.size(); ++i)
-		{
-			direction = units[i]->getPosition() - this->getPosition();
-			distance = direction.getLength();
-			if (distance < 50)
-			{
-				strength = min(gpGame->getValue(AvoidRadius)*distance*distance, this->mMaxAcceleration);// arbitrary decay coefficient
-				
-				direction.normalize();
-
-				mpGroupSteering->setLinear(mpGroupSteering->getLinear() + (direction*strength));
-			}
-		}
-
-		return mpGroupSteering->getSteering();;
-
-	}
-	else { return mpCurrentSteering->getSteering(); }
-	
-	return  mpCurrentSteering->getSteering();;
 }
 
 
-
-// suedo arbitration thing
-/*
-Steering* KinematicUnit::determineSteering(const std::vector<KinematicUnit*> &units)
-{
-	
-	delete mpGroupSteering;
-	mpGroupSteering = NULL;
-	KinematicUnit* closest = nullptr;
-	float smallest = 50.0f; // arbitrary for now 
-	
-	if (!mIsPlayer)
-	{
-		for (int i = 0; i < units.size(); ++i)
-		{
-			if (getDistance(units[i]) < smallest)
-			{
-				closest = units[i];
-				smallest = getDistance(units[i]);
-			}
-		}
-		if (closest != nullptr)
-		{
-			DynamicSeekSteering* pDynamicSeekSteering = new DynamicSeekSteering(this, closest, true); 
-			setGroupSteering(pDynamicSeekSteering);
-
-			return mpGroupSteering->getSteering();
-		}
-		return mpCurrentSteering->getSteering();
-
-	}
-	else {return mpCurrentSteering->getSteering();}
-
-}*/

@@ -2,6 +2,7 @@
 #include "Vector2D.h"
 #include "Game.h"
 
+class CircleCollider;
 
 class BoxCollider :public Trackable
 {
@@ -14,7 +15,8 @@ public:
 	Vector2D getDim()const { return mDim; }
 
 	void setPos(Vector2D pos) { mPos = pos; }
-	bool checkBoxCollison(BoxCollider* &other);
+	bool checkCollison(BoxCollider* &other);
+	bool checkCollison(CircleCollider* &other);
 
 
 private:

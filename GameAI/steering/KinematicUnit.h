@@ -56,9 +56,7 @@ public:
 	void dynamicArrive( KinematicUnit* pTarget );
 	void wanderSeek(KinematicUnit* pTarget); 
 	void wanderFlee(KinematicUnit* pTarget);
-
-	//Steering* determineSteering(const std::vector<KinematicUnit*> &units);
-	Steering* appliedSeperation(const std::vector<KinematicUnit*> &units);
+	void boid(KinematicUnit* pTarget);
 
 private:
 	Sprite* mpSprite;

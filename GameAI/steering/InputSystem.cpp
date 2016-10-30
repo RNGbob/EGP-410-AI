@@ -20,9 +20,6 @@ void InputSystem::init( GameMessageManager* &mesman)
 {
 	mpMessageManger = mesman;
 	mDebuging = false;
-	
-	
-
 }
 
 void InputSystem::cleanup()// easier to call rather than depending on destructor call;
@@ -36,77 +33,77 @@ void InputSystem::cleanup()// easier to call rather than depending on destructor
 void InputSystem::update()
 {
 
-	ALLEGRO_MOUSE_STATE mouse;
+	al_get_mouse_state(&mMouse); 
 
-	al_get_mouse_state(&mouse); 
-
-	if (al_mouse_button_down(&mouse, 1))
+	if (al_mouse_button_down(&mMouse, 1))
 	{
-		Vector2D pos(mouse.x, mouse.y);
+		Vector2D pos(mMouse.x, mMouse.y);
 		GameMessage* pMessage = new PlayerMoveToMessage(pos);
 		MESSAGE_MANAGER->addMessage(pMessage, 0);
 	}
-	else if (al_mouse_button_down(&mouse, 2)){}
+	else if (al_mouse_button_down(&mMouse, 2)){}
 
-	ALLEGRO_KEYBOARD_STATE key;
 
-	al_get_keyboard_state(&key);
+	al_get_keyboard_state(&mKey);
 
-	 if (al_key_down(&key, ALLEGRO_KEY_ESCAPE))
+	if (al_key_down(&mKey, ALLEGRO_KEY_ESCAPE))
 	{
 		 gpGame->endGame();
 	}
-	else if (al_key_down(&key, ALLEGRO_KEY_F))
+	else if (al_key_down(&mKey, ALLEGRO_KEY_LCTRL) || al_key_down(&mKey, ALLEGRO_KEY_RCTRL))//
 	{
-		GameMessage* pMessage = new AddingMessage(WanderFlee);
-		MESSAGE_MANAGER->addMessage(pMessage, 0);
+		if (firstPress(mKey, mPrevKey, ALLEGRO_KEY_S))
+		{
+			gpGame->getDataManager()->save();
+		}
 	}
-	else if (al_key_down(&key, ALLEGRO_KEY_S))
+	else if (firstPress(mKey, mPrevKey, ALLEGRO_KEY_I)) //
 	{
-		GameMessage* pMessage = new AddingMessage(WanderSeek);
-		MESSAGE_MANAGER->addMessage(pMessage, 0);
+		for (int i = 0; i < 5; ++i)
+		{
+			GameMessage* pMessage = new AddingMessage(Boids);
+			MESSAGE_MANAGER->addMessage(pMessage, 0);
+		}
+	
 	}
-	else if (al_key_down(&key, ALLEGRO_KEY_D))
+	else if (firstPress(mKey, mPrevKey, ALLEGRO_KEY_D))
 	{
 		GameMessage* pMessage = new DeletingMessage();
 		MESSAGE_MANAGER->addMessage(pMessage, 0);
 	}
-	else if (al_key_down(&key, ALLEGRO_KEY_I))
+	else if (firstPress(mKey, mPrevKey, ALLEGRO_KEY_P))
 	{
 		switchDebug();
 	}
 	else if (mDebuging)
 	{
-		if (al_key_down(&key, ALLEGRO_KEY_V))// enemy velocity
+		if (firstPress(mKey, mPrevKey, ALLEGRO_KEY_C))// enemy velocity
 		{
-			mDebugVal = EnemyVel;
+			mDebugVal = CohesionWeight;
 		}
-		else if (al_key_down(&key, ALLEGRO_KEY_R))// reaction radius
+		else if (firstPress(mKey, mPrevKey, ALLEGRO_KEY_S))// reaction radius
 		{
-			mDebugVal = ReactionRadius;
+			mDebugVal = SeperateWeight;
 		}
-		else if (al_key_down(&key, ALLEGRO_KEY_A))// angular velocity
+		else if (firstPress(mKey, mPrevKey, ALLEGRO_KEY_A))// angular velocity
 		{
-			mDebugVal = AngularVel;
+			mDebugVal = AlignWeight;
 		}
-		else if (al_key_down(&key, ALLEGRO_KEY_B)) // Avoid radius
-		{
-			mDebugVal = AvoidRadius;
-		}
-		else if (al_key_down(&key, ALLEGRO_KEY_MINUS)) 
+		else if (firstPress(mKey, mPrevKey, ALLEGRO_KEY_MINUS))
 		{
 			GameMessage* pMessage = new DebugMessage(mDebugVal, -1);
 			MESSAGE_MANAGER->addMessage(pMessage, 0);
 		}
-		else if (al_key_down(&key, ALLEGRO_KEY_EQUALS)) 
+		else if (firstPress(mKey, mPrevKey, ALLEGRO_KEY_EQUALS) && ( al_key_down(&mKey, ALLEGRO_KEY_RSHIFT) || al_key_down(&mKey, ALLEGRO_KEY_LSHIFT)))
 		{
 			GameMessage* pMessage = new DebugMessage(mDebugVal, 1);
 			MESSAGE_MANAGER->addMessage(pMessage, 0);
 		}
-
-
 	}
 	
+	// assign last frames key
+	mPrevKey = mKey;
+	mPrevMouse = mMouse;
 }
 
 void InputSystem::draw()
@@ -122,14 +119,11 @@ void InputSystem::draw()
 		//write text at mouse position
 		al_draw_text( gpGame->getFont(), al_map_rgb( 255, 255, 255 ), mouseState.x, mouseState.y, ALLEGRO_ALIGN_CENTRE, mousePos.str().c_str() );
 
-		std::string d1 = "V : Enemy Velocity " + std::to_string(gpGame->getValue(EnemyVel)),
-			d2 = "R : Reaction Radius " + std::to_string(gpGame->getValue(ReactionRadius)),
-			d3 = "A : Angular Velocity " + std::to_string(gpGame->getValue(AngularVel)),
-			d4 = "B : Seperation Strength " + std::to_string(gpGame->getValue(AvoidRadius));
+		std::string d1 = "C : Cohesion Weight " + std::to_string(gpGame->getValue(CohesionWeight)),
+			d2 = "S : Seperation Weight " + std::to_string(gpGame->getValue(SeperateWeight)),
+			d3 = "A : Alignment Weight " + std::to_string(gpGame->getValue(AlignWeight));
 		
-		
-		
-		
+		// draw text when debugging
 		if (mDebuging)
 		{
 			al_draw_text(gpGame->getFont(), al_map_rgb(127, 0, 127), 30, 30, ALLEGRO_ALIGN_LEFT, "DEBUGGING ");
@@ -137,7 +131,6 @@ void InputSystem::draw()
 			al_draw_text(gpGame->getFont(), al_map_rgb(127, 0, 127), 30, 90, ALLEGRO_ALIGN_LEFT, d1.c_str());//
 			al_draw_text(gpGame->getFont(), al_map_rgb(127, 0, 127), 30, 120, ALLEGRO_ALIGN_LEFT, d2.c_str());//+ 
 			al_draw_text(gpGame->getFont(), al_map_rgb(127, 0, 127), 30, 150, ALLEGRO_ALIGN_LEFT, d3.c_str());//+ 
-			al_draw_text(gpGame->getFont(), al_map_rgb(127, 0, 127), 30, 180, ALLEGRO_ALIGN_LEFT, d4.c_str());//+
 
 		}
 
@@ -147,6 +140,16 @@ void InputSystem::draw()
 void InputSystem::switchDebug()
 {
 	mDebuging = !mDebuging;
+}
+// only returns true if current keystate is down but not the last. same with mouse state
+bool InputSystem::firstPress(ALLEGRO_KEYBOARD_STATE& now, ALLEGRO_KEYBOARD_STATE& last, int key)
+{
+	return ((al_key_down(&now, key)) && !(al_key_down(&last, key)));
+}
+
+bool InputSystem::firstPress(ALLEGRO_MOUSE_STATE& now, ALLEGRO_MOUSE_STATE& last, int mouseButton)
+{
+	return ((al_mouse_button_down(&now, mouseButton)) && !(al_mouse_button_down(&last, mouseButton)));
 }
 
 /* 

@@ -14,6 +14,7 @@ public:
 	~Wall();
 
 	bool checkCollision(BoxCollider* unit);
+	bool checkCollision(CircleCollider* unit);
 	
 	void draw();
 

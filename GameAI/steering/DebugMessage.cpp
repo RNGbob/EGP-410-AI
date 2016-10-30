@@ -13,6 +13,6 @@ DebugMessage::~DebugMessage()
 
 void DebugMessage::process()
 {
-	gpGame->setValue(mVal, mMod);
+	gpGame->modValue(mVal, mMod);
 
 }

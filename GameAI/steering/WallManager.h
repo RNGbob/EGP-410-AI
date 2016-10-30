@@ -18,6 +18,7 @@ public:
 	void draw();
 	void addWall(Vector2D start, Vector2D end, float width);
 	bool checkCollision(BoxCollider* unit);
+	bool checkCollision(CircleCollider* unit);
 
 private:
 

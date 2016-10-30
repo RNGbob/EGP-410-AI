@@ -7,6 +7,8 @@
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_audio.h>
 #include "BoxCollider.h"
+#include "CircleCollider.h"
+#include "DataManager.h"
 #include <string>
 #include <sstream>
 
@@ -20,6 +22,8 @@ class Timer;
 class UnitManager;
 class InputSystem;
 class WallManager;
+class DataManager;
+class Pillar;
 
 
 const IDType BACKGROUND_SPRITE_ID = 0;
@@ -28,14 +32,29 @@ const IDType AI_ICON_SPRITE_ID = 2;
 
 const float LOOP_TARGET_TIME = 33.3f;//how long should each frame of execution take? 30fps = 33.3ms/frame
 
+const int WIDTH = 1024;
+const int HEIGHT = 768;
+
+
 enum Method
 {
-	Arrive, Seek, Wander, WanderSeek, WanderFlee
+	Arrive, 
+	Seek, 
+	Wander, 
+	WanderSeek, 
+	WanderFlee, 
+	Boids
 };
 
 enum ChangeableVal
 {
-	EnemyVel, ReactionRadius, AngularVel, AvoidRadius
+	EnemyVel, 
+	ReactionRadius, 
+	AngularVel, 
+	AvoidRadius, 
+	AlignWeight, 
+	CohesionWeight, 
+	SeperateWeight
 };
 
 class Game:public Trackable
@@ -60,19 +79,21 @@ public:
 	inline double getCurrentTime() const { return mpMasterTimer->getElapsedTime(); };
 	inline ALLEGRO_FONT* getFont() const { return mpFont; };
 	inline void endGame(){ mShouldExit = true; }
-	// changeble values for Assignment2 debug state.
-	int getValue(ChangeableVal val);
-	void setValue(ChangeableVal val , int direction);
 
+	inline Pillar* getPillars()const { return mpCenterPillar; }// will probably change to a manager at some point
+	
+	int getValue(ChangeableVal val);
+	void setValue(ChangeableVal val, int value);
+	void modValue(ChangeableVal val , int direction);
 
 	void input();
 	void update();
 	void draw();
-
 	
 	KinematicUnit* getPlayerUnit();
 	UnitManager* getUnitManager();
 	WallManager* getWallManager();
+	DataManager* getDataManager();
 	/*/inline KinematicUnit* getAIUnit() { return mpAIUnit; };//should be someplace else
 	inline KinematicUnit* getAIUnit2() { return mpAIUnit2; };//should be someplace else/**/
 
@@ -81,6 +102,7 @@ public:
 private:
 	GraphicsSystem* mpGraphicsSystem;
 	GraphicsBufferManager* mpGraphicsBufferManager;
+	DataManager* mpDataManager;
 	SpriteManager* mpSpriteManager;
 	GameMessageManager* mpMessageManager;
 	UnitManager* mpUnitManager;
@@ -99,6 +121,9 @@ private:
 
 	// changeable values for gamestate;
 	int mEnemyVel, mReactionRadius, mAngularVel, mAvoidRadius;
+	int mAlignWeight, mCohesionWeight, mSeperateWeight;
+
+	Pillar* mpCenterPillar;
 
 	/*/
 	KinematicUnit* mpUnit;

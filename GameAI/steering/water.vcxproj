@@ -12,7 +12,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AddingMessage.h" />
+    <ClInclude Include="AlignmentSteering.h" />
+    <ClInclude Include="BoidSteering.h" />
     <ClInclude Include="BoxCollider.h" />
+    <ClInclude Include="CircleCollider.h" />
+    <ClInclude Include="CohesionSteering.h" />
+    <ClInclude Include="DataManager.h" />
     <ClInclude Include="DebugMessage.h" />
     <ClInclude Include="Defines.h" />
     <ClInclude Include="DynamicArriveSteering.h" />
@@ -30,7 +35,9 @@
     <ClInclude Include="KinematicSeekSteering.h" />
     <ClInclude Include="KinematicUnit.h" />
     <ClInclude Include="KinematicWanderSteering.h" />
+    <ClInclude Include="Pillar.h" />
     <ClInclude Include="PlayerMoveToMessage.h" />
+    <ClInclude Include="SeperationSteering.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="SpriteManager.h" />
     <ClInclude Include="Steering.h" />
@@ -40,7 +47,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AddingMessage.cpp" />
+    <ClCompile Include="AlignmentSteering.cpp" />
+    <ClCompile Include="BoidSteering.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
+    <ClCompile Include="CircleCollider.cpp" />
+    <ClCompile Include="CohesionSteering.cpp" />
+    <ClCompile Include="DataManager.cpp" />
     <ClCompile Include="DebugMessage.cpp" />
     <ClCompile Include="DynamicArriveSteering.cpp" />
     <ClCompile Include="DynamicSeekSteering.cpp" />
@@ -58,7 +70,9 @@
     <ClCompile Include="KinematicUnit.cpp" />
     <ClCompile Include="KinematicWanderSteering.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Pillar.cpp" />
     <ClCompile Include="PlayerMoveToMessage.cpp" />
+    <ClCompile Include="SeperationSteering.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SpriteManager.cpp" />
     <ClCompile Include="Steering.cpp" />

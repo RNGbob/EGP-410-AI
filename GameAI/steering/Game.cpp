@@ -20,14 +20,13 @@
 #include "UnitManager.h"
 #include "InputSystem.h"
 #include "WallManager.h"
+#include "Pillar.h"
 #include "Timer.h"
 #include "KinematicUnit.h"
 #include "PlayerMoveToMessage.h"
 
 Game* gpGame = NULL;
 
-const int WIDTH = 1024;
-const int HEIGHT = 768;
 
 Game::Game()
 	:mpGraphicsSystem(NULL)
@@ -40,9 +39,12 @@ Game::Game()
 	,mpSample(NULL)
 	,mBackgroundBufferID(INVALID_ID)
 	, mEnemyVel(150)
-	, mReactionRadius(250)
+	, mReactionRadius(150)
 	, mAngularVel(10)
-	, mAvoidRadius(250)
+	, mAvoidRadius(50)
+	//, mAlignWeight(5)
+	//, mCohesionWeight(2)
+	//, mSeperateWeight(6)
 	//,mSmurfBufferID(INVALID_ID)
 {
 }
@@ -83,7 +85,12 @@ bool Game::init()
 	mpUnitManager = new UnitManager();
 	mpInputSystem = new InputSystem();
 	mpWallManager = new WallManager();
+	mpCenterPillar = new Pillar(Vector2D(WIDTH / 2, HEIGHT / 2), 30);
 	
+	//loads data from save file
+	mpDataManager = new DataManager();
+	mpDataManager->load();
+
 	
 	//startup a lot of allegro stuff
 
@@ -223,6 +230,11 @@ WallManager * Game::getWallManager()
 	return mpWallManager;
 }
 
+DataManager * Game::getDataManager()
+{
+	return mpDataManager;
+}
+
 void Game::cleanup()
 {
 	//delete unitmanager/Inputsystem
@@ -235,6 +247,12 @@ void Game::cleanup()
 
 	delete mpWallManager;
 	mpWallManager = NULL;
+
+	delete mpDataManager;
+	mpDataManager = NULL;
+
+	delete mpCenterPillar;
+	mpCenterPillar = NULL;
 	
 	//delete the timers
 	delete mpLoopTimer;
@@ -292,16 +310,54 @@ int Game::getValue(ChangeableVal val)
 	case AvoidRadius:
 		return mAvoidRadius;
 		break;
+	case AlignWeight:
+		return mAlignWeight;
+		break;
+	case CohesionWeight:
+		return mCohesionWeight;
+		break;
+	case SeperateWeight:
+		return mSeperateWeight;
+		break;
 	default:
 		break;
 	}
 	
-	
-	
 	return 0;
 }
 
-void Game::setValue(ChangeableVal val, int direction) // direction is either 1 or -1
+void Game::setValue(ChangeableVal val, int value)
+{
+	switch (val)
+	{
+	case EnemyVel:
+		mEnemyVel = value;
+		mpUnitManager->changeVels1(mEnemyVel);
+		break;
+	case ReactionRadius:
+		mReactionRadius = value;
+		break;
+	case AngularVel:
+		mAngularVel = value;
+		break;
+	case AvoidRadius:
+		mAvoidRadius = value;
+		break;
+	case AlignWeight:
+		mAlignWeight = value;
+		break;
+	case CohesionWeight:
+		mCohesionWeight = value;
+		break;
+	case SeperateWeight:
+		mSeperateWeight = value;
+		break;
+	default:
+		break;
+	}
+}
+
+void Game::modValue(ChangeableVal val, int direction) // direction is either 1 or -1
 {
 	int speed = 1;
 	switch (val)
@@ -318,6 +374,15 @@ void Game::setValue(ChangeableVal val, int direction) // direction is either 1 o
 		break;
 	case AvoidRadius:
 		mAvoidRadius += (direction*speed);
+		break;
+	case AlignWeight:
+		mAlignWeight += (direction*speed);
+		break;
+	case CohesionWeight:
+		mCohesionWeight += (direction*speed);
+		break;
+	case SeperateWeight:
+		mSeperateWeight += (direction*speed);
 		break;
 	default:
 		break;
@@ -343,6 +408,7 @@ void  Game::draw()
 	
 	mpUnitManager->draw(GRAPHICS_SYSTEM->getBackBuffer());
 	mpWallManager->draw();
+	mpCenterPillar->draw();
 	mpInputSystem->draw();
 
 	
