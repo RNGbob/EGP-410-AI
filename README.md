@@ -9,6 +9,7 @@ Inputs
 * Ctrl+S: saves current weights set in debugging mode
 * L-Mouse click: causes player Entity to arrive at location clicked
 * P: switch on/off debugging mode
+
 While Debugging
 * +/-: add or subtract selected value while Debugging
 * V: select Enemy Velocity while Debugging
