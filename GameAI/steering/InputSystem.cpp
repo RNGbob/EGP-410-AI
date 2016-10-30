@@ -20,9 +20,6 @@ void InputSystem::init( GameMessageManager* &mesman)
 {
 	mpMessageManger = mesman;
 	mDebuging = false;
-	
-	
-
 }
 
 void InputSystem::cleanup()// easier to call rather than depending on destructor call;
@@ -97,14 +94,14 @@ void InputSystem::update()
 			GameMessage* pMessage = new DebugMessage(mDebugVal, -1);
 			MESSAGE_MANAGER->addMessage(pMessage, 0);
 		}
-		else if (firstPress(mKey, mPrevKey, ALLEGRO_KEY_EQUALS) )
+		else if (firstPress(mKey, mPrevKey, ALLEGRO_KEY_EQUALS) && ( al_key_down(&mKey, ALLEGRO_KEY_RSHIFT) || al_key_down(&mKey, ALLEGRO_KEY_LSHIFT)))
 		{
 			GameMessage* pMessage = new DebugMessage(mDebugVal, 1);
 			MESSAGE_MANAGER->addMessage(pMessage, 0);
 		}
 	}
 	
-	
+	// assign last frames key
 	mPrevKey = mKey;
 	mPrevMouse = mMouse;
 }
@@ -125,11 +122,8 @@ void InputSystem::draw()
 		std::string d1 = "C : Cohesion Weight " + std::to_string(gpGame->getValue(CohesionWeight)),
 			d2 = "S : Seperation Weight " + std::to_string(gpGame->getValue(SeperateWeight)),
 			d3 = "A : Alignment Weight " + std::to_string(gpGame->getValue(AlignWeight));
-			
 		
-		
-		
-		
+		// draw text when debugging
 		if (mDebuging)
 		{
 			al_draw_text(gpGame->getFont(), al_map_rgb(127, 0, 127), 30, 30, ALLEGRO_ALIGN_LEFT, "DEBUGGING ");
@@ -147,7 +141,7 @@ void InputSystem::switchDebug()
 {
 	mDebuging = !mDebuging;
 }
-
+// only returns true if current keystate is down but not the last. same with mouse state
 bool InputSystem::firstPress(ALLEGRO_KEYBOARD_STATE& now, ALLEGRO_KEYBOARD_STATE& last, int key)
 {
 	return ((al_key_down(&now, key)) && !(al_key_down(&last, key)));

@@ -12,7 +12,7 @@ CohesionSteering::CohesionSteering(KinematicUnit * pMover)
 CohesionSteering::~CohesionSteering()
 {
 }
-
+// add all the positions of nearby boids, divides by count to get average then subtracts own position to move towards others
 Steering * CohesionSteering::getSteering()
 {
 	mLinear = Vector2D(0, 0);

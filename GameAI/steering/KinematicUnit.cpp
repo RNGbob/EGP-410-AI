@@ -49,7 +49,6 @@ void KinematicUnit::update(float time, const std::vector<KinematicUnit*> &units)
 	if( mpCurrentSteering != NULL )
 	{
 		steering = mpCurrentSteering->getSteering();
-		
 	}
 	else
 	{
@@ -78,14 +77,14 @@ void KinematicUnit::update(float time, const std::vector<KinematicUnit*> &units)
 		steering= &gNullSteering;
 		if (mIsPlayer)
 		{
-			arrive(Vector2D(mPosition-(mVelocity*-0.25))); // will smash into wall infinitle otherwise without pathfinding
+			arrive(Vector2D(mPosition-(mVelocity*-0.25))); // will smash into wall infinitely otherwise without pathfinding
 		}
 	}
 	if (gpGame->getPillars()->checkCollision(&mBox))
 	{
-		Vector2D swerve = (gpGame->getPillars()->getPos() - mPosition)*3;
-		this->setVelocity(mVelocity + Vector2D(swerve.getY(),swerve.getX()));
-		this->mpCurrentSteering->setLinear(Vector2D(swerve.getY(), swerve.getX()));
+		Vector2D swerve = (gpGame->getPillars()->getPos() - mPosition)*5; 
+		mVelocity += Vector2D(swerve.getY(),swerve.getX());//swerve vector that moves to side of circle
+		mpCurrentSteering->setLinear(Vector2D(swerve.getY(), swerve.getX()));
 	}
 
 	//move the unit using current velocities
@@ -183,6 +182,4 @@ void KinematicUnit::boid(KinematicUnit * pTarget)
 
 }
 
-
-// applies seperation for all nonplayer entities on a seperate steering copied from current steering
 

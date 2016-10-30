@@ -7,7 +7,7 @@ DataManager::DataManager()
 DataManager::~DataManager()
 {
 }
-// only saving boids weight for assignment 3. can implement rest if needed;
+// only saving boids weight for assignment 3. can implement rest if needed with same pattern one per line;
 void DataManager::save()
 {
 	std::ofstream saveFile;

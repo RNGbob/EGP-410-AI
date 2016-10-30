@@ -12,6 +12,7 @@ AlignmentSteering::~AlignmentSteering()
 {
 }
 
+// adds all the velocities of nearby boisa and then divides by count to get average
 Steering * AlignmentSteering::getSteering()
 {
 	//mLinear = Vector2D(0, 0);

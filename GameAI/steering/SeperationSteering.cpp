@@ -12,7 +12,7 @@ SeperationSteering::SeperationSteering(KinematicUnit * pMover)
 SeperationSteering::~SeperationSteering()
 {
 }
-
+//add all the positions subtracted by own position of nearby boids then divides by count to get average
 Steering * SeperationSteering::getSteering()
 {
 	mLinear = Vector2D(0, 0);

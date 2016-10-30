@@ -87,6 +87,7 @@ bool Game::init()
 	mpWallManager = new WallManager();
 	mpCenterPillar = new Pillar(Vector2D(WIDTH / 2, HEIGHT / 2), 30);
 	
+	//loads data from save file
 	mpDataManager = new DataManager();
 	mpDataManager->load();
 

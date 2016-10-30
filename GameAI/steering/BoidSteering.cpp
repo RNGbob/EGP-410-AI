@@ -20,6 +20,7 @@ BoidSteering::~BoidSteering()
 	delete mpSeperate;
 }
 
+//blends the 3 behaviors with weights gotten from game
 Steering* BoidSteering::getSteering()
 {
 	
