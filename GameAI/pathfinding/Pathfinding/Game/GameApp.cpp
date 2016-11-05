@@ -20,6 +20,8 @@
 #include "DebugDisplay.h"
 #include "PathfindingDebugContent.h"
 
+#include "InputSystem.h"
+
 #include <fstream>
 #include <vector>
 
@@ -51,6 +53,9 @@ bool GameApp::init()
 	}
 
 	mpMessageManager = new GameMessageManager();
+
+	mpInput = new InputSystem();
+	mpInput->init(mpMessageManager);
 
 	//create and load the Grid, GridBuffer, and GridRenderer
 	mpGrid = new Grid(mpGraphicsSystem->getWidth(), mpGraphicsSystem->getHeight(), GRID_SQUARE_SIZE);
@@ -102,6 +107,10 @@ void GameApp::cleanup()
 
 	delete mpDebugDisplay;
 	mpDebugDisplay = NULL;
+
+	delete mpInput;
+	mpInput = NULL;
+
 }
 
 void GameApp::beginLoop()
@@ -125,6 +134,7 @@ void GameApp::processLoop()
 
 	mpMessageManager->processMessagesForThisframe();
 
+	/*
 	ALLEGRO_MOUSE_STATE mouseState;
 	al_get_mouse_state( &mouseState );
 
@@ -138,7 +148,9 @@ void GameApp::processLoop()
 			mpMessageManager->addMessage( pMessage, 0 );
 			lastPos = pos;
 		}
-	}
+	}*/
+
+	mpInput->update();
 
 	//should be last thing in processLoop
 	Game::processLoop();
