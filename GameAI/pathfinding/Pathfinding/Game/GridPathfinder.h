@@ -26,4 +26,5 @@ protected:
 #endif
 
 	double mTimeElapsed;
+	std::string mPathType;
 };

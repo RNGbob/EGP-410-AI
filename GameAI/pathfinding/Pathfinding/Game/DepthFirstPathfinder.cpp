@@ -13,6 +13,7 @@ using namespace std;
 DepthFirstPathfinder::DepthFirstPathfinder( Graph* pGraph )
 :GridPathfinder(dynamic_cast<GridGraph*>(pGraph) )
 {
+	mPathType = "Depth First/ Breadth First";
 }
 
 DepthFirstPathfinder::~DepthFirstPathfinder()

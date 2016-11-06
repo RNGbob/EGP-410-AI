@@ -3,6 +3,7 @@
 #include "GameApp.h"
 #include "GameMessageManager.h"
 #include "PathToMessage.h"
+#include "SwitchPathFindingMessage.h"
 #include "Grid.h"
 #include <string>
 #include <sstream>
@@ -35,13 +36,11 @@ void InputSystem::update()
 	al_get_mouse_state(&mMouse);
 	al_get_keyboard_state(&mKey);
 
-
 	if (firstPress(mMouse, mPrevMouse,1))
 	{
 		if (!firstSelect)
 		{
 			lastPos = Vector2D(mMouse.x, mMouse.y);
-			
 			firstSelect = true;
 		}
 		else
@@ -64,24 +63,23 @@ void InputSystem::update()
 	}
 
 
-	/*
-	if (al_mouse_button_down(&mMouse, 1))//left mouse click
-	{
-		
-		Vector2D pos(mMouse.x, mMouse.y);
-		if (lastPos.getX() != pos.getX() || lastPos.getY() != pos.getY())
-		{
-			GameMessage* pMessage = new PathToMessage(lastPos, pos);
-			mpMessageManager->addMessage(pMessage, 0);
-			lastPos = pos;
-		}
-	}*/
-	//else if (al_mouse_button_down(&mMouse, 2)) {}
-
 	if (al_key_down(&mKey, ALLEGRO_KEY_ESCAPE))
 	{
 		gpGame->markForExit();
 	}
+	else if (firstPress( mKey, mPrevKey,ALLEGRO_KEY_D))
+	{
+		// not yet cuz nothin is there
+		//GameMessage* pMessage = new SwitchPathFindingMessage(DijkstraPath);
+		//mpMessageManager->addMessage(pMessage, 0);
+	}
+	else if (firstPress(mKey, mPrevKey, ALLEGRO_KEY_A))
+	{
+		// not yet cuz nothin is there
+		//GameMessage* pMessage = new SwitchPathFindingMessage(AstarPath);
+		//mpMessageManager->addMessage(pMessage, 0);
+	}
+	
 	
 
 	// assign last frames key

@@ -17,9 +17,13 @@ string PathfindingDebugContent::getDebugString()
 #ifdef VISUALIZE_PATH
 	theStream << "Pathlength:"<< mpPathfinder->mPath.getNumNodes();
 	
-	theStream << "  Num Nodes Processed:" << mpPathfinder->mVisitedNodes.size();
+	theStream << "   Num Nodes Processed:" << mpPathfinder->mVisitedNodes.size();
 #endif
-	theStream << "  Elapsed Time:" << mpPathfinder->mTimeElapsed;
+	theStream << "   Elapsed Time:" << mpPathfinder->mTimeElapsed;
+
+	theStream << "   Pathfinding Method: " << mpPathfinder->mPathType;
+
+
 	return theStream.str();
 }
 

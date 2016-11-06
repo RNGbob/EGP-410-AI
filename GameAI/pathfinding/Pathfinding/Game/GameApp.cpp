@@ -21,6 +21,8 @@
 #include "PathfindingDebugContent.h"
 
 #include "InputSystem.h"
+#include "Astar.h"
+#include "Dijkstra.h"
 
 #include <fstream>
 #include <vector>
@@ -67,6 +69,8 @@ bool GameApp::init()
 	mpGridGraph = new GridGraph(mpGrid);
 	//init the nodes and connections
 	mpGridGraph->init();
+
+	mCurrentType = DepthBreadthSearch;
 
 	mpPathfinder = new DepthFirstPathfinder(mpGridGraph);
 
@@ -134,22 +138,6 @@ void GameApp::processLoop()
 
 	mpMessageManager->processMessagesForThisframe();
 
-	/*
-	ALLEGRO_MOUSE_STATE mouseState;
-	al_get_mouse_state( &mouseState );
-
-	if( al_mouse_button_down( &mouseState, 1 ) )//left mouse click
-	{
-		static Vector2D lastPos( 0.0f, 0.0f );
-		Vector2D pos( mouseState.x, mouseState.y );
-		if( lastPos.getX() != pos.getX() || lastPos.getY() != pos.getY() )
-		{
-			GameMessage* pMessage = new PathToMessage( lastPos, pos );
-			mpMessageManager->addMessage( pMessage, 0 );
-			lastPos = pos;
-		}
-	}*/
-
 	mpInput->update();
 
 	//should be last thing in processLoop
@@ -159,4 +147,30 @@ void GameApp::processLoop()
 bool GameApp::endLoop()
 {
 	return Game::endLoop();
+}
+
+void GameApp::setPathFinding(GridPathfinder * newPF)
+{
+	delete mpPathfinder;
+	mpPathfinder = newPF;
+
+
+}
+
+void GameApp::setDepthBreadth()
+{
+	DepthFirstPathfinder* pDFpathfinder = new DepthFirstPathfinder(mpGridGraph);
+	setPathFinding(pDFpathfinder);
+}
+
+void GameApp::setDijkstra()
+{
+	Dijkstra* pDijkstra = new Dijkstra(mpGridGraph);
+	setPathFinding(pDijkstra);
+}
+
+void GameApp::setAstar()
+{
+	Astar* pAstar = new Astar(mpGridGraph);
+	setPathFinding(pAstar);
 }

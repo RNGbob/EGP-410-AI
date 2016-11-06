@@ -23,6 +23,14 @@ class InputSystem;
 
 const float LOOP_TARGET_TIME = 33.3f;//how long should each frame of execution take? 30fps = 33.3ms/frame
 
+enum PathfindingType
+{
+	DepthBreadthSearch = 0,
+	DijkstraPath,
+	AstarPath
+
+};
+
 
 class GameApp: public Game
 {
@@ -45,6 +53,12 @@ public:
 	inline Grid* getGrid() { return mpGrid; };
 	inline GridGraph* getGridGraph() { return mpGridGraph; };
 
+	void setPathFinding(GridPathfinder* newPF);
+
+	void setDepthBreadth();
+	void setDijkstra();
+	void setAstar();
+
 
 private:
 	GameMessageManager* mpMessageManager;
@@ -56,6 +70,12 @@ private:
 	InputSystem* mpInput;
 
 	GridPathfinder* mpPathfinder;
+
+	//GridPathfinder* mpDepthBreadth;
+	//GridPathfinder* mpDijkstra;
+	//GridPathfinder* mpAstar;
+
+	PathfindingType mCurrentType;
 
 };
 
