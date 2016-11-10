@@ -82,8 +82,14 @@ const Path & Astar::findPath(Node * pFrom, Node * pTo)
 				find(nodesToVisit.begin(), nodesToVisit.end(), pTempToNode) == nodesToVisit.end())
 			{
 
-				// breadth first works since all connections have equal weight
-				nodesToVisit.push_back(pTempToNode);//uncomment me for breadth-first search
+				if (heuristic(pCurrentNode,pTempToNode,pTo))
+				{
+					nodesToVisit.push_front( pTempToNode );
+				}
+				else
+				{
+					nodesToVisit.push_back(pTempToNode);
+				}
 
 				pTempPath = Path();
 				pTempPath = pathsMade[currentPathIndex];
@@ -117,4 +123,61 @@ const Path & Astar::findPath(Node * pFrom, Node * pTo)
 	}
 
 	return mPath;
+}
+
+bool Astar::heuristic(Node * current, Node* temp, Node* pTo)
+{
+	bool retVal = true;
+
+	int currentIndex, tempIndex, pToIndex;
+	currentIndex = static_cast<int>(current->getId());
+	tempIndex = static_cast<int>(temp->getId());
+	pToIndex = static_cast<int>(pTo->getId());
+
+	if (getXdir(currentIndex, pToIndex) != getXdir(currentIndex,tempIndex) 
+		|| getYdir(currentIndex, pToIndex) != getYdir(currentIndex, tempIndex))
+	{
+		retVal = false;
+	}
+
+	return retVal;
+}
+
+int Astar::getXdir(int from, int to)
+{
+	int fromX = from % 32;
+	int toX = to % 32;
+
+	if (toX == fromX )
+	{
+		return 0;
+	}
+	else if (toX > fromX )
+	{
+		return 1;
+	}
+	else
+	{
+		return -1;
+	}
+}
+
+int Astar::getYdir(int from, int to)
+{
+	int fromY = from / 32;
+	int toY = to / 32;
+
+	if (toY == fromY )
+	{
+		return 0;
+	}
+	else if (toY > fromY )
+	{
+		return 1;
+	}
+	else
+	{
+		return -1;
+	}
+
 }

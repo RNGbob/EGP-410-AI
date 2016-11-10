@@ -92,9 +92,9 @@ void InputSystem::update()
 	}
 	else if (firstPress(mKey, mPrevKey, ALLEGRO_KEY_A))
 	{
-		// not yet cuz nothin is there
-		//GameMessage* pMessage = new SwitchPathFindingMessage(AstarPath);
-		//mpMessageManager->addMessage(pMessage, 0);
+		
+		GameMessage* pMessage = new SwitchPathFindingMessage(AstarPath);
+		mpMessageManager->addMessage(pMessage, 0);
 	}
 	
 	
