@@ -169,16 +169,19 @@ void GameApp::setDepthBreadth()
 {
 	DepthFirstPathfinder* pDFpathfinder = new DepthFirstPathfinder(mpGridGraph);
 	setPathFinding(pDFpathfinder);
+	mCurrentType = DepthBreadthSearch;
 }
 
 void GameApp::setDijkstra()
 {
 	Dijkstra* pDijkstra = new Dijkstra(mpGridGraph);
 	setPathFinding(pDijkstra);
+	mCurrentType = DijkstraPath;
 }
 
 void GameApp::setAstar()
 {
 	Astar* pAstar = new Astar(mpGridGraph);
 	setPathFinding(pAstar);
+	mCurrentType = AstarPath;
 }

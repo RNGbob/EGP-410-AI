@@ -59,6 +59,7 @@ public:
 	void setDijkstra();
 	void setAstar();
 
+	PathfindingType getType() { return mCurrentType; }
 
 private:
 	GameMessageManager* mpMessageManager;

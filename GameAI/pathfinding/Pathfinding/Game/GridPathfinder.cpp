@@ -4,6 +4,7 @@
 #include "GridVisualizer.h"
 #include "Path.h"
 #include "Game.h"
+#include "GameApp.h"
 #include "GraphicsBuffer.h"
 
 GridPathfinder::GridPathfinder( GridGraph* pGraph )
@@ -26,6 +27,7 @@ GridPathfinder::~GridPathfinder()
 #ifdef VISUALIZE_PATH
 void GridPathfinder::drawVisualization( Grid* pGrid, GraphicsBuffer* pDest )
 {
+	GameApp* pGame = dynamic_cast<GameApp*>(gpGame);
 	if (mpVisualizer == NULL)
 	{
 		mpVisualizer = new GridVisualizer(pGrid);
@@ -36,8 +38,26 @@ void GridPathfinder::drawVisualization( Grid* pGrid, GraphicsBuffer* pDest )
 	}
 
 	static ALLEGRO_COLOR pathColor = al_map_rgb( 255, 64, 64 );
+	switch (pGame->getType())
+	{
+	case DepthBreadthSearch:
+		pathColor = al_map_rgb(225, 225, 25);
+		break;
+	case DijkstraPath:
+		 pathColor = al_map_rgb(255, 64, 64);
+		break;
+	case AstarPath:
+		 pathColor = al_map_rgb(64, 64, 255);
+		break;
+
+	default:
+		break;
+	}
+	
+	
+
 	static ALLEGRO_COLOR startColor = al_map_rgb(1, 255, 128);
-	static ALLEGRO_COLOR stopColor = al_map_rgb(1, 128, 255);
+	static ALLEGRO_COLOR stopColor = al_map_rgb(100, 15, 140);
 
 	unsigned int numNodes = mPath.getNumNodes();
 	ALLEGRO_COLOR currentPathColor = pathColor;
@@ -48,7 +68,8 @@ void GridPathfinder::drawVisualization( Grid* pGrid, GraphicsBuffer* pDest )
 		{
 			mpVisualizer->addColor(mPath.peekNode(i)->getId(), currentPathColor);
 			float lerpVal = lerp( i, 0, numNodes );
-			currentPathColor.r = 1.0f - lerpVal;
+			currentPathColor.g = 1.0f - lerpVal;
+			
 		}
 
 		//add beginning and ending color
