@@ -127,57 +127,40 @@ const Path & Astar::findPath(Node * pFrom, Node * pTo)
 
 bool Astar::heuristic(Node * current, Node* temp, Node* pTo)
 {
-	bool retVal = true;
+	bool retVal = false;
 
 	int currentIndex, tempIndex, pToIndex;
 	currentIndex = static_cast<int>(current->getId());
 	tempIndex = static_cast<int>(temp->getId());
 	pToIndex = static_cast<int>(pTo->getId());
 
-	if (getXdir(currentIndex, pToIndex) != getXdir(currentIndex,tempIndex) 
-		|| getYdir(currentIndex, pToIndex) != getYdir(currentIndex, tempIndex))
+	
+	if ((getXdiff(currentIndex, pToIndex)>getXdiff(tempIndex, pToIndex))
+		|| (getYdiff(currentIndex, pToIndex)>getYdiff(tempIndex, pToIndex)))
 	{
-		retVal = false;
+		retVal = true;
 	}
+
 
 	return retVal;
 }
 
-int Astar::getXdir(int from, int to)
+int Astar::getXdiff(int from, int to)
 {
 	int fromX = from % 32;
 	int toX = to % 32;
+	
+	int diff = abs(toX - fromX);
 
-	if (toX == fromX )
-	{
-		return 0;
-	}
-	else if (toX > fromX )
-	{
-		return 1;
-	}
-	else
-	{
-		return -1;
-	}
+	return diff;
 }
 
-int Astar::getYdir(int from, int to)
+int Astar::getYdiff(int from, int to)
 {
 	int fromY = from / 32;
 	int toY = to / 32;
 
-	if (toY == fromY )
-	{
-		return 0;
-	}
-	else if (toY > fromY )
-	{
-		return 1;
-	}
-	else
-	{
-		return -1;
-	}
+	int diff = abs(toY - fromY);
 
+	return diff;
 }

@@ -19,8 +19,8 @@ public:
 	const std::string getPathType() { return "A*"; }
 
 	bool heuristic(Node* current, Node* temp, Node* pTo);
-	int getXdir(int from, int to);
-	int getYdir(int from, int to);
+	int getXdiff(int from, int to);
+	int getYdiff(int from, int to);
 
 private:
 };
