@@ -41,7 +41,7 @@ void GridPathfinder::drawVisualization( Grid* pGrid, GraphicsBuffer* pDest )
 	switch (pGame->getType())
 	{
 	case DepthBreadthSearch:
-		pathColor = al_map_rgb(225, 225, 25);
+		pathColor = al_map_rgb(25, 225, 25);
 		break;
 	case DijkstraPath:
 		 pathColor = al_map_rgb(255, 64, 64);
@@ -76,6 +76,7 @@ void GridPathfinder::drawVisualization( Grid* pGrid, GraphicsBuffer* pDest )
 		mpVisualizer->addColor(mPath.peekNode(0)->getId(), startColor);
 		mpVisualizer->addColor(mPath.peekNode(numNodes - 1)->getId(), stopColor);
 	}
+
 
 	mpVisualizer->draw(*pDest);
 }

@@ -81,7 +81,7 @@ const Path & Astar::findPath(Node * pFrom, Node * pTo)
 				!mPath.containsNode(pTempToNode) &&
 				find(nodesToVisit.begin(), nodesToVisit.end(), pTempToNode) == nodesToVisit.end())
 			{
-
+				// pushes front if meets heuristic criteria
 				if (heuristic(pCurrentNode,pTempToNode,pTo))
 				{
 					nodesToVisit.push_front( pTempToNode );
@@ -134,9 +134,9 @@ bool Astar::heuristic(Node * current, Node* temp, Node* pTo)
 	tempIndex = static_cast<int>(temp->getId());
 	pToIndex = static_cast<int>(pTo->getId());
 
-	
-	if ((getXdiff(currentIndex, pToIndex)>getXdiff(tempIndex, pToIndex))
-		|| (getYdiff(currentIndex, pToIndex)>getYdiff(tempIndex, pToIndex)))
+	// true if the difference between x or y axis decreases from current node to previous node.
+	if ((getXdiff(currentIndex, pToIndex) > getXdiff(tempIndex, pToIndex)) // is tempNode difference less in x?
+		|| (getYdiff(currentIndex, pToIndex)>getYdiff(tempIndex, pToIndex))) // is tempNode difference less in y?
 	{
 		retVal = true;
 	}
@@ -152,7 +152,7 @@ int Astar::getXdiff(int from, int to)
 	
 	int diff = abs(toX - fromX);
 
-	return diff;
+	return diff; // absolute difference of x indices 
 }
 
 int Astar::getYdiff(int from, int to)
@@ -160,7 +160,7 @@ int Astar::getYdiff(int from, int to)
 	int fromY = from / 32;
 	int toY = to / 32;
 
-	int diff = abs(toY - fromY);
+	int diff = abs(toY - fromY);  //absolute difference of x indices
 
 	return diff;
 }

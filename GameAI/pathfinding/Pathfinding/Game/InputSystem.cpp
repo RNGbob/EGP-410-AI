@@ -59,19 +59,7 @@ void InputSystem::update()
 
 	}
 	// drawing start and end goal and letters
-	if (firstSelect)
-	{
-		Vector2D ulPos = gpGameA->getGrid()->getULCornerOfSquare(gpGameA->getGrid()->getSquareIndexFromPixelXY((int)lastPos.getX(), (int)lastPos.getY())); 
-		al_draw_filled_rectangle(ulPos.getX(), ulPos.getY(), ulPos.getX() + 32, ulPos.getY() + 32, al_map_rgb(1, 255, 128));
-		al_draw_text(gpGame->getFont(), al_map_rgb(0, 0, 0), ulPos.getX()+ 16, ulPos.getY(),ALLEGRO_ALIGN_CENTER, "S" );
-	}
-	else
-	{
-		Vector2D ulPos = gpGameA->getGrid()->getULCornerOfSquare(gpGameA->getGrid()->getSquareIndexFromPixelXY((int)lastPos.getX(), (int)lastPos.getY()));
-		al_draw_text(gpGame->getFont(), al_map_rgb(0, 0, 0), ulPos.getX() + 16, ulPos.getY(), ALLEGRO_ALIGN_CENTER, "S");
-		Vector2D ilPos = gpGameA->getGrid()->getULCornerOfSquare(gpGameA->getGrid()->getSquareIndexFromPixelXY((int)goalPos.getX(), (int)goalPos.getY()));
-		al_draw_text(gpGame->getFont(), al_map_rgb(0, 0, 0), ilPos.getX() + 16, ilPos.getY(), ALLEGRO_ALIGN_CENTER, "G");
-	}
+	
 
 
 	if (al_key_down(&mKey, ALLEGRO_KEY_ESCAPE))
@@ -83,32 +71,46 @@ void InputSystem::update()
 
 		GameMessage* pMessage = new SwitchPathFindingMessage(DepthBreadthSearch);
 		mpMessageManager->addMessage(pMessage, 0);
+		resetDraw(lastPos, goalPos);
 	}
 	else if (firstPress( mKey, mPrevKey,ALLEGRO_KEY_D))
 	{
 		
 		GameMessage* pMessage = new SwitchPathFindingMessage(DijkstraPath);
 		mpMessageManager->addMessage(pMessage, 0);
+		resetDraw(lastPos, goalPos);
 	}
 	else if (firstPress(mKey, mPrevKey, ALLEGRO_KEY_A))
 	{
 		
 		GameMessage* pMessage = new SwitchPathFindingMessage(AstarPath);
 		mpMessageManager->addMessage(pMessage, 0);
+		resetDraw(lastPos, goalPos);
 	}
 	
-	
+	draw(lastPos, goalPos);
 
 	// assign last frames key
 	mPrevKey = mKey;
 	mPrevMouse = mMouse;
 }
 
-void InputSystem::draw()
+void InputSystem::draw(Vector2D lastPos, Vector2D goalPos)
 {
-	ALLEGRO_MOUSE_STATE mouseState;
-	al_get_mouse_state(&mouseState);
-
+	// drawing start and end goal and letters
+	if (firstSelect)
+	{
+		Vector2D ulPos = gpGameA->getGrid()->getULCornerOfSquare(gpGameA->getGrid()->getSquareIndexFromPixelXY((int)lastPos.getX(), (int)lastPos.getY()));
+		al_draw_filled_rectangle(ulPos.getX(), ulPos.getY(), ulPos.getX() + 32, ulPos.getY() + 32, al_map_rgb(1, 255, 128));
+		al_draw_text(gpGame->getFont(), al_map_rgb(0, 0, 0), ulPos.getX() + 16, ulPos.getY(), ALLEGRO_ALIGN_CENTER, "S");
+	}
+	else
+	{
+		Vector2D ulPos = gpGameA->getGrid()->getULCornerOfSquare(gpGameA->getGrid()->getSquareIndexFromPixelXY((int)lastPos.getX(), (int)lastPos.getY()));
+		al_draw_text(gpGame->getFont(), al_map_rgb(0, 0, 0), ulPos.getX() + 16, ulPos.getY(), ALLEGRO_ALIGN_CENTER, "S");
+		Vector2D ilPos = gpGameA->getGrid()->getULCornerOfSquare(gpGameA->getGrid()->getSquareIndexFromPixelXY((int)goalPos.getX(), (int)goalPos.getY()));
+		al_draw_text(gpGame->getFont(), al_map_rgb(0, 0, 0), ilPos.getX() + 16, ilPos.getY(), ALLEGRO_ALIGN_CENTER, "G");
+	}
 	//create mouse text
 
 
@@ -123,4 +125,13 @@ bool InputSystem::firstPress(ALLEGRO_KEYBOARD_STATE& now, ALLEGRO_KEYBOARD_STATE
 bool InputSystem::firstPress(ALLEGRO_MOUSE_STATE& now, ALLEGRO_MOUSE_STATE& last, int mouseButton)
 {
 	return ((al_mouse_button_down(&now, mouseButton)) && !(al_mouse_button_down(&last, mouseButton)));
+}
+
+void InputSystem::resetDraw(Vector2D &lastPos, Vector2D &goalPos)
+{
+	lastPos = Vector2D(-50, -50);
+	goalPos = Vector2D(-50, -50);
+	firstSelect = false;
+
+
 }

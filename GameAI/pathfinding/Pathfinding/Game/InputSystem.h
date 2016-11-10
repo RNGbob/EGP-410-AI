@@ -19,10 +19,12 @@ public:
 	void cleanup();
 
 	void update();
-	void draw();
+	void draw(Vector2D lastPos, Vector2D goalPos);
 
 	bool firstPress(ALLEGRO_KEYBOARD_STATE& now, ALLEGRO_KEYBOARD_STATE& last, int key);
 	bool firstPress(ALLEGRO_MOUSE_STATE& now, ALLEGRO_MOUSE_STATE& last, int mouseButton);
+
+	void resetDraw(Vector2D &lastPos, Vector2D &goalPos);
 
 private:
 	GameMessageManager* mpMessageManager;
