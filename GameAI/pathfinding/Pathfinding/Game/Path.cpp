@@ -66,7 +66,39 @@ bool Path::containsNode( Node* pNode ) const
 	return retVal;
 }
 
+bool Path::isBack(Node * pNode) const
+{
+	bool retVal = false;
+	
+	if (pNode == mNodes.back())
+	{
+		retVal = true;
+	}
+	return retVal;
+}
+
+int Path::getNodeIndex(Node* pNode) const
+{
+	int retVal = -1 ; // if returned used for error checking
+
+	for (unsigned int i = 0; i<mNodes.size(); i++)
+	{
+		if (mNodes[i] == pNode)
+		{
+			retVal = i;
+			break;
+		}
+	}
+	return retVal;
+	
+}
+
 void Path::clear()
 {
 	mNodes.clear();
+}
+
+void Path::operator=(Path rhs)
+{
+	mNodes = rhs.mNodes;
 }
