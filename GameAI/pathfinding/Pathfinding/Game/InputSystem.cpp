@@ -78,11 +78,17 @@ void InputSystem::update()
 	{
 		gpGame->markForExit();
 	}
+	else if (firstPress(mKey, mPrevKey, ALLEGRO_KEY_B))
+	{
+
+		GameMessage* pMessage = new SwitchPathFindingMessage(DepthBreadthSearch);
+		mpMessageManager->addMessage(pMessage, 0);
+	}
 	else if (firstPress( mKey, mPrevKey,ALLEGRO_KEY_D))
 	{
-		// not yet cuz nothin is there
-		//GameMessage* pMessage = new SwitchPathFindingMessage(DijkstraPath);
-		//mpMessageManager->addMessage(pMessage, 0);
+		
+		GameMessage* pMessage = new SwitchPathFindingMessage(DijkstraPath);
+		mpMessageManager->addMessage(pMessage, 0);
 	}
 	else if (firstPress(mKey, mPrevKey, ALLEGRO_KEY_A))
 	{

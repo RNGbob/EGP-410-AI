@@ -26,8 +26,8 @@ const Path & Dijkstra::findPath(Node * pFrom, Node * pTo)
 	std::list<Node*> nodesToVisit;
 	nodesToVisit.push_front(pFrom);
 
-	std::vector<Path*> pathsMade;
-	Path* pTempPath;
+	std::vector<Path> pathsMade;
+	Path pTempPath;
 	int currentPathIndex;
 
 #ifdef VISUALIZE_PATH
@@ -48,20 +48,20 @@ const Path & Dijkstra::findPath(Node * pFrom, Node * pTo)
 		//remove node from list
 		nodesToVisit.pop_front();
 		//add Node to Path
-		//mPath.addNode(pCurrentNode);
+		mPath.addNode(pCurrentNode);
 
 		if (pathsMade.empty())
 		{
-			pTempPath = new Path();
-			pTempPath->addNode(pCurrentNode);
+			pTempPath =  Path();
+			pTempPath.addNode(pCurrentNode);
 			pathsMade.push_back(pTempPath);
 			currentPathIndex = 0;
 		}
 		else
 		{
-			for (int i = 0; i < pathsMade.size(); i++)
+			for (int i = 0; i < pathsMade.size(); ++i)
 			{
-				if (pathsMade[i]->isBack(pCurrentNode))
+				if (pathsMade[i].isBack(pCurrentNode))
 				{
 					currentPathIndex = i;
 					break;
@@ -85,13 +85,16 @@ const Path & Dijkstra::findPath(Node * pFrom, Node * pTo)
 				// breadth first works since all connections have equal weight
 				nodesToVisit.push_back(pTempToNode);//uncomment me for breadth-first search
 				
-				
+				pTempPath = Path();
+				pTempPath = pathsMade[currentPathIndex];
+				pTempPath.addNode(pTempToNode);
 				
 				if (pTempToNode == pTo)
 				{
 					toNodeAdded = true;
 				}
 
+				pathsMade.push_back(pTempPath);
 
 #ifdef VISUALIZE_PATH
 				mVisitedNodes.push_back(pTempToNode);
@@ -99,10 +102,19 @@ const Path & Dijkstra::findPath(Node * pFrom, Node * pTo)
 
 			}
 		}
+		//pathsMade.erase(pathsMade.begin() + currentPathIndex);
 	}
 
 	gpPerformanceTracker->stopTracking("path");
 	mTimeElapsed = gpPerformanceTracker->getElapsedTime("path");
+
+	for (int i = 0; i < pathsMade.size(); i++)
+	{
+		if (pathsMade[i].isBack(pTo))
+		{
+			mPath = pathsMade[i];
+		}
+	}
 
 	return mPath;
 }

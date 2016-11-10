@@ -15,6 +15,7 @@ public:
 	virtual ~GridPathfinder();
 
 	virtual const Path& findPath( Node* pFrom, Node* pTo ) = 0;
+	virtual const std::string getPathType() = 0;
 	
 #ifdef VISUALIZE_PATH
 	//just for visualization

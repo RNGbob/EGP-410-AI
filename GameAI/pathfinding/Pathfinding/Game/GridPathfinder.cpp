@@ -9,6 +9,7 @@
 GridPathfinder::GridPathfinder( GridGraph* pGraph )
 :Pathfinder(pGraph)
 ,mTimeElapsed(0.0)
+,mPathType("")
 {
 #ifdef VISUALIZE_PATH
 	mpVisualizer = NULL;

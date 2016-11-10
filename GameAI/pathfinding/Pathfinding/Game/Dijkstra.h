@@ -17,5 +17,7 @@ public:
 
 	const Path& findPath(Node* pFrom, Node* pTo);
 
+	const std::string getPathType() { return "Dijkstra"; }
+
 private:
 };

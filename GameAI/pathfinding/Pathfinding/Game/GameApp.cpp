@@ -135,10 +135,11 @@ void GameApp::processLoop()
 #endif
 
 	mpDebugDisplay->draw( pBackBuffer );
-
+	
+	mpInput->update();
 	mpMessageManager->processMessagesForThisframe();
 
-	mpInput->update();
+	
 
 	//should be last thing in processLoop
 	Game::processLoop();
@@ -152,7 +153,10 @@ bool GameApp::endLoop()
 void GameApp::setPathFinding(GridPathfinder * newPF)
 {
 	delete mpPathfinder;
+	delete mpDebugDisplay;
 	mpPathfinder = newPF;
+	PathfindingDebugContent* pContent = new PathfindingDebugContent(mpPathfinder);
+	mpDebugDisplay = new DebugDisplay(Vector2D(0, 12), pContent);
 
 
 }
