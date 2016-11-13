@@ -1,15 +1,11 @@
 GitHub link: https://github.com/RNGrolled/EGP-410-AI
 
 Linking instructions: Worked in visual studio 2015. if switching to different text editor it is reccomended that Deanlib 
-is compiled before running steering.sln in GameAI/steering/ folder is where steering solution is found.  
+is compiled before running steering.sln in GameAI/pathfinding/pathfinding folder is where solution is found. 
+to compile you should do a clean build of the whole project and then to run go to the solution bar, find the game solution, right-click and under Debug run new instance.  
 
 Inputs
-I: adds 5 boids surrounding the player unit
-D: deletes random entity from manager or ends program if no entities exist
-P: switch on/off debugging mode
-	+/-: add or subtract selected value while Debugging
-	C: select Cohesion weight while Debugging
-	S: select Seperation weight while Debugging
-	A: select Alignment weight while Debugging
-Ctrl+S: saves current weights set in debugging mode
-L-Mouse click: causes player Entity to arrive at location clicked
+A: switches pathfinding to A*
+D: switches pathfinding to Dijkstra
+B: switches pathfinding to breadth first (original in base project)
+ESC: Exits program
