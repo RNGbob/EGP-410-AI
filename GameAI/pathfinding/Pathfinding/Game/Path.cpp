@@ -20,6 +20,18 @@ Node* Path::peekNode( int index ) const
 	}
 }
 
+Node * Path::getNode(NODE_ID id) const
+{
+	for (unsigned int i = 0; i<mNodes.size(); i++)
+	{
+		if (mNodes[i]->getId() == id)
+		{
+			return mNodes[i];
+		}
+	}
+	return nullptr;
+}
+
 Node* Path::peekNextNode() const
 {
 	if( mNodes.size() > 0 )
@@ -93,8 +105,13 @@ int Path::getNodeIndex(Node* pNode) const
 	
 }
 
+
 void Path::clear()
 {
+	for (int i = 0; i < mNodes.size(); i++)
+	{
+		mNodes[i]->setPrevious(BAD_NODE_ID);
+	}
 	mNodes.clear();
 }
 

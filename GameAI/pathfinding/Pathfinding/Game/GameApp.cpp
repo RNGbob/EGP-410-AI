@@ -156,6 +156,7 @@ bool GameApp::endLoop()
 
 void GameApp::setPathFinding(GridPathfinder * newPF)
 {
+	mpPathfinder->clearPath();
 	delete mpPathfinder;
 	delete mpDebugDisplay;
 	mpPathfinder = newPF;

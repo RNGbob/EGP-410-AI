@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <Trackable.h>
+#include "Node.h"
 
 class Node;
 
@@ -12,6 +13,7 @@ public:
 	~Path();
 
 	Node* peekNode( int index ) const;
+	Node* getNode(NODE_ID id) const;
 	Node* peekNextNode() const;
 	Node* getAndRemoveNextNode();
 	bool containsNode( Node* pNode ) const;

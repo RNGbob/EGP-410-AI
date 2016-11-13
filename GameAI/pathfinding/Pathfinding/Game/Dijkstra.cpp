@@ -26,9 +26,9 @@ const Path & Dijkstra::findPath(Node * pFrom, Node * pTo)
 	std::list<Node*> nodesToVisit;
 	nodesToVisit.push_front(pFrom);
 
-	std::vector<Path> pathsMade;
-	Path pTempPath;
 	int currentPathIndex;
+	float priorityMin = 1;
+	float connectWeight;
 
 #ifdef VISUALIZE_PATH
 	mVisitedNodes.clear();
@@ -51,24 +51,7 @@ const Path & Dijkstra::findPath(Node * pFrom, Node * pTo)
 		mPath.addNode(pCurrentNode);
 
 		// initialize base path on first run
-		if (pathsMade.empty())
-		{
-			pTempPath =  Path();
-			pTempPath.addNode(pCurrentNode);
-			pathsMade.push_back(pTempPath);
-			currentPathIndex = 0;
-		}
-		else // else set base path to the one ending with current node.
-		{ 
-			for (int i = 0; i < pathsMade.size(); ++i)
-			{
-				if (pathsMade[i].isBack(pCurrentNode))
-				{
-					currentPathIndex = i;
-					break;
-				}
-			}
-		}
+		
 
 		//get the Connections for the current node
 		std::vector<Connection*> connections = mpGraph->getConnections(pCurrentNode->getId());
@@ -77,26 +60,35 @@ const Path & Dijkstra::findPath(Node * pFrom, Node * pTo)
 		for (unsigned int i = 0; i<connections.size(); i++)
 		{
 			Connection* pConnection = connections[i];
+			connectWeight = pConnection->getCost();
 			Node* pTempToNode = connections[i]->getToNode();
 			if (!toNodeAdded &&
 				!mPath.containsNode(pTempToNode) &&
 				find(nodesToVisit.begin(), nodesToVisit.end(), pTempToNode) == nodesToVisit.end())
 			{
-				
+				pTempToNode->setPrevious(pCurrentNode->getId());
+
 				// breadth first works since all connections have equal weight
 				// with gridgraphs weight calculations are not necessary making path length = to weight of traversal
-				nodesToVisit.push_back(pTempToNode);//uncomment me for breadth-first search
+				// wont actually push front for grid dijkstra
+				if (connectWeight < priorityMin)
+				{
+					nodesToVisit.push_front(pTempToNode);
+				}
+				else
+				{
+					nodesToVisit.push_back(pTempToNode);
+				}
 				
-				pTempPath = Path();
-				pTempPath = pathsMade[currentPathIndex];
-				pTempPath.addNode(pTempToNode);
 				
+				//nodesToVisit.push_back(pTempToNode);//uncomment me for breadth-first search
+				
+			
 				if (pTempToNode == pTo)
 				{
 					toNodeAdded = true;
 				}
-				// creating a path from a base to traack the final path.
-				pathsMade.push_back(pTempPath);
+				
 
 #ifdef VISUALIZE_PATH
 				mVisitedNodes.push_back(pTempToNode);
@@ -104,20 +96,12 @@ const Path & Dijkstra::findPath(Node * pFrom, Node * pTo)
 
 			}
 		}
-		//pathsMade.erase(pathsMade.begin() + currentPathIndex);
+		
 	}
 
 	gpPerformanceTracker->stopTracking("path");
 	mTimeElapsed = gpPerformanceTracker->getElapsedTime("path");
 
-	// sets the path to the node.
-	for (int i = 0; i < pathsMade.size(); i++)
-	{
-		if (pathsMade[i].isBack(pTo))
-		{
-			mPath = pathsMade[i];
-		}
-	}
 
 	return mPath;
 }

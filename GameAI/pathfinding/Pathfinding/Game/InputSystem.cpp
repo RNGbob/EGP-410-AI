@@ -33,8 +33,8 @@ void InputSystem::cleanup()// easier to call rather than depending on destructor
 
 void InputSystem::update()
 {
-	static Vector2D lastPos(0.0f, 0.0f);
-	static Vector2D goalPos(0.0f, 0.0f);
+	static Vector2D lastPos(-50.0f, -50.0f);
+	static Vector2D goalPos(-50.0f, -50.0f);
 	al_get_mouse_state(&mMouse);
 	al_get_keyboard_state(&mKey);
 

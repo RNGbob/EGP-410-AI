@@ -1,10 +1,12 @@
 #include <allegro5/allegro.h>
+#include <allegro5\allegro_primitives.h>
 #include "GridPathfinder.h"
 #include "GridGraph.h"
 #include "GridVisualizer.h"
 #include "Path.h"
 #include "Game.h"
 #include "GameApp.h"
+#include "Grid.h"
 #include "GraphicsBuffer.h"
 
 GridPathfinder::GridPathfinder( GridGraph* pGraph )
@@ -77,7 +79,48 @@ void GridPathfinder::drawVisualization( Grid* pGrid, GraphicsBuffer* pDest )
 		mpVisualizer->addColor(mPath.peekNode(numNodes - 1)->getId(), stopColor);
 	}
 
-
 	mpVisualizer->draw(*pDest);
+
+	if (mPath.peekNextNode()!=NULL)
+	{
+		drawLines(mPath.peekNextNode()->getId());
+	}
+
+	
 }
+void GridPathfinder::drawLines(NODE_ID node )
+{
+	
+	
+	
+	//mPath.getNode(node)
+	
+	if (node == BAD_NODE_ID||mPath.getNode(node)->getPrev() == BAD_NODE_ID )
+	{
+		return;
+	}
+	else
+	{
+		NODE_ID prev = mPath.getNode(node)->getPrev();
+		al_draw_line(lineGetX(node), lineGetY(node), lineGetX(prev), lineGetY(prev), al_map_rgb(0, 0, 0), 3);
+		drawLines(prev); // recursively draws lines until previous is null
+	}
+
+}
+
+int GridPathfinder::lineGetX(NODE_ID node)
+{
+	GameApp* pGame = dynamic_cast<GameApp*>(gpGame);
+
+	return (pGame->getGrid()->getULCornerOfSquare(node).getX() + (pGame->getGrid()->getSquareSize()/2));
+}
+
+int GridPathfinder::lineGetY(NODE_ID node)
+{
+	GameApp* pGame = dynamic_cast<GameApp*>(gpGame);
+	return (pGame->getGrid()->getULCornerOfSquare(node).getY() + (pGame->getGrid()->getSquareSize()/2));
+}
+
+
+
 #endif
