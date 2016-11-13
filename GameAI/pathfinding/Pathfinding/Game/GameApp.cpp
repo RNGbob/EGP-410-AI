@@ -20,12 +20,20 @@
 #include "DebugDisplay.h"
 #include "PathfindingDebugContent.h"
 
+#include "InputSystem.h"
+#include "Astar.h"
+#include "Dijkstra.h"
+
 #include <fstream>
 #include <vector>
 
 const IDType BACKGROUND_ID = ENDING_SEQUENTIAL_ID + 1;
 const int GRID_SQUARE_SIZE = 32;
 const std::string gFileName = "pathgrid.txt";
+
+//const int WIDTH = 1024;
+//const int HEIGHT = 768;
+
 
 GameApp::GameApp()
 :mpMessageManager(NULL)
@@ -52,6 +60,9 @@ bool GameApp::init()
 
 	mpMessageManager = new GameMessageManager();
 
+	mpInput = new InputSystem();
+	mpInput->init(mpMessageManager);
+
 	//create and load the Grid, GridBuffer, and GridRenderer
 	mpGrid = new Grid(mpGraphicsSystem->getWidth(), mpGraphicsSystem->getHeight(), GRID_SQUARE_SIZE);
 	mpGridVisualizer = new GridVisualizer( mpGrid );
@@ -62,6 +73,8 @@ bool GameApp::init()
 	mpGridGraph = new GridGraph(mpGrid);
 	//init the nodes and connections
 	mpGridGraph->init();
+
+	mCurrentType = DepthBreadthSearch;
 
 	mpPathfinder = new DepthFirstPathfinder(mpGridGraph);
 
@@ -102,6 +115,10 @@ void GameApp::cleanup()
 
 	delete mpDebugDisplay;
 	mpDebugDisplay = NULL;
+
+	delete mpInput;
+	mpInput = NULL;
+
 }
 
 void GameApp::beginLoop()
@@ -122,23 +139,11 @@ void GameApp::processLoop()
 #endif
 
 	mpDebugDisplay->draw( pBackBuffer );
-
+	
+	mpInput->update();
 	mpMessageManager->processMessagesForThisframe();
 
-	ALLEGRO_MOUSE_STATE mouseState;
-	al_get_mouse_state( &mouseState );
-
-	if( al_mouse_button_down( &mouseState, 1 ) )//left mouse click
-	{
-		static Vector2D lastPos( 0.0f, 0.0f );
-		Vector2D pos( mouseState.x, mouseState.y );
-		if( lastPos.getX() != pos.getX() || lastPos.getY() != pos.getY() )
-		{
-			GameMessage* pMessage = new PathToMessage( lastPos, pos );
-			mpMessageManager->addMessage( pMessage, 0 );
-			lastPos = pos;
-		}
-	}
+	
 
 	//should be last thing in processLoop
 	Game::processLoop();
@@ -147,4 +152,37 @@ void GameApp::processLoop()
 bool GameApp::endLoop()
 {
 	return Game::endLoop();
+}
+
+void GameApp::setPathFinding(GridPathfinder * newPF)
+{
+	mpPathfinder->clearPath();
+	delete mpPathfinder;
+	delete mpDebugDisplay;
+	mpPathfinder = newPF;
+	PathfindingDebugContent* pContent = new PathfindingDebugContent(mpPathfinder);
+	mpDebugDisplay = new DebugDisplay(Vector2D(0, 12), pContent);
+
+
+}
+
+void GameApp::setDepthBreadth()
+{
+	DepthFirstPathfinder* pDFpathfinder = new DepthFirstPathfinder(mpGridGraph);
+	setPathFinding(pDFpathfinder);
+	mCurrentType = DepthBreadthSearch;
+}
+
+void GameApp::setDijkstra()
+{
+	Dijkstra* pDijkstra = new Dijkstra(mpGridGraph);
+	setPathFinding(pDijkstra);
+	mCurrentType = DijkstraPath;
+}
+
+void GameApp::setAstar()
+{
+	Astar* pAstar = new Astar(mpGridGraph);
+	setPathFinding(pAstar);
+	mCurrentType = AstarPath;
 }

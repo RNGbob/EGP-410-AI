@@ -6,7 +6,8 @@ Node::Node()
 }
 
 Node::Node( const NODE_ID& id )
-:mId(id)
+:mId(id),
+mPrev(BAD_NODE_ID)
 {
 }
 

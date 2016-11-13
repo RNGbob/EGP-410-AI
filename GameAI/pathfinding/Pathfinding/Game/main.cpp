@@ -23,6 +23,7 @@
 #include <PerformanceTracker.h>
 
 PerformanceTracker* gpPerformanceTracker = NULL;
+GameApp* gpGameA = NULL;
 
 int main(void)
 {
@@ -31,8 +32,10 @@ int main(void)
 	gpGame = new GameApp();
 
 	gpGame->init();
+	gpGameA = dynamic_cast<GameApp*>(gpGame);
 
 	GraphicsBuffer* pWallpaper = new GraphicsBuffer( "wallpaper.bmp" );//should "live" someplace else
+
 
 
 	bool shouldExit = false;
@@ -40,14 +43,14 @@ int main(void)
 	while( !shouldExit )
 	{
 		//get current keyboard state
-		ALLEGRO_KEYBOARD_STATE keyState;
-		al_get_keyboard_state( &keyState );
+		//ALLEGRO_KEYBOARD_STATE keyState;
+		//al_get_keyboard_state( &keyState );
 
 		//if escape key was down then exit the loop
-		if( al_key_down( &keyState, ALLEGRO_KEY_ESCAPE ) )
-		{
-			gpGame->markForExit();
-		}
+		//if( al_key_down( &keyState, ALLEGRO_KEY_ESCAPE ) )
+		//{
+			//gpGame->markForExit();
+		//}
 
 		gpGame->beginLoop();
 		gpGame->processLoop();
