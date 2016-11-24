@@ -129,15 +129,12 @@ void GameApp::beginLoop()
 
 void GameApp::processLoop()
 {
-	
 	draw();
-	
+	update();
 	input();
 	
 	mpMessageManager->processMessagesForThisframe();
 	
-	
-
 	//should be last thing in processLoop
 	Game::processLoop();
 }

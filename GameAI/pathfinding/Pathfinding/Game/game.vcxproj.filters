@@ -31,6 +31,12 @@
     <Filter Include="Header Files\Messages">
       <UniqueIdentifier>{0c1c6781-c8e0-43be-a5d0-a09985d1fa25}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Collision">
+      <UniqueIdentifier>{ed712617-55e9-4c6a-816a-cbbe0cb1a504}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Collision">
+      <UniqueIdentifier>{7a06b897-f325-4e98-a7ec-e1c60cd86b5e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Connection.h">
@@ -90,6 +96,12 @@
     <ClInclude Include="SwitchPathFindingMessage.h">
       <Filter>Header Files\Messages</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\steering\BoxCollider.h">
+      <Filter>Header Files\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\steering\CircleCollider.h">
+      <Filter>Header Files\Collision</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Graph.cpp">
@@ -148,6 +160,12 @@
     </ClCompile>
     <ClCompile Include="SwitchPathFindingMessage.cpp">
       <Filter>Source Files\Messages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\steering\BoxCollider.cpp">
+      <Filter>Source Files\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\steering\CircleCollider.cpp">
+      <Filter>Source Files\Collision</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

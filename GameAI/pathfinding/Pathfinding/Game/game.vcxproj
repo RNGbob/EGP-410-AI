@@ -78,6 +78,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\steering\BoxCollider.h" />
+    <ClInclude Include="..\..\..\steering\CircleCollider.h" />
     <ClInclude Include="Astar.h" />
     <ClInclude Include="Connection.h" />
     <ClInclude Include="DebugContent.h" />
@@ -99,6 +101,8 @@
     <ClInclude Include="SwitchPathFindingMessage.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\steering\BoxCollider.cpp" />
+    <ClCompile Include="..\..\..\steering\CircleCollider.cpp" />
     <ClCompile Include="Astar.cpp" />
     <ClCompile Include="Connection.cpp" />
     <ClCompile Include="DebugDisplay.cpp" />
