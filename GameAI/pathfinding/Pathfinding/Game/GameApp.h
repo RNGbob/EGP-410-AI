@@ -44,6 +44,9 @@ public:
 	//game loop
 	virtual void beginLoop();
 	virtual void processLoop();
+	virtual void draw();
+	virtual void update();
+	virtual void input();
 	virtual bool endLoop();
 
 	//accessors

@@ -43,7 +43,7 @@ bool Editor::init()
 	mpGridVisualizer = new GridVisualizer( mpGrid );
 
 	//load buffers
-	mpGraphicsBufferManager->loadBuffer( BACKGROUND_ID, "wallpaper.bmp");
+	mpGraphicsBufferManager->loadBuffer( BACKGROUND_ID, FILE_PATH+"wallpaper.bmp");
 
 	//setup sprites
 	GraphicsBuffer* pBackGroundBuffer = mpGraphicsBufferManager->getBuffer( BACKGROUND_ID );

@@ -79,7 +79,7 @@ bool GameApp::init()
 	mpPathfinder = new DepthFirstPathfinder(mpGridGraph);
 
 	//load buffers
-	mpGraphicsBufferManager->loadBuffer( BACKGROUND_ID, "wallpaper.bmp");
+	mpGraphicsBufferManager->loadBuffer( BACKGROUND_ID, FILE_PATH+"wallpaper.bmp");
 
 	//setup sprites
 	GraphicsBuffer* pBackGroundBuffer = mpGraphicsBufferManager->getBuffer( BACKGROUND_ID );
@@ -129,24 +129,42 @@ void GameApp::beginLoop()
 
 void GameApp::processLoop()
 {
-	//get back buffer
-	GraphicsBuffer* pBackBuffer = mpGraphicsSystem->getBackBuffer();
-	//copy to back buffer
-	mpGridVisualizer->draw( *pBackBuffer );
-#ifdef VISUALIZE_PATH
-	//show pathfinder visualizer
-	mpPathfinder->drawVisualization(mpGrid, pBackBuffer);
-#endif
-
-	mpDebugDisplay->draw( pBackBuffer );
 	
-	mpInput->update();
+	draw();
+	
+	input();
+	
 	mpMessageManager->processMessagesForThisframe();
-
+	
 	
 
 	//should be last thing in processLoop
 	Game::processLoop();
+}
+
+void GameApp::draw()
+{
+	//get back buffer
+	GraphicsBuffer* pBackBuffer = mpGraphicsSystem->getBackBuffer();
+	//copy to back buffer
+	mpGridVisualizer->draw(*pBackBuffer);
+#ifdef VISUALIZE_PATH
+	//show pathfinder visualizer
+	mpPathfinder->drawVisualization(mpGrid, pBackBuffer);
+#endif
+	mpDebugDisplay->draw( pBackBuffer );
+
+}
+
+void GameApp::update()
+{
+	
+}
+
+void GameApp::input()
+{
+	mpInput->update();
+
 }
 
 bool GameApp::endLoop()

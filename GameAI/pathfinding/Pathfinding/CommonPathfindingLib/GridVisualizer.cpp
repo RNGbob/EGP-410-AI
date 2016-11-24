@@ -17,7 +17,7 @@ GridVisualizer::~GridVisualizer()
 
 void GridVisualizer::refresh()
 {
-	const ALLEGRO_COLOR& color = BLACK_COLOR; 
+	const ALLEGRO_COLOR& color = al_map_rgb(60, 20, 140);//BLACK_COLOR; 
 	if( mDirty )
 	{
 		//remove old entries first
