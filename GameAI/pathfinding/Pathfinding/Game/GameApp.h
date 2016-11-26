@@ -20,6 +20,8 @@ class GridGraph;
 class GridPathfinder;
 class DebugDisplay;
 class InputSystem;
+class UnitManager;
+class MapWallManager;
 
 const float LOOP_TARGET_TIME = 33.3f;//how long should each frame of execution take? 30fps = 33.3ms/frame
 
@@ -80,14 +82,13 @@ private:
 	GridVisualizer* mpGridVisualizer;
 	GridGraph* mpGridGraph;
 	DebugDisplay* mpDebugDisplay;
+	
+	UnitManager* mpUnits;
+	MapWallManager* mpMapWalls;
 
 	InputSystem* mpInput;
 
 	GridPathfinder* mpPathfinder;
-
-	//GridPathfinder* mpDepthBreadth;
-	//GridPathfinder* mpDijkstra;
-	//GridPathfinder* mpAstar;
 
 	PathfindingType mCurrentType;
 

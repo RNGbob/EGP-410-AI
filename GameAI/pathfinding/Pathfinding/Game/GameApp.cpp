@@ -24,6 +24,9 @@
 #include "Astar.h"
 #include "Dijkstra.h"
 
+#include "UnitManager.h"
+#include "MapWallManager.h"
+
 #include <fstream>
 #include <vector>
 
@@ -67,6 +70,12 @@ bool GameApp::init()
 	mpGridVisualizer = new GridVisualizer( mpGrid );
 	std::ifstream theStream( gFileName );
 	mpGrid->load( theStream );
+
+	mpUnits = new UnitManager();
+	mpUnits->init(mpSpriteManager);
+
+	mpMapWalls = new MapWallManager();
+	mpMapWalls->initWalls(mpGrid);
 
 	//create the GridGraph for pathfinding
 	mpGridGraph = new GridGraph(mpGrid);
@@ -150,6 +159,12 @@ void GameApp::cleanup()
 	delete mpInput;
 	mpInput = NULL;
 
+	delete mpUnits;
+	mpUnits = NULL;
+
+	delete mpMapWalls;
+	mpMapWalls = NULL;
+
 }
 
 void GameApp::beginLoop()
@@ -182,11 +197,13 @@ void GameApp::draw()
 #endif
 	mpDebugDisplay->draw( pBackBuffer );
 
+	//mpUnits->draw(pBackBuffer);
+
 }
 
 void GameApp::update()
 {
-	
+	//mpUnits->update(LOOP_TARGET_TIME/1000.0f);
 }
 
 void GameApp::input()

@@ -37,18 +37,12 @@ void UnitManager::init( SpriteManager* &mpSprMan)
 	Vector2D pos(100.0f, 100.0f);
 	Vector2D vel(0.0f, 0.0f);
 	//mPlayerUnit = new KinematicUnit(mpSpriteManager->getSprite(PLAYER_SPRITE_ID), pos, 1, vel, 0.0f, 200.0f, 10.0f);
-	mPlayerUnit->setPlayer();
+	//mPlayerUnit->setPlayer();
 }
 
 void UnitManager::cleanup()
 {
-	/*/
-	for ( std::vector<KinematicUnit*>::iterator it = mUnitList.begin();  it !=mUnitList.end(); ++it)
-	{
-		delete *it;
-	}/**/
 	
-
 }
 
 void UnitManager::update(float time)
@@ -78,24 +72,15 @@ void UnitManager::changeVels1(float val)
 }
 
 
-
+// may replace with object pool of enemies if capped at 4 ghosts
 void UnitManager::addUnit(SteeringType steeringType, Vector2D pos)
 {
 	double theta = rand() % 360;//2*PI;
 	
 	//Vector2D pos(mPlayerUnit->getPosition().getX() + (100 * sin(theta)), mPlayerUnit->getPosition().getY() + (100 * cos(theta))); 
 	
-
 	Vector2D vel(0.0f, 0.0f);
 	KinematicUnit* newUnit;
-
-	
-	
-	/*
-	*/
-
-	
-
 
 }
 

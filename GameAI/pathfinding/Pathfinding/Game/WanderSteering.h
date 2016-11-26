@@ -8,7 +8,7 @@ const float MAX_WANDER_ROTATION = 1.0f;
 class WanderSteering :public Steering
 {
 public:
-	WanderSteering();
+	WanderSteering(KinematicUnit* pMover);
 	~WanderSteering() {};
 
 	virtual Steering* getSteering();

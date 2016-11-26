@@ -5,6 +5,7 @@
 #include "GraphicsSystem.h"
 #include "Steering.h"
 #include "UnitManager.h"
+#include "WanderSteering.h"
 
 using namespace std;
 
@@ -99,6 +100,12 @@ void KinematicUnit::setNewOrientation()
 	mOrientation = getOrientationFromVelocity( mOrientation, mVelocity ); 
 }
 
+void KinematicUnit::wander()
+{
+	WanderSteering* pWanderSteering = new WanderSteering(this);
+	setSteering( pWanderSteering );
+}
+
 /*
 void KinematicUnit::seek(const Vector2D &target)
 {
@@ -112,11 +119,6 @@ void KinematicUnit::arrive(const Vector2D &target)
 	setSteering( pArriveSteering );
 }
 
-void KinematicUnit::wander()
-{
-	KinematicWanderSteering* pWanderSteering = new KinematicWanderSteering( this );
-	setSteering( pWanderSteering );
-}
 
 void KinematicUnit::dynamicSeek( KinematicUnit* pTarget )
 {

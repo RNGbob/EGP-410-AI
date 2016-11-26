@@ -31,6 +31,7 @@ public:
 	//getters and setters
 	void setTarget( const Vector2D& target ) { mTarget = target; };
 	const Vector2D& getPosition() const { return mPosition; };
+	void setPostion(Vector2D pos) { mPosition = pos; }
 	float getMaxVelocity() const { return mMaxVelocity; };
 	void setMaxVelocity(float max) { mMaxVelocity = max; };
 	Vector2D getVelocity() const { return mVelocity; };
@@ -48,15 +49,9 @@ public:
 	void update(float time, const std::vector<KinematicUnit*> &units);
 
 	//initiate behaviors
-	void seek( const Vector2D& target );
-	void arrive( const Vector2D& target );
+	
 	void wander();
-	void dynamicSeek( KinematicUnit* pTarget );
-	void dynamicFlee( KinematicUnit* pTarget );
-	void dynamicArrive( KinematicUnit* pTarget );
-	void wanderSeek(KinematicUnit* pTarget); 
-	void wanderFlee(KinematicUnit* pTarget);
-	void boid(KinematicUnit* pTarget);
+	
 
 private:
 	Sprite* mpSprite;
@@ -68,8 +63,9 @@ private:
 	BoxCollider mBox;
 
 	bool mIsPlayer;
+	bool mActive;
 
-	void setSteering( Steering* pSteering );
+	void setSteering(Steering* pSteering );
 	void setGroupSteering(Steering* pSteering);
 
 };

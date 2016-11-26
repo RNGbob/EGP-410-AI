@@ -7,6 +7,15 @@
 #include <vector>
 #include "Vector2D.h"
 
+enum EnemyType
+{
+	Purple,
+	Green,
+	Orange,
+	Lime
+};
+
+
 class UnitManager : public Trackable
 {
 public:
