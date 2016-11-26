@@ -25,7 +25,10 @@ const float LOOP_TARGET_TIME = 33.3f;//how long should each frame of execution t
 
 const IDType BACKGROUND_ID = 0;
 const IDType PLAYER_SPRITE_ID = 1;
-//const IDType AI_ICON_SPRITE_ID = 2;  // different enemies different naming scheme
+const IDType ENEMY_PURPLE_SPRITE_ID = 2;
+const IDType ENEMY_GREEN_SPRITE_ID = 3;
+const IDType ENEMY_ORANGE_SPRITE_ID = 4;
+const IDType ENEMY_LIME_SPRITE_ID = 5;
 
 const int GRID_SQUARE_SIZE = 32;
 const std::string gFileName = "pathgrid.txt";

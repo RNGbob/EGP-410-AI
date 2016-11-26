@@ -2,6 +2,7 @@
 
 #include "Vector2D.h"
 #include "Trackable.h"
+#include "Game.h"
 #include <allegro5\allegro.h>
 #include <cmath>
 
@@ -12,7 +13,7 @@ Champlain College
 2011
 */
 
-const double PI = std::atan(1.0)*4;//could proved useful!
+//const double PI = std::atan(1.0)*4;//could proved useful!
 
 //forward declarations
 class Steering;
