@@ -78,9 +78,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\steering\BoxCollider.h" />
-    <ClInclude Include="..\..\..\steering\CircleCollider.h" />
     <ClInclude Include="Astar.h" />
+    <ClInclude Include="BoxCollider.h" />
+    <ClInclude Include="CircleCollider.h" />
     <ClInclude Include="Connection.h" />
     <ClInclude Include="DebugContent.h" />
     <ClInclude Include="DebugDisplay.h" />
@@ -93,17 +93,22 @@
     <ClInclude Include="GridGraph.h" />
     <ClInclude Include="GridPathfinder.h" />
     <ClInclude Include="InputSystem.h" />
+    <ClInclude Include="Kinematic.h" />
+    <ClInclude Include="KinematicUnit.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="Path.h" />
     <ClInclude Include="Pathfinder.h" />
     <ClInclude Include="PathfindingDebugContent.h" />
     <ClInclude Include="PathToMessage.h" />
+    <ClInclude Include="Steering.h" />
     <ClInclude Include="SwitchPathFindingMessage.h" />
+    <ClInclude Include="UnitManager.h" />
+    <ClInclude Include="WanderSteering.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\steering\BoxCollider.cpp" />
-    <ClCompile Include="..\..\..\steering\CircleCollider.cpp" />
     <ClCompile Include="Astar.cpp" />
+    <ClCompile Include="BoxCollider.cpp" />
+    <ClCompile Include="CircleCollider.cpp" />
     <ClCompile Include="Connection.cpp" />
     <ClCompile Include="DebugDisplay.cpp" />
     <ClCompile Include="DepthFirstPathfinder.cpp" />
@@ -115,13 +120,18 @@
     <ClCompile Include="GridGraph.cpp" />
     <ClCompile Include="GridPathfinder.cpp" />
     <ClCompile Include="InputSystem.cpp" />
+    <ClCompile Include="Kinematic.cpp" />
+    <ClCompile Include="KinematicUnit.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="Path.cpp" />
     <ClCompile Include="Pathfinder.cpp" />
     <ClCompile Include="PathfindingDebugContent.cpp" />
     <ClCompile Include="PathToMessage.cpp" />
+    <ClCompile Include="Steering.cpp" />
     <ClCompile Include="SwitchPathFindingMessage.cpp" />
+    <ClCompile Include="UnitManager.cpp" />
+    <ClCompile Include="WanderSteering.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

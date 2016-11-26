@@ -37,6 +37,18 @@
     <Filter Include="Source Files\Collision">
       <UniqueIdentifier>{7a06b897-f325-4e98-a7ec-e1c60cd86b5e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Units">
+      <UniqueIdentifier>{9a46eec4-50a0-46b4-a2d2-2bfbe495ab4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Steering">
+      <UniqueIdentifier>{db1d44a8-1f0d-452e-8312-0a6b2820ff50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Units">
+      <UniqueIdentifier>{0f54aa7c-6530-439e-bcc0-1494602cbe69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Steering">
+      <UniqueIdentifier>{bc6d4069-b916-4fc5-a8f5-5023c1358e33}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Connection.h">
@@ -96,11 +108,26 @@
     <ClInclude Include="SwitchPathFindingMessage.h">
       <Filter>Header Files\Messages</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\steering\BoxCollider.h">
+    <ClInclude Include="BoxCollider.h">
       <Filter>Header Files\Collision</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\steering\CircleCollider.h">
+    <ClInclude Include="CircleCollider.h">
       <Filter>Header Files\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Steering.h">
+      <Filter>Header Files\Steering</Filter>
+    </ClInclude>
+    <ClInclude Include="Kinematic.h">
+      <Filter>Header Files\Units</Filter>
+    </ClInclude>
+    <ClInclude Include="KinematicUnit.h">
+      <Filter>Header Files\Units</Filter>
+    </ClInclude>
+    <ClInclude Include="UnitManager.h">
+      <Filter>Header Files\Units</Filter>
+    </ClInclude>
+    <ClInclude Include="WanderSteering.h">
+      <Filter>Header Files\Steering</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -161,11 +188,26 @@
     <ClCompile Include="SwitchPathFindingMessage.cpp">
       <Filter>Source Files\Messages</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\steering\BoxCollider.cpp">
+    <ClCompile Include="BoxCollider.cpp">
       <Filter>Source Files\Collision</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\steering\CircleCollider.cpp">
+    <ClCompile Include="CircleCollider.cpp">
       <Filter>Source Files\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Steering.cpp">
+      <Filter>Source Files\Steering</Filter>
+    </ClCompile>
+    <ClCompile Include="Kinematic.cpp">
+      <Filter>Source Files\Units</Filter>
+    </ClCompile>
+    <ClCompile Include="KinematicUnit.cpp">
+      <Filter>Source Files\Units</Filter>
+    </ClCompile>
+    <ClCompile Include="UnitManager.cpp">
+      <Filter>Source Files\Units</Filter>
+    </ClCompile>
+    <ClCompile Include="WanderSteering.cpp">
+      <Filter>Source Files\Steering</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

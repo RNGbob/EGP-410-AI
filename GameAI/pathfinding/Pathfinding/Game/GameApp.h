@@ -23,6 +23,13 @@ class InputSystem;
 
 const float LOOP_TARGET_TIME = 33.3f;//how long should each frame of execution take? 30fps = 33.3ms/frame
 
+const IDType BACKGROUND_ID = 0;
+const IDType PLAYER_SPRITE_ID = 1;
+//const IDType AI_ICON_SPRITE_ID = 2;  // different enemies different naming scheme
+
+const int GRID_SQUARE_SIZE = 32;
+const std::string gFileName = "pathgrid.txt";
+
 enum PathfindingType
 {
 	DepthBreadthSearch = 0,
