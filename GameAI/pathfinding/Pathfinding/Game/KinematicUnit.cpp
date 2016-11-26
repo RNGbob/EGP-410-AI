@@ -7,7 +7,6 @@
 #include "UnitManager.h"
 #include "WanderSteering.h"
 #include "SeekSteering.h"
-#include "FleeSteering.h"
 
 using namespace std;
 

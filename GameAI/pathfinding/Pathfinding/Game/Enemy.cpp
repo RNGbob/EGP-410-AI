@@ -5,10 +5,20 @@ Enemy::Enemy(Sprite *pSprite, const Vector2D &position, float orientation, const
 : KinematicUnit(pSprite, position, orientation, velocity, rotationVel,  maxVelocity,  maxAcceleration)
 {
 	GameApp* pGame = dynamic_cast<GameApp*>(gpGame);
-	mpPlayer = pGame->getPlayerUnit();
+	//mpPlayer = pGame->getPlayerUnit();
 
 }
 
 Enemy::~Enemy()
 {
+}
+
+void Enemy::update(float time, const std::vector<KinematicUnit*>& units)
+{
+	//mpStateMachine->update();
+
+	KinematicUnit::update(time, units);
+
+
+
 }

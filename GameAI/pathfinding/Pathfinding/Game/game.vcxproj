@@ -80,7 +80,9 @@
   <ItemGroup>
     <ClInclude Include="Astar.h" />
     <ClInclude Include="BoxCollider.h" />
+    <ClInclude Include="Candy.h" />
     <ClInclude Include="CircleCollider.h" />
+    <ClInclude Include="Coin.h" />
     <ClInclude Include="Connection.h" />
     <ClInclude Include="DebugContent.h" />
     <ClInclude Include="DebugDisplay.h" />
@@ -95,6 +97,7 @@
     <ClInclude Include="GridGraph.h" />
     <ClInclude Include="GridPathfinder.h" />
     <ClInclude Include="InputSystem.h" />
+    <ClInclude Include="ItemManager.h" />
     <ClInclude Include="Kinematic.h" />
     <ClInclude Include="KinematicUnit.h" />
     <ClInclude Include="MapWallManager.h" />
@@ -115,7 +118,9 @@
   <ItemGroup>
     <ClCompile Include="Astar.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
+    <ClCompile Include="Candy.cpp" />
     <ClCompile Include="CircleCollider.cpp" />
+    <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Connection.cpp" />
     <ClCompile Include="DebugDisplay.cpp" />
     <ClCompile Include="DepthFirstPathfinder.cpp" />
@@ -129,6 +134,7 @@
     <ClCompile Include="GridGraph.cpp" />
     <ClCompile Include="GridPathfinder.cpp" />
     <ClCompile Include="InputSystem.cpp" />
+    <ClCompile Include="ItemManager.cpp" />
     <ClCompile Include="Kinematic.cpp" />
     <ClCompile Include="KinematicUnit.cpp" />
     <ClCompile Include="main.cpp" />

@@ -32,6 +32,7 @@ const IDType ENEMY_PURPLE_SPRITE_ID = 2;
 const IDType ENEMY_GREEN_SPRITE_ID = 3;
 const IDType ENEMY_ORANGE_SPRITE_ID = 4;
 const IDType ENEMY_LIME_SPRITE_ID = 5;
+const IDType ENEMY_WEAK_SPRITE_ID = 6;
 
 const int GRID_SQUARE_SIZE = 32;
 const std::string gFileName = "pathgrid.txt";

@@ -93,6 +93,7 @@ bool GameApp::init()
 	mpGraphicsBufferManager->loadBuffer(ENEMY_GREEN_SPRITE_ID, FILE_PATH + "EnemyGreen.bmp");
 	mpGraphicsBufferManager->loadBuffer(ENEMY_ORANGE_SPRITE_ID, FILE_PATH + "EnemyOrange.bmp");
 	mpGraphicsBufferManager->loadBuffer(ENEMY_LIME_SPRITE_ID, FILE_PATH + "EnemyLime.bmp");
+	mpGraphicsBufferManager->loadBuffer(ENEMY_LIME_SPRITE_ID, FILE_PATH + "EnemyWeak.bmp");
 	
 
 	//setup sprites
@@ -114,17 +115,22 @@ bool GameApp::init()
 	GraphicsBuffer* pEnemy2Buffer = mpGraphicsBufferManager->getBuffer(ENEMY_GREEN_SPRITE_ID);
 	if (pEnemy2Buffer != NULL)
 	{
-		mpSpriteManager->createAndManageSprite(ENEMY_PURPLE_SPRITE_ID, pEnemy2Buffer, 0, 0, pEnemy2Buffer->getWidth(), pEnemy2Buffer->getHeight());
+		mpSpriteManager->createAndManageSprite(ENEMY_GREEN_SPRITE_ID, pEnemy2Buffer, 0, 0, pEnemy2Buffer->getWidth(), pEnemy2Buffer->getHeight());
 	}
 	GraphicsBuffer* pEnemy3Buffer = mpGraphicsBufferManager->getBuffer(ENEMY_ORANGE_SPRITE_ID);
 	if (pEnemy3Buffer != NULL)
 	{
-		mpSpriteManager->createAndManageSprite(ENEMY_PURPLE_SPRITE_ID, pEnemy3Buffer, 0, 0, pEnemy3Buffer->getWidth(), pEnemy3Buffer->getHeight());
+		mpSpriteManager->createAndManageSprite(ENEMY_ORANGE_SPRITE_ID, pEnemy3Buffer, 0, 0, pEnemy3Buffer->getWidth(), pEnemy3Buffer->getHeight());
 	}
 	GraphicsBuffer* pEnemy4Buffer = mpGraphicsBufferManager->getBuffer(ENEMY_LIME_SPRITE_ID);
 	if (pEnemy4Buffer != NULL)
 	{
-		mpSpriteManager->createAndManageSprite(ENEMY_PURPLE_SPRITE_ID, pEnemy4Buffer, 0, 0, pEnemy4Buffer->getWidth(), pEnemy4Buffer->getHeight());
+		mpSpriteManager->createAndManageSprite(ENEMY_LIME_SPRITE_ID, pEnemy4Buffer, 0, 0, pEnemy4Buffer->getWidth(), pEnemy4Buffer->getHeight());
+	}
+	GraphicsBuffer* pEnemyWeakBuffer = mpGraphicsBufferManager->getBuffer(ENEMY_WEAK_SPRITE_ID);
+	if (pEnemyWeakBuffer != NULL)
+	{
+		mpSpriteManager->createAndManageSprite(ENEMY_WEAK_SPRITE_ID, pEnemyWeakBuffer, 0, 0, pEnemyWeakBuffer->getWidth(), pEnemyWeakBuffer->getHeight());
 	}
 
 
