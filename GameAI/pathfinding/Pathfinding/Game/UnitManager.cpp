@@ -21,8 +21,8 @@ UnitManager::~UnitManager()
 	
 	mUnitList.clear();
 	
-	delete mPlayerUnit;
-	mPlayerUnit = NULL;
+	//delete mPlayerUnit;
+	//mPlayerUnit = NULL;
 
 	//delete mpSpriteManager;
 	mpSpriteManager = NULL;
@@ -80,7 +80,7 @@ void UnitManager::addUnit(SteeringType steeringType, Vector2D pos)
 	//Vector2D pos(mPlayerUnit->getPosition().getX() + (100 * sin(theta)), mPlayerUnit->getPosition().getY() + (100 * cos(theta))); 
 	
 	Vector2D vel(0.0f, 0.0f);
-	KinematicUnit* newUnit;
+	//KinematicUnit* newUnit;
 
 }
 

@@ -9,6 +9,7 @@ Champlain College
 
 #include "Game.h"
 
+
 //forward declarations
 class GraphicsBuffer;
 class Sprite;
@@ -67,6 +68,9 @@ public:
 	inline GridPathfinder* getPathfinder() { return mpPathfinder; };
 	inline Grid* getGrid() { return mpGrid; };
 	inline GridGraph* getGridGraph() { return mpGridGraph; };
+
+	KinematicUnit* getPlayerUnit();// { }
+	UnitManager* getUnitManager();// { }
 
 	void setPathFinding(GridPathfinder* newPF);
 

@@ -51,6 +51,8 @@ public:
 	//initiate behaviors
 	
 	void wander();
+	void seek(KinematicUnit* target);
+	void flee(KinematicUnit* target);
 	
 
 private:

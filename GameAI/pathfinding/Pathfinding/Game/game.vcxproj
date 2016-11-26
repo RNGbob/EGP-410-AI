@@ -86,6 +86,8 @@
     <ClInclude Include="DebugDisplay.h" />
     <ClInclude Include="DepthFirstPathfinder.h" />
     <ClInclude Include="Dijkstra.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="FleeState.h" />
     <ClInclude Include="GameApp.h" />
     <ClInclude Include="GameMessage.h" />
     <ClInclude Include="GameMessageManager.h" />
@@ -101,10 +103,13 @@
     <ClInclude Include="Pathfinder.h" />
     <ClInclude Include="PathfindingDebugContent.h" />
     <ClInclude Include="PathToMessage.h" />
+    <ClInclude Include="SeekState.h" />
+    <ClInclude Include="SeekSteering.h" />
     <ClInclude Include="StateMachine.h" />
     <ClInclude Include="Steering.h" />
     <ClInclude Include="SwitchPathFindingMessage.h" />
     <ClInclude Include="UnitManager.h" />
+    <ClInclude Include="WanderState.h" />
     <ClInclude Include="WanderSteering.h" />
   </ItemGroup>
   <ItemGroup>
@@ -115,6 +120,8 @@
     <ClCompile Include="DebugDisplay.cpp" />
     <ClCompile Include="DepthFirstPathfinder.cpp" />
     <ClCompile Include="Dijkstra.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="FleeState.cpp" />
     <ClCompile Include="GameApp.cpp" />
     <ClCompile Include="GameMessage.cpp" />
     <ClCompile Include="GameMessageManager.cpp" />
@@ -131,10 +138,13 @@
     <ClCompile Include="Pathfinder.cpp" />
     <ClCompile Include="PathfindingDebugContent.cpp" />
     <ClCompile Include="PathToMessage.cpp" />
+    <ClCompile Include="SeekState.cpp" />
+    <ClCompile Include="SeekSteering.cpp" />
     <ClCompile Include="StateMachine.cpp" />
     <ClCompile Include="Steering.cpp" />
     <ClCompile Include="SwitchPathFindingMessage.cpp" />
     <ClCompile Include="UnitManager.cpp" />
+    <ClCompile Include="WanderState.cpp" />
     <ClCompile Include="WanderSteering.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

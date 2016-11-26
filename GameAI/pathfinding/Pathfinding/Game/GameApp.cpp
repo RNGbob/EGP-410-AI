@@ -217,6 +217,16 @@ bool GameApp::endLoop()
 	return Game::endLoop();
 }
 
+KinematicUnit * GameApp::getPlayerUnit()
+{
+	return mpUnits->getPlayer(); 
+}
+
+UnitManager * GameApp::getUnitManager()
+{
+	return mpUnits;
+}
+
 void GameApp::setPathFinding(GridPathfinder * newPF)
 {
 	mpPathfinder->clearPath();

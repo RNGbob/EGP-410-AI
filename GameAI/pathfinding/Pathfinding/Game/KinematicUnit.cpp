@@ -6,6 +6,8 @@
 #include "Steering.h"
 #include "UnitManager.h"
 #include "WanderSteering.h"
+#include "SeekSteering.h"
+#include "FleeSteering.h"
 
 using namespace std;
 
@@ -25,7 +27,10 @@ KinematicUnit::KinematicUnit(Sprite *pSprite, const Vector2D &position, float or
 
 KinematicUnit::~KinematicUnit()
 {
-	delete mpCurrentSteering;
+	if (mpCurrentSteering != NULL)
+	{
+		delete mpCurrentSteering;
+	}
 	//delete mpGroupSteering;
 }
 
@@ -106,12 +111,18 @@ void KinematicUnit::wander()
 	setSteering( pWanderSteering );
 }
 
-/*
-void KinematicUnit::seek(const Vector2D &target)
+void KinematicUnit::seek(KinematicUnit* target)
 {
-	KinematicSeekSteering* pSeekSteering = new KinematicSeekSteering( this, target );
+	SeekSteering* pSeekSteering = new SeekSteering( this, target );
 	setSteering( pSeekSteering );
 }
+void KinematicUnit::flee(KinematicUnit * target)
+{
+	SeekSteering* pFleeSteering = new SeekSteering(this, target, true);
+	setSteering(pFleeSteering);
+}
+/*
+
 
 void KinematicUnit::arrive(const Vector2D &target)
 {
