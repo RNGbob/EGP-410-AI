@@ -22,6 +22,7 @@ private:
 	MapWallManager* mpMapWalls;
 	ItemManager* mpItemManager;
 	Grid* mpGrid;
+	//may need gridgraph + other shite
 	// EnemySpawner* mpSpawner;
 
 

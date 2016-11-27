@@ -109,6 +109,10 @@ void Editor::processLoop()
 			Sleep(1000);//very bogus
 		}
 	}
+	else if (al_key_down(&keyState, ALLEGRO_KEY_C))
+	{
+		clearGrid();
+	}
 	else if (al_key_down(&keyState, ALLEGRO_KEY_1))
 	{
 		mLevelIndex = '1';
@@ -204,4 +208,16 @@ void Editor::saveGrid( ofstream& theStream )
 void Editor::loadGrid( std::ifstream& theStream )
 {
 	mpGrid->load(theStream);
+}
+
+void Editor::clearGrid()
+{
+	Editor* pEditor = dynamic_cast<Editor*>(gpGame);
+	if (pEditor != NULL)
+	{
+		ifstream theStream(FILE_PATH + "Blank.txt");
+		mpGrid->load(theStream);
+		theStream.close();
+		pEditor->getGridVisualizer()->setModified();
+	}
 }

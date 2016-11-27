@@ -6,7 +6,10 @@ Enemy::Enemy(Sprite *pSprite, const Vector2D &position, float orientation, const
 {
 	GameApp* pGame = dynamic_cast<GameApp*>(gpGame);
 	//mpPlayer = pGame->getPlayerUnit();
+	
+	// create state machine + transitions here
 
+	//mpLevels = pGame->getLevels(); // when exists -_-
 }
 
 Enemy::~Enemy()

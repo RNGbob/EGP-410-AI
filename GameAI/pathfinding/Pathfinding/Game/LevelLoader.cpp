@@ -29,7 +29,7 @@ void LevelLoader::clear()
 	while (!mLevels.empty())
 	{
 		delete mLevels.back();
-		mLevels.back = NULL;
+		mLevels.back() = NULL;
 		mLevels.pop_back();
 	}
 }

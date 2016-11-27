@@ -41,6 +41,7 @@ public:
 
 	void saveGrid( std::ofstream& theStream );
 	void loadGrid( std::ifstream& theStream );
+	void clearGrid();
 
 private:
 	Grid* mpGrid;
