@@ -5,16 +5,16 @@
 
 void ItemManager::addCoin(int gridIndex)
 {
-	//GameApp* pGame = dynamic_cast<GameApp*>(gpGame);
-	//Coin* newCoin = new Coin(pGame->getSpriteManager()->getSprite(SOME_ID), pGame->getGrid()->getULCornerOfSquare(gridIndex));
-	//mCoins.push_back(newCoin);
+	GameApp* pGame = dynamic_cast<GameApp*>(gpGame);
+	Coin* newCoin = new Coin(pGame->getSpriteManager()->getSprite(COIN_SPRITE_ID), pGame->getGrid()->getULCornerOfSquare(gridIndex));
+	mCoins.push_back(newCoin);
 }
 
 void ItemManager::addCandy(int gridIndex)
 {
-	//GameApp* pGame = dynamic_cast<GameApp*>(gpGame);
-	//Candy* newCandy = new Candy(pGame->getSpriteManager()->getSprite(SOME_ID), pGame->getGrid()->getULCornerOfSquare(gridIndex));
-	//mCandies.push_back(newCandy);
+	GameApp* pGame = dynamic_cast<GameApp*>(gpGame);
+	Candy* newCandy = new Candy(pGame->getSpriteManager()->getSprite(CANDY_SPRITE_ID), pGame->getGrid()->getULCornerOfSquare(gridIndex));
+	mCandies.push_back(newCandy);
 }
 
 void ItemManager::clear()

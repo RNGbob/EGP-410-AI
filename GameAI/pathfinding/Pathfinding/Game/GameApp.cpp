@@ -97,6 +97,8 @@ bool GameApp::init()
 	mpGraphicsBufferManager->loadBuffer(ENEMY_ORANGE_SPRITE_ID, FILE_PATH + "EnemyOrange.bmp");
 	mpGraphicsBufferManager->loadBuffer(ENEMY_LIME_SPRITE_ID, FILE_PATH + "EnemyLime.bmp");
 	mpGraphicsBufferManager->loadBuffer(ENEMY_WEAK_SPRITE_ID, FILE_PATH + "EnemyWeak.bmp");
+	mpGraphicsBufferManager->loadBuffer(COIN_SPRITE_ID, FILE_PATH + "Coin.bmp");
+	mpGraphicsBufferManager->loadBuffer(CANDY_SPRITE_ID, FILE_PATH + "Candy.bmp");
 	
 
 	//setup sprites
@@ -134,6 +136,16 @@ bool GameApp::init()
 	if (pEnemyWeakBuffer != NULL)
 	{
 		mpSpriteManager->createAndManageSprite(ENEMY_WEAK_SPRITE_ID, pEnemyWeakBuffer, 0, 0, pEnemyWeakBuffer->getWidth(), pEnemyWeakBuffer->getHeight());
+	}
+	GraphicsBuffer* pCoinBuffer = mpGraphicsBufferManager->getBuffer(COIN_SPRITE_ID);
+	if (pCoinBuffer != NULL)
+	{
+		mpSpriteManager->createAndManageSprite(COIN_SPRITE_ID, pCoinBuffer, 0, 0, pCoinBuffer->getWidth(), pCoinBuffer->getHeight());
+	}
+	GraphicsBuffer* pCandyBuffer = mpGraphicsBufferManager->getBuffer(CANDY_SPRITE_ID);
+	if (pCandyBuffer != NULL)
+	{
+		mpSpriteManager->createAndManageSprite(CANDY_SPRITE_ID, pCandyBuffer, 0, 0, pCandyBuffer->getWidth(), pCandyBuffer->getHeight());
 	}
 
 

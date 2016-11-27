@@ -25,7 +25,7 @@
 #include "PerformanceTracker.h"
 #include "MemoryTracker.h"
 
-const std::string FILE_NAME = "../Game/pathgrid.txt";
+const std::string FILE_NAME = FILE_PATH + "pathgrid.txt";
 
 int main(void)
 {

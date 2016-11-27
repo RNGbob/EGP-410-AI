@@ -8,6 +8,7 @@ Champlain College
 */
 
 #include "Game.h"
+#include "GraphicsSystem.h"
 
 
 //forward declarations
@@ -34,9 +35,11 @@ const IDType ENEMY_GREEN_SPRITE_ID = 3;
 const IDType ENEMY_ORANGE_SPRITE_ID = 4;
 const IDType ENEMY_LIME_SPRITE_ID = 5;
 const IDType ENEMY_WEAK_SPRITE_ID = 6;
+const IDType COIN_SPRITE_ID = 7;
+const IDType CANDY_SPRITE_ID = 8;
 
 const int GRID_SQUARE_SIZE = 32;
-const std::string gFileName = "pathgrid.txt";
+const std::string gFileName =  FILE_PATH + "pathgrid.txt";
 
 enum PathfindingType
 {
