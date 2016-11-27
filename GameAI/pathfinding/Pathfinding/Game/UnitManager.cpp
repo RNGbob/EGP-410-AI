@@ -1,6 +1,7 @@
 #include "UnitManager.h"
 #include "KinematicUnit.h"
 #include "SpriteManager.h"
+#include "Enemy.h"
 
 
 
@@ -76,11 +77,13 @@ void UnitManager::changeVels1(float val)
 void UnitManager::addUnit(SteeringType steeringType, Vector2D pos)
 {
 	double theta = rand() % 360;//2*PI;
-	
-	//Vector2D pos(mPlayerUnit->getPosition().getX() + (100 * sin(theta)), mPlayerUnit->getPosition().getY() + (100 * cos(theta))); 
+	 
 	
 	Vector2D vel(0.0f, 0.0f);
-	//KinematicUnit* newUnit;
+	// random sprite of the enemies
+	Enemy* newUnit = new Enemy(mpSpriteManager->getSprite(ENEMY_PURPLE_SPRITE_ID), pos, 1, vel, 0.0f, 160.0f, 10.0f);
+
+	mUnitList.push_back(newUnit);
 
 }
 

@@ -25,6 +25,8 @@ class InputSystem;
 class UnitManager;
 class MapWallManager;
 class ItemManager;
+class LevelLoader;
+class Level;
 
 const float LOOP_TARGET_TIME = 33.3f;//how long should each frame of execution take? 30fps = 33.3ms/frame
 
@@ -57,6 +59,7 @@ public:
 	~GameApp();
 
 	virtual bool init();
+	virtual void initAssets();
 	virtual void cleanup();
 
 	//game loop
@@ -73,30 +76,45 @@ public:
 	inline GridPathfinder* getPathfinder() { return mpPathfinder; };
 	inline Grid* getGrid() { return mpGrid; };
 	inline GridGraph* getGridGraph() { return mpGridGraph; };
+	inline int getCurrentLevelIndex() { return mCurrentLevelIndex; }
 
 	KinematicUnit* getPlayerUnit();// { }
 	UnitManager* getUnitManager();// { }
 	ItemManager* getItemManager();
 
+	LevelLoader* getLevelLoader();
+	Level* getLevel();
+
+
+	void switchLevel();
 	void setPathFinding(GridPathfinder* newPF);
 
 	void setDepthBreadth();
 	void setDijkstra();
 	void setAstar();
 
+
+
 	PathfindingType getType() { return mCurrentType; }
 
 private:
+	
 	GameMessageManager* mpMessageManager;
-	Grid* mpGrid;
-	GridVisualizer* mpGridVisualizer;
-	GridGraph* mpGridGraph;
+	
 	DebugDisplay* mpDebugDisplay;
 	
 	UnitManager* mpUnits;
+	LevelLoader* mpLevelLoader;
+	int mCurrentLevelIndex;
+
+	//contained in Level, remove later
 	MapWallManager* mpMapWalls;
 	ItemManager* mpItemManager;
-
+	Grid* mpGrid;
+	GridVisualizer* mpGridVisualizer;
+	GridGraph* mpGridGraph;
+	
+	
 	InputSystem* mpInput;
 
 	GridPathfinder* mpPathfinder;

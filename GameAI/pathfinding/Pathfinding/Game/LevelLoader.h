@@ -3,8 +3,10 @@
 #include "Game.h"
 #include <vector>
 #include "Grid.h"
+#include "GridGraph.h"
 #include "MapWallManager.h"
 #include "ItemManager.h"
+#include "GridVisualizer.h"
 
 class Level : public Trackable
 {
@@ -15,14 +17,15 @@ public:
 	MapWallManager* getMapWalls() { return mpMapWalls; }
 	ItemManager* getItemManager() { return mpItemManager; }
 	Grid* getGrid() { return mpGrid; }
-
+	
 	void draw(GraphicsBuffer* pBuffer);
 
 private:
 	MapWallManager* mpMapWalls;
 	ItemManager* mpItemManager;
 	Grid* mpGrid;
-	//may need gridgraph + other shite
+	GridGraph* mpGridGraph;
+	GridVisualizer* mpVisualizer;
 	// EnemySpawner* mpSpawner;
 
 
@@ -38,6 +41,7 @@ public:
 	void init();
 	void clear();
 
+	std::string getFileName(int index) { return mFiles[index]; }
 	Level* getLevel(int index);
 
 private:

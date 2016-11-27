@@ -49,9 +49,13 @@ Level * LevelLoader::getLevel(int index)
 Level::Level(Grid * pGrid)
 :mpGrid(pGrid)
 {
+	mpVisualizer = new GridVisualizer(mpGrid);
 	mpItemManager = new ItemManager();
 	mpMapWalls = new MapWallManager();
 	mpMapWalls->initWalls(mpGrid);
+	
+	mpGridGraph = new GridGraph(mpGrid);
+	mpGridGraph->init();
 
 	int size = mpGrid->getGridWidth() * mpGrid->getGridHeight();
 	
@@ -66,7 +70,6 @@ Level::Level(Grid * pGrid)
 		{
 			mpItemManager->addCandy(i);
 		}
-
 	}
 
 }
@@ -82,7 +85,8 @@ Level::~Level()
 	delete mpMapWalls;
 	mpMapWalls = NULL;
 
-
+	delete mpGridGraph;
+	mpGridGraph = NULL;
 }
 
 void Level::draw(GraphicsBuffer * pBuffer)

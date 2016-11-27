@@ -9,7 +9,8 @@ Enemy::Enemy(Sprite *pSprite, const Vector2D &position, float orientation, const
 	
 	// create state machine + transitions here
 
-	//mpLevels = pGame->getLevels(); // when exists -_-
+	mpLevels = pGame->getLevelLoader(); // when exists -_-
+	mLevelIndex = pGame->getCurrentLevelIndex();
 }
 
 Enemy::~Enemy()

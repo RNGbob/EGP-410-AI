@@ -27,6 +27,7 @@
 #include "UnitManager.h"
 #include "MapWallManager.h"
 #include "ItemManager.h"
+#include "LevelLoader.h"
 
 #include <fstream>
 #include <vector>
@@ -89,8 +90,20 @@ bool GameApp::init()
 
 	mpPathfinder = new DepthFirstPathfinder(mpGridGraph);
 
+	mpLevelLoader = new LevelLoader();
+
+	//debug display
+	PathfindingDebugContent* pContent = new PathfindingDebugContent( mpPathfinder );
+	mpDebugDisplay = new DebugDisplay( Vector2D(0,12), pContent );
+
+	mpMasterTimer->start();
+	return true;
+}
+
+void GameApp::initAssets()
+{
 	//load buffers
-	mpGraphicsBufferManager->loadBuffer( BACKGROUND_ID, FILE_PATH+"wallpaper.bmp");
+	mpGraphicsBufferManager->loadBuffer(BACKGROUND_ID, FILE_PATH + "wallpaper.bmp");
 	mpGraphicsBufferManager->loadBuffer(PLAYER_SPRITE_ID, FILE_PATH + "Player.bmp");
 	mpGraphicsBufferManager->loadBuffer(ENEMY_PURPLE_SPRITE_ID, FILE_PATH + "EnemyPurple.bmp");
 	mpGraphicsBufferManager->loadBuffer(ENEMY_GREEN_SPRITE_ID, FILE_PATH + "EnemyGreen.bmp");
@@ -99,18 +112,18 @@ bool GameApp::init()
 	mpGraphicsBufferManager->loadBuffer(ENEMY_WEAK_SPRITE_ID, FILE_PATH + "EnemyWeak.bmp");
 	mpGraphicsBufferManager->loadBuffer(COIN_SPRITE_ID, FILE_PATH + "Coin.bmp");
 	mpGraphicsBufferManager->loadBuffer(CANDY_SPRITE_ID, FILE_PATH + "Candy.bmp");
-	
+
 
 	//setup sprites
-	GraphicsBuffer* pBackGroundBuffer = mpGraphicsBufferManager->getBuffer( BACKGROUND_ID );
-	if( pBackGroundBuffer != NULL )
+	GraphicsBuffer* pBackGroundBuffer = mpGraphicsBufferManager->getBuffer(BACKGROUND_ID);
+	if (pBackGroundBuffer != NULL)
 	{
-		mpSpriteManager->createAndManageSprite( BACKGROUND_SPRITE_ID, pBackGroundBuffer, 0, 0, pBackGroundBuffer->getWidth(), pBackGroundBuffer->getHeight() );
+		mpSpriteManager->createAndManageSprite(BACKGROUND_SPRITE_ID, pBackGroundBuffer, 0, 0, pBackGroundBuffer->getWidth(), pBackGroundBuffer->getHeight());
 	}
 	GraphicsBuffer* pPlayerBuffer = mpGraphicsBufferManager->getBuffer(PLAYER_SPRITE_ID);
 	if (pPlayerBuffer != NULL)
 	{
-		 mpSpriteManager->createAndManageSprite(PLAYER_SPRITE_ID, pPlayerBuffer, 0, 0, pPlayerBuffer->getWidth(), pPlayerBuffer->getHeight());
+		mpSpriteManager->createAndManageSprite(PLAYER_SPRITE_ID, pPlayerBuffer, 0, 0, pPlayerBuffer->getWidth(), pPlayerBuffer->getHeight());
 	}
 	GraphicsBuffer* pEnemy1Buffer = mpGraphicsBufferManager->getBuffer(ENEMY_PURPLE_SPRITE_ID);
 	if (pEnemy1Buffer != NULL)
@@ -147,14 +160,6 @@ bool GameApp::init()
 	{
 		mpSpriteManager->createAndManageSprite(CANDY_SPRITE_ID, pCandyBuffer, 0, 0, pCandyBuffer->getWidth(), pCandyBuffer->getHeight());
 	}
-
-
-	//debug display
-	PathfindingDebugContent* pContent = new PathfindingDebugContent( mpPathfinder );
-	mpDebugDisplay = new DebugDisplay( Vector2D(0,12), pContent );
-
-	mpMasterTimer->start();
-	return true;
 }
 
 void GameApp::cleanup()
@@ -188,6 +193,9 @@ void GameApp::cleanup()
 
 	delete mpItemManager;
 	mpItemManager = NULL;
+
+	delete mpLevelLoader;
+	mpLevelLoader = NULL;
 
 }
 
@@ -254,6 +262,16 @@ UnitManager * GameApp::getUnitManager()
 ItemManager * GameApp::getItemManager()
 {
 	return mpItemManager;
+}
+
+LevelLoader * GameApp::getLevelLoader()
+{
+	return mpLevelLoader;
+}
+
+Level * GameApp::getLevel()
+{
+	return mpLevelLoader->getLevel(mCurrentLevelIndex);
 }
 
 void GameApp::setPathFinding(GridPathfinder * newPF)
