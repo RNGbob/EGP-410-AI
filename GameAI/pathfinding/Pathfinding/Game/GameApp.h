@@ -23,6 +23,7 @@ class DebugDisplay;
 class InputSystem;
 class UnitManager;
 class MapWallManager;
+class ItemManager;
 
 const float LOOP_TARGET_TIME = 33.3f;//how long should each frame of execution take? 30fps = 33.3ms/frame
 
@@ -72,6 +73,7 @@ public:
 
 	KinematicUnit* getPlayerUnit();// { }
 	UnitManager* getUnitManager();// { }
+	ItemManager* getItemManager();
 
 	void setPathFinding(GridPathfinder* newPF);
 
@@ -90,6 +92,7 @@ private:
 	
 	UnitManager* mpUnits;
 	MapWallManager* mpMapWalls;
+	ItemManager* mpItemManager;
 
 	InputSystem* mpInput;
 

@@ -26,6 +26,7 @@
 
 #include "UnitManager.h"
 #include "MapWallManager.h"
+#include "ItemManager.h"
 
 #include <fstream>
 #include <vector>
@@ -76,6 +77,8 @@ bool GameApp::init()
 
 	mpMapWalls = new MapWallManager();
 	mpMapWalls->initWalls(mpGrid);
+	
+	mpItemManager = new ItemManager();
 
 	//create the GridGraph for pathfinding
 	mpGridGraph = new GridGraph(mpGrid);
@@ -93,7 +96,7 @@ bool GameApp::init()
 	mpGraphicsBufferManager->loadBuffer(ENEMY_GREEN_SPRITE_ID, FILE_PATH + "EnemyGreen.bmp");
 	mpGraphicsBufferManager->loadBuffer(ENEMY_ORANGE_SPRITE_ID, FILE_PATH + "EnemyOrange.bmp");
 	mpGraphicsBufferManager->loadBuffer(ENEMY_LIME_SPRITE_ID, FILE_PATH + "EnemyLime.bmp");
-	mpGraphicsBufferManager->loadBuffer(ENEMY_LIME_SPRITE_ID, FILE_PATH + "EnemyWeak.bmp");
+	mpGraphicsBufferManager->loadBuffer(ENEMY_WEAK_SPRITE_ID, FILE_PATH + "EnemyWeak.bmp");
 	
 
 	//setup sprites
@@ -171,6 +174,9 @@ void GameApp::cleanup()
 	delete mpMapWalls;
 	mpMapWalls = NULL;
 
+	delete mpItemManager;
+	mpItemManager = NULL;
+
 }
 
 void GameApp::beginLoop()
@@ -231,6 +237,11 @@ KinematicUnit * GameApp::getPlayerUnit()
 UnitManager * GameApp::getUnitManager()
 {
 	return mpUnits;
+}
+
+ItemManager * GameApp::getItemManager()
+{
+	return mpItemManager;
 }
 
 void GameApp::setPathFinding(GridPathfinder * newPF)

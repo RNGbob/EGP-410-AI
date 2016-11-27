@@ -7,12 +7,21 @@
 class ItemManager : public Trackable
 {
 public:
-	ItemManager();
-	~ItemManager();
+	ItemManager() {};
+	~ItemManager() { clear(); };
 
-	void draw();
+	void addCoin(int gridIndex);
+	void addCandy(int gridIndex);
 
-	Coin* checkCoins(BoxCollider box);
+	void clear();
+
+	void draw(GraphicsBuffer* pBuffer);
+
+	Coin* checkCoins(BoxCollider* box);// returns coin collided with
+	void removeCoin(Coin* coin);
+
+	Candy* checkCandy(BoxCollider* box);// returns coin collided with
+	void removeCandy(Candy* candy);
 
 private:
 	std::vector<Coin*> mCoins;
