@@ -6,22 +6,6 @@
 #include "MapWallManager.h"
 #include "ItemManager.h"
 
-class LevelLoader : public Trackable
-{
-public:
-	LevelLoader();
-	~LevelLoader();
-
-	void init();
-	void clear();
-
-	Level* getLevel(int index);
-
-private:
-	std::vector<Level*> mLevels;
-};
-
-
 class Level : public Trackable
 {
 public:
@@ -38,7 +22,26 @@ private:
 	MapWallManager* mpMapWalls;
 	ItemManager* mpItemManager;
 	Grid* mpGrid;
-
+	// EnemySpawner* mpSpawner;
 
 
 };
+
+
+class LevelLoader : public Trackable
+{
+public:
+	LevelLoader();
+	~LevelLoader() {} ;
+
+	void init();
+	void clear();
+
+	Level* getLevel(int index);
+
+private:
+	std::vector<Level*> mLevels;
+	std::string mFiles[4];
+};
+
+

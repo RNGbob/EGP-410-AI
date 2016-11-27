@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Game.h"
+#include "GraphicsSystem.h"
 #include <fstream>
 
 /*Editor - class to hold all application related info.
@@ -18,6 +19,8 @@ class GridVisualizer;
 class GraphicsBuffer;
 
 const float LOOP_TARGET_TIME = 33.3f;//how long should each frame of execution take? 30fps = 33.3ms/frame
+const std::string FILE_NAME = FILE_PATH + "Level";// "pathgrid.txt";
+
 
 class Editor: public Game
 {
@@ -42,5 +45,6 @@ public:
 private:
 	Grid* mpGrid;
 	GridVisualizer* mpGridVisualizer;
+	char mLevelIndex;
 
 };

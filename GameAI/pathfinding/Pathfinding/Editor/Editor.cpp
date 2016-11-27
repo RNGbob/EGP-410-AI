@@ -19,8 +19,9 @@ const IDType BACKGROUND_ID = ENDING_SEQUENTIAL_ID + 1;
 
 Editor::Editor()
 :Game()
-,mpGrid(NULL)
-,mpGridVisualizer(NULL)
+, mpGrid(NULL)
+, mpGridVisualizer(NULL)
+, mLevelIndex('1')
 {
 }
 
@@ -73,6 +74,102 @@ void Editor::beginLoop()
 
 void Editor::processLoop()
 {
+	ALLEGRO_KEYBOARD_STATE keyState;
+	al_get_keyboard_state(&keyState);
+
+	//if escape key was down then exit the loop
+	if (al_key_down(&keyState, ALLEGRO_KEY_ESCAPE))
+	{
+		gpGame->markForExit();
+	}
+	else if (al_key_down(&keyState, ALLEGRO_KEY_S))
+	{
+		Editor* pEditor = dynamic_cast<Editor*>(gpGame);
+		if (pEditor != NULL)
+		{
+			string file = FILE_NAME + mLevelIndex + ".txt";
+			ofstream theStream(file);
+			pEditor->saveGrid(theStream);
+			theStream.close();
+			cout << "Grid saved!\n";
+			Sleep(1000);//very bogus
+		}
+	}
+	else if (al_key_down(&keyState, ALLEGRO_KEY_L))
+	{
+		Editor* pEditor = dynamic_cast<Editor*>(gpGame);
+		if (pEditor != NULL)
+		{
+			string file = FILE_NAME + mLevelIndex + ".txt";
+			ifstream theStream(file);
+			pEditor->loadGrid(theStream);
+			theStream.close();
+			pEditor->getGridVisualizer()->setModified();
+			cout << "Grid loaded!\n";
+			Sleep(1000);//very bogus
+		}
+	}
+	else if (al_key_down(&keyState, ALLEGRO_KEY_1))
+	{
+		mLevelIndex = '1';
+		Editor* pEditor = dynamic_cast<Editor*>(gpGame);
+		if (pEditor != NULL)
+		{
+			string file = FILE_NAME + mLevelIndex + ".txt";
+			ifstream theStream(file);
+			pEditor->loadGrid(theStream);
+			theStream.close();
+			pEditor->getGridVisualizer()->setModified();
+			cout << "Grid loaded!\n";
+			Sleep(1000);//very bogus
+		}
+	}
+	else if (al_key_down(&keyState, ALLEGRO_KEY_2))
+	{
+		mLevelIndex = '2';
+		Editor* pEditor = dynamic_cast<Editor*>(gpGame);
+		if (pEditor != NULL)
+		{
+			string file = FILE_NAME + mLevelIndex + ".txt";
+			ifstream theStream(file);
+			pEditor->loadGrid(theStream);
+			theStream.close();
+			pEditor->getGridVisualizer()->setModified();
+			cout << "Grid loaded!\n";
+			Sleep(1000);//very bogus
+		}
+	}
+	else if (al_key_down(&keyState, ALLEGRO_KEY_3))
+	{
+		mLevelIndex = '3';
+		Editor* pEditor = dynamic_cast<Editor*>(gpGame);
+		if (pEditor != NULL)
+		{
+			string file = FILE_NAME + mLevelIndex + ".txt";
+			ifstream theStream(file);
+			pEditor->loadGrid(theStream);
+			theStream.close();
+			pEditor->getGridVisualizer()->setModified();
+			cout << "Grid loaded!\n";
+			Sleep(1000);//very bogus
+		}
+	}
+	else if (al_key_down(&keyState, ALLEGRO_KEY_4))
+	{
+		mLevelIndex = '4';
+		Editor* pEditor = dynamic_cast<Editor*>(gpGame);
+		if (pEditor != NULL)
+		{
+			string file = FILE_NAME + mLevelIndex + ".txt";
+			ifstream theStream(file);
+			pEditor->loadGrid(theStream);
+			theStream.close();
+			pEditor->getGridVisualizer()->setModified();
+			cout << "Grid loaded!\n";
+			Sleep(1000);//very bogus
+		}
+	}
+	
 	ALLEGRO_MOUSE_STATE mouseState;
 	al_get_mouse_state( &mouseState );
 

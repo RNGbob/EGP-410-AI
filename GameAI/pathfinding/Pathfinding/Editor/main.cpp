@@ -25,7 +25,7 @@
 #include "PerformanceTracker.h"
 #include "MemoryTracker.h"
 
-const std::string FILE_NAME = FILE_PATH + "pathgrid.txt";
+//const std::string FILE_NAME = FILE_PATH + "pathgrid.txt";
 
 int main(void)
 {
@@ -39,6 +39,7 @@ int main(void)
 	while( !shouldExit )
 	{
 		//get current keyboard state
+		/*
 		ALLEGRO_KEYBOARD_STATE keyState;
 		al_get_keyboard_state( &keyState );
 
@@ -71,7 +72,7 @@ int main(void)
 				cout << "Grid loaded!\n";
 				Sleep(1000);//very bogus
 			}
-		}
+		}*/
 
 		gpGame->beginLoop();
 		gpGame->processLoop();
