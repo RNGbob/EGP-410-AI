@@ -10,10 +10,13 @@ public:
 	mpMover(pMover),
 	mpTarget(pTarget) {};
 
-
 	virtual void onEntrance();
 	virtual void onExit();
 	virtual StateTransition* update();
+
+	bool inRange();
+	bool PowerUp();
+
 private:
 	KinematicUnit* mpMover;
 	KinematicUnit* mpTarget;

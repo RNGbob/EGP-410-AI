@@ -262,6 +262,7 @@ UnitManager * GameApp::getUnitManager()
 ItemManager * GameApp::getItemManager()
 {
 	return mpItemManager;
+	//return mpLevelLoader->getLevel(mCurrentLevelIndex)->getItemManager();
 }
 
 LevelLoader * GameApp::getLevelLoader()

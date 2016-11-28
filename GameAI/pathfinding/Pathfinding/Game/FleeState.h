@@ -13,6 +13,9 @@ public:
 	virtual void onEntrance();
 	virtual void onExit();
 	virtual StateTransition* update();
+
+	bool PowerUp();
+
 private:
 	KinematicUnit* mpMover;
 	KinematicUnit* mpTarget;

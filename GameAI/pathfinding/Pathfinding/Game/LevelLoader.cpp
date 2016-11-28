@@ -87,6 +87,9 @@ Level::~Level()
 
 	delete mpGridGraph;
 	mpGridGraph = NULL;
+
+	delete mpVisualizer;
+	mpVisualizer = NULL;
 }
 
 void Level::draw(GraphicsBuffer * pBuffer)

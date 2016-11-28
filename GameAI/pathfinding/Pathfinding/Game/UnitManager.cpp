@@ -37,8 +37,8 @@ void UnitManager::init( SpriteManager* &mpSprMan)
 	// create plater unit
 	Vector2D pos(100.0f, 100.0f);
 	Vector2D vel(0.0f, 0.0f);
-	//mPlayerUnit = new KinematicUnit(mpSpriteManager->getSprite(PLAYER_SPRITE_ID), pos, 1, vel, 0.0f, 200.0f, 10.0f);
-	//mPlayerUnit->setPlayer();
+	mPlayerUnit = new KinematicUnit(mpSpriteManager->getSprite(PLAYER_SPRITE_ID), pos, 1, vel, 0.0f, 200.0f, 10.0f);
+	mPlayerUnit->setPlayer();
 }
 
 void UnitManager::cleanup()

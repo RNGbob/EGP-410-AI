@@ -21,7 +21,7 @@ KinematicUnit::KinematicUnit(Sprite *pSprite, const Vector2D &position, float or
 ,mMaxAcceleration(maxAcceleration)
 ,mIsPlayer(false)
 {
-	//mBox = BoxCollider(mPosition,pSprite->getDim());
+	mBox = BoxCollider(mPosition,Vector2D(GRID_SQUARE_SIZE, GRID_SQUARE_SIZE));
 }
 
 KinematicUnit::~KinematicUnit()

@@ -16,6 +16,9 @@ class StateTransition;
 enum TransitionType
 {
 	INVALID_TRANSITION_TYPE = -1,
+	WANDER_TRANSITION = 0,
+	SEEK_TRANSITION = 1,
+	FLEE_TRANSITION = 2
 };
 
 typedef int SM_idType;

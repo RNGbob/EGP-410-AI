@@ -17,6 +17,7 @@ public:
 	MapWallManager* getMapWalls() { return mpMapWalls; }
 	ItemManager* getItemManager() { return mpItemManager; }
 	Grid* getGrid() { return mpGrid; }
+	GridGraph* getGridGraph() { return mpGridGraph; }
 	
 	void draw(GraphicsBuffer* pBuffer);
 
