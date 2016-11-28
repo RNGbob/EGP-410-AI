@@ -18,6 +18,6 @@ private:
 	StateMachine* mpStateMachine;
 	LevelLoader* mpLevels;
 	int mLevelIndex; // for traversing level outside of perspective
-	//KinematicUnit* mpPlayer; // will need quick access to player
+	
 
 };

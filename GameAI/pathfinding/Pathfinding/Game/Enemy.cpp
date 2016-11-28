@@ -39,6 +39,7 @@ Enemy::Enemy(Sprite *pSprite, const Vector2D &position, float orientation, const
 
 Enemy::~Enemy()
 {
+
 }
 
 void Enemy::update(float time, const std::vector<KinematicUnit*>& units)
