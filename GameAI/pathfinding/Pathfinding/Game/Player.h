@@ -12,7 +12,7 @@ public:
 
 	void setLevel(Level* level) { mpLevel = level; }
 
-	void update(float time, const std::vector<KinematicUnit*> &units);
+	virtual void update(float time, const std::vector<KinematicUnit*> &units);
 	void PowerUp();
 	
 

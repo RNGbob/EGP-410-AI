@@ -9,9 +9,9 @@ class Enemy : public KinematicUnit
 {
 public:
 	Enemy(Sprite *pSprite, const Vector2D &position, float orientation, const Vector2D &velocity, float rotationVel, float maxVelocity, float maxAcceleration);
-	~Enemy();
+	virtual ~Enemy();
 
-	void update(float time, const std::vector<KinematicUnit*> &units);
+	virtual void update(float time, const std::vector<KinematicUnit*> &units);
 
 
 private:

@@ -46,7 +46,7 @@ public:
 	//draw yourself to the indicated buffer
 	void draw( GraphicsBuffer* pBuffer );
 	//move according to the current velocities and update velocities based on current Steering
-	void update(float time, const std::vector<KinematicUnit*> &units);
+	virtual void update(float time, const std::vector<KinematicUnit*> &units);
 
 	//initiate behaviors
 	
