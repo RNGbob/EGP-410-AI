@@ -45,6 +45,7 @@ GameApp::GameApp()
 ,mpGridGraph(NULL)
 ,mpPathfinder(NULL)
 ,mpDebugDisplay(NULL)
+,mCurrentLevelIndex(1)
 {
 }
 
@@ -91,6 +92,7 @@ bool GameApp::init()
 	mpPathfinder = new DepthFirstPathfinder(mpGridGraph);
 
 	mpLevelLoader = new LevelLoader();
+	mpLevelLoader->init();
 
 	//debug display
 	PathfindingDebugContent* pContent = new PathfindingDebugContent( mpPathfinder );

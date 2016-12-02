@@ -94,6 +94,7 @@ Level::~Level()
 
 void Level::draw(GraphicsBuffer * pBuffer)
 {
+	mpVisualizer->draw(*pBuffer);
 	mpItemManager->draw(pBuffer);
 
 }

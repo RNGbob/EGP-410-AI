@@ -26,7 +26,7 @@ public:
 	void cleanup();
 	
 	void addUnit(SteeringType steeringType, Vector2D pos);
-	void deleteUnit();
+	void deleteUnit(KinematicUnit* unit);
 	void deleteRandomUnit();
 
 	void update(float time);
@@ -36,6 +36,7 @@ public:
 
 	KinematicUnit* getPlayer(){ return mPlayerUnit; }
 	KinematicUnit* getUnit(int i) { return mUnitList[i]; } // safe as long as i is set to be under list.size()
+	KinematicUnit* checkAllCollisions(BoxCollider* mBox);
 	int getSize() { return mUnitList.size(); }
 
 private:

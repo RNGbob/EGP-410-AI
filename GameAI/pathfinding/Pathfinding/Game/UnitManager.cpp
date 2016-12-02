@@ -88,8 +88,18 @@ void UnitManager::addUnit(SteeringType steeringType, Vector2D pos)
 }
 
 // not needed until deletion parameters are known
-void UnitManager::deleteUnit()
+void UnitManager::deleteUnit(KinematicUnit* unit)
 {
+	int index;
+	for (int i = 0; i < mUnitList.size(); ++i)
+	{
+		if (unit == mUnitList[i])
+		{
+			index = i;
+			break;
+		}
+	}
+	mUnitList.erase(mUnitList.begin() + index);
 
 }
 

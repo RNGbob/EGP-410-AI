@@ -14,15 +14,33 @@ mScore(0)
 
 void Player::update(float time, const std::vector<KinematicUnit*>& units)
 {
+	GameApp* pGame = dynamic_cast<GameApp*>(gpGame);
+	
 	// check wall collisions, if ye stop moving til input changes
 
 	// check item Collisions:
 	//if coin increase score/ remove coin
 	//if candy start powerup/ remove candy
+	Candy* candy = pGame->getItemManager()->checkCandy(&mBox);
+	if (candy != nullptr)
+	{
+		PowerUp();
+		pGame->getItemManager()->removeCandy(candy);
+	}
+	Coin* coin = pGame->getItemManager()->checkCoins(&mBox);
+	if (coin != nullptr)
+	{
+		mScore++;
+		pGame->getItemManager()->removeCoin(coin);
+	}
+
 
 	// check enemy,  if hit:
 	// restart/end
 	// if powered up remove enemy.
+	//
+
+
 
 	//if powered up countdown til end
 

@@ -55,7 +55,7 @@ public:
 	void flee(KinematicUnit* target);
 	
 
-private:
+protected:
 	Sprite* mpSprite;
 	Steering* mpCurrentSteering;
 	Steering* mpGroupSteering;
