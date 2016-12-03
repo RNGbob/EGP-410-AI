@@ -73,7 +73,7 @@ void KinematicUnit::update(float time, const std::vector<KinematicUnit*> &units)
 
 
 	//move to oposite side of screen if we are off
-	gpGame->getGraphicsSystem()->wrapCoordinates( mPosition );
+	//gpGame->getGraphicsSystem()->wrapCoordinates( mPosition );
 
 	//set the orientation to match the direction of travel
 	setNewOrientation();

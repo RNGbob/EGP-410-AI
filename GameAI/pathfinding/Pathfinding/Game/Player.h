@@ -11,6 +11,7 @@ public:
 	~Player() {};
 
 	void setLevel(Level* level) { mpLevel = level; }
+	bool ifPowered() { return mPowerUp; }
 
 	virtual void update(float time, const std::vector<KinematicUnit*> &units);
 	void PowerUp();
@@ -20,5 +21,6 @@ private:
 	Level* mpLevel;
 	UnitManager* mpUnitManger;
 	bool mPowerUp;
+	int mPUCounter;
 	int mScore;
 };

@@ -39,7 +39,7 @@ public:
 	void setVelocity( const Vector2D& velocity ){ mVelocity = velocity; };
 	inline void setPlayer() { mIsPlayer = true; }
 	float getDistance(KinematicUnit* other);
-	
+	BoxCollider* getCollider() { return &mBox; }
 
 	virtual void setNewOrientation();//face the direction you are moving
 

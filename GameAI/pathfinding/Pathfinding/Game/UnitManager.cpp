@@ -72,6 +72,19 @@ void UnitManager::changeVels1(float val)
 	}
 }
 
+KinematicUnit * UnitManager::checkAllCollisions(BoxCollider * mBox)
+{
+	for (int i = 0; i < mUnitList.size(); i++)
+	{
+		if (mUnitList[i]->getCollider()->checkCollison(mBox))
+		{
+			return mUnitList[i];
+		}
+	}
+	
+	return nullptr;
+}
+
 
 // may replace with object pool of enemies if capped at 4 ghosts
 void UnitManager::addUnit(SteeringType steeringType, Vector2D pos)

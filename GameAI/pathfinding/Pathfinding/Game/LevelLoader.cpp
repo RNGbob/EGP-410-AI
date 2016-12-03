@@ -1,4 +1,5 @@
 #include "LevelLoader.h"
+#include "GameApp.h"
 #include <fstream>
 
 LevelLoader::LevelLoader()
@@ -12,7 +13,7 @@ LevelLoader::LevelLoader()
 void LevelLoader::init()
 {
 	Level* newLevel;
-	Grid* newGrid;
+	Grid* newGrid = new Grid(gpGame->getGraphicsSystem()->getWidth(), gpGame->getGraphicsSystem()->getHeight(), GRID_SQUARE_SIZE);
 	
 	for (int i = 0; i < 4; ++i)
 	{

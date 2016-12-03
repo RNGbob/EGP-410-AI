@@ -68,28 +68,34 @@ bool GameApp::init()
 	mpInput = new InputSystem();
 	mpInput->init(mpMessageManager);
 
+	initAssets();
+
 	//create and load the Grid, GridBuffer, and GridRenderer
+	/*
 	mpGrid = new Grid(mpGraphicsSystem->getWidth(), mpGraphicsSystem->getHeight(), GRID_SQUARE_SIZE);
 	mpGridVisualizer = new GridVisualizer( mpGrid );
 	std::ifstream theStream( gFileName );
 	mpGrid->load( theStream );
-
-	mpUnits = new UnitManager();
-	mpUnits->init(mpSpriteManager);
-
+	
+	
 	mpMapWalls = new MapWallManager();
 	mpMapWalls->initWalls(mpGrid);
 	
 	mpItemManager = new ItemManager();
 
-	//create the GridGraph for pathfinding
 	mpGridGraph = new GridGraph(mpGrid);
 	//init the nodes and connections
 	mpGridGraph->init();
+	*/
+	mpUnits = new UnitManager();
+	mpUnits->init(mpSpriteManager);
 
+
+	//create the GridGraph for pathfinding
+	
 	mCurrentType = DepthBreadthSearch;
 
-	mpPathfinder = new DepthFirstPathfinder(mpGridGraph);
+	//mpPathfinder = new DepthFirstPathfinder(mpGridGraph);
 
 	mpLevelLoader = new LevelLoader();
 	mpLevelLoader->init();
@@ -169,6 +175,7 @@ void GameApp::cleanup()
 	delete mpMessageManager;
 	mpMessageManager = NULL;
 
+	/*
 	delete mpGrid;
 	mpGrid = NULL;
 
@@ -180,7 +187,7 @@ void GameApp::cleanup()
 
 	delete mpPathfinder;
 	mpPathfinder = NULL;
-
+*/
 	delete mpDebugDisplay;
 	mpDebugDisplay = NULL;
 
@@ -189,13 +196,13 @@ void GameApp::cleanup()
 
 	delete mpUnits;
 	mpUnits = NULL;
-
+	/*
 	delete mpMapWalls;
 	mpMapWalls = NULL;
 
 	delete mpItemManager;
 	mpItemManager = NULL;
-
+*/
 	delete mpLevelLoader;
 	mpLevelLoader = NULL;
 
@@ -224,10 +231,10 @@ void GameApp::draw()
 	//get back buffer
 	GraphicsBuffer* pBackBuffer = mpGraphicsSystem->getBackBuffer();
 	//copy to back buffer
-	mpGridVisualizer->draw(*pBackBuffer);
+	//mpGridVisualizer->draw(*pBackBuffer);
 #ifdef VISUALIZE_PATH
 	//show pathfinder visualizer
-	mpPathfinder->drawVisualization(mpGrid, pBackBuffer);
+	//mpPathfinder->drawVisualization(mpGrid, pBackBuffer);
 #endif
 	mpDebugDisplay->draw( pBackBuffer );
 

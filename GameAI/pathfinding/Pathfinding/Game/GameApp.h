@@ -27,6 +27,7 @@ class MapWallManager;
 class ItemManager;
 class LevelLoader;
 class Level;
+class Player;
 
 const float LOOP_TARGET_TIME = 33.3f;//how long should each frame of execution take? 30fps = 33.3ms/frame
 
@@ -104,6 +105,7 @@ private:
 	DebugDisplay* mpDebugDisplay;
 	
 	UnitManager* mpUnits;
+	Player* mpPlayer();
 	LevelLoader* mpLevelLoader;
 	int mCurrentLevelIndex;
 
