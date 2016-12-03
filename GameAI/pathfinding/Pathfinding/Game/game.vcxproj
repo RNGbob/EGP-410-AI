@@ -84,6 +84,7 @@
     <ClInclude Include="CircleCollider.h" />
     <ClInclude Include="Coin.h" />
     <ClInclude Include="Connection.h" />
+    <ClInclude Include="DeadState.h" />
     <ClInclude Include="DebugContent.h" />
     <ClInclude Include="DebugDisplay.h" />
     <ClInclude Include="DepthFirstPathfinder.h" />
@@ -125,6 +126,7 @@
     <ClCompile Include="CircleCollider.cpp" />
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Connection.cpp" />
+    <ClCompile Include="DeadState.cpp" />
     <ClCompile Include="DebugDisplay.cpp" />
     <ClCompile Include="DepthFirstPathfinder.cpp" />
     <ClCompile Include="Dijkstra.cpp" />

@@ -53,6 +53,7 @@ public:
 	void wander();
 	void seek(KinematicUnit* target);
 	void flee(KinematicUnit* target);
+	void inActive();
 	
 
 protected:

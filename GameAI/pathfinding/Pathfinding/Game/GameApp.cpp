@@ -258,9 +258,9 @@ bool GameApp::endLoop()
 	return Game::endLoop();
 }
 
-KinematicUnit * GameApp::getPlayerUnit()
+Player* GameApp::getPlayerUnit()
 {
-	return mpUnits->getPlayer(); 
+	return mpPlayer; 
 }
 
 UnitManager * GameApp::getUnitManager()
@@ -270,8 +270,8 @@ UnitManager * GameApp::getUnitManager()
 
 ItemManager * GameApp::getItemManager()
 {
-	return mpItemManager;
-	//return mpLevelLoader->getLevel(mCurrentLevelIndex)->getItemManager();
+	//return mpItemManager;
+	return mpLevelLoader->getLevel(mCurrentLevelIndex)->getItemManager();
 }
 
 LevelLoader * GameApp::getLevelLoader()

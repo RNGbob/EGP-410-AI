@@ -46,3 +46,17 @@ void MapWallManager::initWalls(Grid * mapGrid)
 
 
 }
+
+bool MapWallManager::checkCollision(BoxCollider * pBox)
+{
+	for (int i = 0; i < mpWallBoxes.size(); ++i)
+	{
+		if (mpWallBoxes[i]->checkCollison(pBox))
+		{
+			return true;
+		}
+	}
+
+	
+	return false;
+}

@@ -6,6 +6,7 @@
 #include "Steering.h"
 #include <vector>
 #include "Vector2D.h"
+#include "BoxCollider.h"
 
 enum EnemyType
 {
@@ -25,7 +26,7 @@ public:
 	void init(SpriteManager* &mpSprMan);
 	void cleanup();
 	
-	void addUnit(SteeringType steeringType, Vector2D pos);
+	void addUnit(SteeringType steeringType, Vector2D pos, IDType spr);
 	void deleteUnit(KinematicUnit* unit);
 	void deleteRandomUnit();
 

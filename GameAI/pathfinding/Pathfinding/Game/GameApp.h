@@ -79,7 +79,7 @@ public:
 	inline GridGraph* getGridGraph() { return mpGridGraph; };
 	inline int getCurrentLevelIndex() { return mCurrentLevelIndex; }
 
-	KinematicUnit* getPlayerUnit();// { }
+	Player* getPlayerUnit();// { }
 	UnitManager* getUnitManager();// { }
 	ItemManager* getItemManager();
 
@@ -105,7 +105,7 @@ private:
 	DebugDisplay* mpDebugDisplay;
 	
 	UnitManager* mpUnits;
-	Player* mpPlayer();
+	Player* mpPlayer;
 	LevelLoader* mpLevelLoader;
 	int mCurrentLevelIndex;
 

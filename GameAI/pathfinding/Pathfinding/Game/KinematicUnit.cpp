@@ -120,3 +120,10 @@ void KinematicUnit::flee(KinematicUnit * target)
 	SeekSteering* pFleeSteering = new SeekSteering(this, target, true);
 	setSteering(pFleeSteering);
 }
+
+void KinematicUnit::inActive()
+{
+	setSteering(&gNullSteering);
+	mVelocity = Vector2D(0, 0);
+	mPosition = Vector2D(-100, -100);
+}

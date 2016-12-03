@@ -21,6 +21,7 @@ private:
 	Level* mpLevel;
 	UnitManager* mpUnitManger;
 	bool mPowerUp;
-	int mPUCounter;
+	int mPUCount;
+	int mPUstart;
 	int mScore;
 };

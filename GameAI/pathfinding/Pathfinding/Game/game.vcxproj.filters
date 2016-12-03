@@ -180,6 +180,9 @@
     <ClInclude Include="PlayerMoveMessage.h">
       <Filter>Header Files\Messages</Filter>
     </ClInclude>
+    <ClInclude Include="DeadState.h">
+      <Filter>Header Files\States</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Graph.cpp">
@@ -298,6 +301,9 @@
     </ClCompile>
     <ClCompile Include="PlayerMoveMessage.cpp">
       <Filter>Source Files\Messages</Filter>
+    </ClCompile>
+    <ClCompile Include="DeadState.cpp">
+      <Filter>Source Files\States</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

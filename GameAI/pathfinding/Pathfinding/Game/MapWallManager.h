@@ -12,6 +12,7 @@ public:
 
 	void clear();
 	void initWalls(Grid* mapGrid);
+	bool checkCollision(BoxCollider* pBox);
 
 private:
 	std::vector<BoxCollider*> mpWallBoxes;

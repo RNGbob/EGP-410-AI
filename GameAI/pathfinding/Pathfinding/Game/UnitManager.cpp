@@ -39,6 +39,10 @@ void UnitManager::init( SpriteManager* &mpSprMan)
 	Vector2D vel(0.0f, 0.0f);
 	//mPlayerUnit = new KinematicUnit(mpSpriteManager->getSprite(PLAYER_SPRITE_ID), pos, 1, vel, 0.0f, 200.0f, 10.0f);
 	//mPlayerUnit->setPlayer();
+
+	// add 16 enemies as object pool. 
+
+
 }
 
 void UnitManager::cleanup()
@@ -61,7 +65,7 @@ void UnitManager::draw(GraphicsBuffer* gBuff)
 	{
 		mUnitList[i]->draw(gBuff);
 	}
-	mPlayerUnit->draw(gBuff);
+	//mPlayerUnit->draw(gBuff);
 }
 
 void UnitManager::changeVels1(float val)
@@ -72,7 +76,7 @@ void UnitManager::changeVels1(float val)
 	}
 }
 
-KinematicUnit * UnitManager::checkAllCollisions(BoxCollider * mBox)
+KinematicUnit*  UnitManager::checkAllCollisions(BoxCollider* mBox)
 {
 	for (int i = 0; i < mUnitList.size(); i++)
 	{
@@ -87,14 +91,12 @@ KinematicUnit * UnitManager::checkAllCollisions(BoxCollider * mBox)
 
 
 // may replace with object pool of enemies if capped at 4 ghosts
-void UnitManager::addUnit(SteeringType steeringType, Vector2D pos)
+void UnitManager::addUnit(SteeringType steeringType, Vector2D pos, IDType spr)
 {
-	double theta = rand() % 360;//2*PI;
-	 
 	
 	Vector2D vel(0.0f, 0.0f);
 	// random sprite of the enemies
-	Enemy* newUnit = new Enemy(mpSpriteManager->getSprite(ENEMY_PURPLE_SPRITE_ID), pos, 1, vel, 0.0f, 160.0f, 10.0f);
+	Enemy* newUnit = new Enemy(mpSpriteManager->getSprite(spr), pos, 1, vel, 0.0f, 160.0f, 10.0f);
 
 	mUnitList.push_back(newUnit);
 
