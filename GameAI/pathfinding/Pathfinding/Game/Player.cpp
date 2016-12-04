@@ -73,7 +73,7 @@ void Player::update(float time)
 	}
 	//gpGame->getGraphicsSystem()->wrapCoordinates(mPosition);
 
-	checkBounds(pGame->getCurrentLevelIndex());
+	checkBounds(pGame->getCurrentLevelIndex(), pGame);
 
 	KinematicUnit::update(time);
 }
@@ -84,7 +84,7 @@ void Player::PowerUp()
 	mPUstart = gpGame->getCurrentTime();
 }
 
-void Player::checkBounds(int levelIndex)
+void Player::checkBounds(int levelIndex, GameApp* pGame)
 {
 	/*
 	
@@ -103,10 +103,12 @@ void Player::checkBounds(int levelIndex)
 		if (x > WIDTH ) // going to 2
 		{
 			gpGame->getGraphicsSystem()->wrapCoordinates(mPosition);
+			mpLevel = pGame->switchLevel(1);
 		}
 		if (y > HEIGHT) //going to 3
 		{
 			gpGame->getGraphicsSystem()->wrapCoordinates(mPosition);
+			mpLevel = pGame->switchLevel(2);
 		}
 		if (x < 0) // nowhere
 		{stop();}
@@ -117,10 +119,12 @@ void Player::checkBounds(int levelIndex)
 		if (x < 0) // going to 1
 		{
 			gpGame->getGraphicsSystem()->wrapCoordinates(mPosition);
+			mpLevel = pGame->switchLevel(0);
 		}
 		if (y > HEIGHT) // going to 4
 		{
 			gpGame->getGraphicsSystem()->wrapCoordinates(mPosition);
+			mpLevel = pGame->switchLevel(3);
 		}
 		if (x > WIDTH) // nowhere
 		{stop();}
@@ -131,10 +135,12 @@ void Player::checkBounds(int levelIndex)
 		if (x > WIDTH) // going to 4
 		{
 			gpGame->getGraphicsSystem()->wrapCoordinates(mPosition);
+			mpLevel = pGame->switchLevel(3);
 		}
 		if (y < 0) // going to 1
 		{
 			gpGame->getGraphicsSystem()->wrapCoordinates(mPosition);
+			mpLevel = pGame->switchLevel(0);
 		}
 		if (x < 0) // nowhere
 		{stop();}
@@ -145,10 +151,12 @@ void Player::checkBounds(int levelIndex)
 		if (x < 0) // going to 3
 		{
 			gpGame->getGraphicsSystem()->wrapCoordinates(mPosition);
+			mpLevel = pGame->switchLevel(2);
 		}
 		if (y < 0) // going to 2
 		{
 			gpGame->getGraphicsSystem()->wrapCoordinates(mPosition);
+			mpLevel = pGame->switchLevel(1);
 		}
 		if (x > WIDTH) // nowhere
 		{stop();}

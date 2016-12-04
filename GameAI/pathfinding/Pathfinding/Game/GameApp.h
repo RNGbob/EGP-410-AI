@@ -87,7 +87,7 @@ public:
 	Level* getLevel();
 
 
-	void switchLevel();
+	Level* switchLevel(int index);
 	void setPathFinding(GridPathfinder* newPF);
 
 	void setDepthBreadth();

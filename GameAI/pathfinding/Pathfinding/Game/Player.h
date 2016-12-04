@@ -1,5 +1,6 @@
 #pragma once
 #include "Game.h"
+#include "GameApp.h"
 #include "KinematicUnit.h"
 #include "UnitManager.h"
 #include "LevelLoader.h"
@@ -15,7 +16,7 @@ public:
 
 	virtual void update(float time);
 	void PowerUp();
-	void checkBounds(int LevelIndex);
+	void checkBounds(int LevelIndex,GameApp* pGame );
 	void stop();
 	
 

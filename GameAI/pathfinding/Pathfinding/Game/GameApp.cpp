@@ -297,6 +297,14 @@ Level * GameApp::getLevel()
 	return mpCurrentLevel;
 }
 
+Level * GameApp::switchLevel(int index)
+{
+	mCurrentLevelIndex = index;
+	mpCurrentLevel = mpLevelLoader->getLevel(index);
+	
+	return mpCurrentLevel;
+}
+
 void GameApp::setPathFinding(GridPathfinder * newPF)
 {
 	mpPathfinder->clearPath();
