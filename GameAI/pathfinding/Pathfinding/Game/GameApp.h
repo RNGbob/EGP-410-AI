@@ -107,6 +107,7 @@ private:
 	UnitManager* mpUnits;
 	Player* mpPlayer;
 	LevelLoader* mpLevelLoader;
+	Level* mpCurrentLevel;
 	int mCurrentLevelIndex;
 
 	//contained in Level, remove later

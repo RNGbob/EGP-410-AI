@@ -54,14 +54,14 @@ Enemy::~Enemy()
 
 }
 
-void Enemy::update(float time, const std::vector<KinematicUnit*>& units)
+void Enemy::update(float time)
 {
 	if (mStarted)
 	{
 		mpStateMachine->update();
 	}
 	
-	KinematicUnit::update(time, units);
+	KinematicUnit::update(time);
 }
 
 void Enemy::init()

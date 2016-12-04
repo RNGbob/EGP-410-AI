@@ -1,5 +1,6 @@
 #pragma once
 #include "Game.h"
+#include "Grid.h"
 #include "Coin.h"
 #include "Candy.h"
 #include <vector>
@@ -8,10 +9,10 @@ class ItemManager : public Trackable
 {
 public:
 	ItemManager() {};
-	~ItemManager() { clear(); };
+	~ItemManager();
 
-	void addCoin(int gridIndex);
-	void addCandy(int gridIndex);
+	void addCoin(int gridIndex, Grid* pGrid);
+	void addCandy(int gridIndex,Grid* pGrid);
 
 	void clear();
 

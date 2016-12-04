@@ -54,7 +54,7 @@ void UnitManager::update(float time)
 {
 	for (int i = 0; i < mUnitList.size(); i++)
 	{
-		mUnitList[i]->update(time, mUnitList);
+		mUnitList[i]->update(time);
 	}
 	//mPlayerUnit->update(time, mUnitList);
 }

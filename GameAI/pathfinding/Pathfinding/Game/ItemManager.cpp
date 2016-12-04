@@ -3,17 +3,35 @@
 #include "SpriteManager.h"
 #include "Grid.h"
 
-void ItemManager::addCoin(int gridIndex)
+ItemManager::~ItemManager()
+{
+	while (!mCandies.empty())
+	{
+		delete mCandies.back();
+		mCandies.back() = NULL;
+		mCandies.pop_back();
+	}
+	mCandies.clear();
+	while (!mCoins.empty())
+	{
+		delete mCoins.back();
+		mCoins.back() = NULL;
+		mCoins.pop_back();
+	}
+	mCoins.clear();
+}
+
+void ItemManager::addCoin(int gridIndex, Grid* pGrid)
 {
 	GameApp* pGame = dynamic_cast<GameApp*>(gpGame);
-	Coin* newCoin = new Coin(pGame->getSpriteManager()->getSprite(COIN_SPRITE_ID), pGame->getGrid()->getULCornerOfSquare(gridIndex));
+	Coin* newCoin = new Coin(pGame->getSpriteManager()->getSprite(COIN_SPRITE_ID), pGrid->getULCornerOfSquare(gridIndex));
 	mCoins.push_back(newCoin);
 }
 
-void ItemManager::addCandy(int gridIndex)
+void ItemManager::addCandy(int gridIndex, Grid* pGrid)
 {
 	GameApp* pGame = dynamic_cast<GameApp*>(gpGame);
-	Candy* newCandy = new Candy(pGame->getSpriteManager()->getSprite(CANDY_SPRITE_ID), pGame->getGrid()->getULCornerOfSquare(gridIndex));
+	Candy* newCandy = new Candy(pGame->getSpriteManager()->getSprite(CANDY_SPRITE_ID), pGrid->getULCornerOfSquare(gridIndex));
 	mCandies.push_back(newCandy);
 }
 
@@ -71,6 +89,8 @@ void ItemManager::removeCoin(Coin* coin)
 			break;
 		}
 	}
+	delete mCoins[index];
+	mCoins[index] = NULL;
 	mCoins.erase(mCoins.begin() + index);
 
 }
@@ -99,5 +119,7 @@ void ItemManager::removeCandy(Candy * candy)
 			break;
 		}
 	}
+	delete mCandies[index];
+	mCandies[index] = NULL;
 	mCandies.erase(mCandies.begin() + index);
 }

@@ -7,7 +7,7 @@ class Coin : public Trackable
 {
 public:
 	Coin(Sprite *pSprite, const Vector2D position);
-	~Coin() {};
+	~Coin() ;
 
 	void draw(GraphicsBuffer* pBuffer);
 	BoxCollider* getCollider() { return &mBox; }

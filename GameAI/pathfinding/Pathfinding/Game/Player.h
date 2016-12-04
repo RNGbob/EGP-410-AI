@@ -13,8 +13,10 @@ public:
 	void setLevel(Level* level) { mpLevel = level; }
 	bool ifPowered() { return mPowerUp; }
 
-	virtual void update(float time, const std::vector<KinematicUnit*> &units);
+	virtual void update(float time);
 	void PowerUp();
+	void checkBounds(int LevelIndex);
+	void stop();
 	
 
 private:

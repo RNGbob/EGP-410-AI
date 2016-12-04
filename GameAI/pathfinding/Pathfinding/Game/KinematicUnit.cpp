@@ -38,7 +38,7 @@ void KinematicUnit::draw( GraphicsBuffer* pBuffer )
 	mpSprite->draw( *pBuffer, mPosition.getX(), mPosition.getY(), mOrientation );
 }
 
-void KinematicUnit::update(float time, const std::vector<KinematicUnit*> &units)
+void KinematicUnit::update(float time)
 {
 	Steering* steering;
 	mBox.setPos(mPosition);
@@ -76,7 +76,7 @@ void KinematicUnit::update(float time, const std::vector<KinematicUnit*> &units)
 	//gpGame->getGraphicsSystem()->wrapCoordinates( mPosition );
 
 	//set the orientation to match the direction of travel
-	setNewOrientation();
+	//setNewOrientation();
 }
 
 //private - deletes old Steering before setting

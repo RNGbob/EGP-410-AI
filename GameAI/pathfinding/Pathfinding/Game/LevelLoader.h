@@ -14,14 +14,14 @@ public:
 	Level(Grid* pGrid);
 	~Level();
 
-	MapWallManager* getMapWalls() { return mpMapWalls; }
-	ItemManager* getItemManager() { return mpItemManager; }
-	Grid* getGrid() { return mpGrid; }
-	GridGraph* getGridGraph() { return mpGridGraph; }
+	MapWallManager* getMapWalls() const { return mpMapWalls; }
+	ItemManager* getItemManager() const { return mpItemManager; }
+	Grid* getGrid() const { return mpGrid; }
+	GridGraph* getGridGraph() const { return mpGridGraph; }
 	
 	void draw(GraphicsBuffer* pBuffer);
 
-private:
+protected:
 	MapWallManager* mpMapWalls;
 	ItemManager* mpItemManager;
 	Grid* mpGrid;
@@ -37,7 +37,7 @@ class LevelLoader : public Trackable
 {
 public:
 	LevelLoader();
-	~LevelLoader() {} ;
+	~LevelLoader() ;
 
 	void init();
 	void clear();

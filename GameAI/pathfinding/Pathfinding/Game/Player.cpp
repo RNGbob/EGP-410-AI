@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "Game.h"
 #include "GameApp.h"
 #include "Enemy.h"
 
@@ -9,20 +10,21 @@ mScore(0),
 mPUCount(10),
 mPUstart(0)
 {
+	setPlayer();
 	GameApp* pGame = dynamic_cast<GameApp*>(gpGame);
 
 	mpLevel = pGame->getLevel();
 	mpUnitManger = pGame->getUnitManager();
 }
 
-void Player::update(float time, const std::vector<KinematicUnit*>& units)
+void Player::update(float time)
 {
 	GameApp* pGame = dynamic_cast<GameApp*>(gpGame);
 	
 	// check wall collisions, if ye stop moving til input changes
-	if (mpLevel->getMapWalls()->checkCollision(&mBox))
+	if (mpLevel->getMapWalls()->checkCollision(&mBox) && mVelocity != Vector2D(0,0))
 	{
-		mVelocity= Vector2D(0,0);
+		stop();
 	}
 
 	// check item Collisions:
@@ -32,12 +34,14 @@ void Player::update(float time, const std::vector<KinematicUnit*>& units)
 	if (candy != nullptr)
 	{
 		PowerUp();
+		std::cout << "BOOM" << std::endl;
 		pGame->getItemManager()->removeCandy(candy);
 	}
 	Coin* coin = pGame->getItemManager()->checkCoins(&mBox);
 	if (coin != nullptr)
 	{
 		mScore++;
+		//std::cout << "CREAM" << std::endl;
 		pGame->getItemManager()->removeCoin(coin);
 	}
 
@@ -67,13 +71,101 @@ void Player::update(float time, const std::vector<KinematicUnit*>& units)
 		if (gpGame->getCurrentTime() - mPUstart >= mPUCount)
 		{mPowerUp = false;}
 	}
-	gpGame->getGraphicsSystem()->wrapCoordinates(mPosition);
+	//gpGame->getGraphicsSystem()->wrapCoordinates(mPosition);
 
-	KinematicUnit::update(time, units);
+	checkBounds(pGame->getCurrentLevelIndex());
+
+	KinematicUnit::update(time);
 }
 
 void Player::PowerUp()
 {
 	mPowerUp = true;
 	mPUstart = gpGame->getCurrentTime();
+}
+
+void Player::checkBounds(int levelIndex)
+{
+	/*
+	
+	Map Layout
+	|  1  |  2  |
+	|  3  |  4  |
+	
+	*/
+	
+	float x = mPosition.getX();
+	float y = mPosition.getY();
+
+	switch (levelIndex)
+	{
+	case 0: // 1
+		if (x > WIDTH ) // going to 2
+		{
+			gpGame->getGraphicsSystem()->wrapCoordinates(mPosition);
+		}
+		if (y > HEIGHT) //going to 3
+		{
+			gpGame->getGraphicsSystem()->wrapCoordinates(mPosition);
+		}
+		if (x < 0) // nowhere
+		{stop();}
+		if (y < 0) // nowhere
+		{stop();}
+		break;
+	case 1: // 2
+		if (x < 0) // going to 1
+		{
+			gpGame->getGraphicsSystem()->wrapCoordinates(mPosition);
+		}
+		if (y > HEIGHT) // going to 4
+		{
+			gpGame->getGraphicsSystem()->wrapCoordinates(mPosition);
+		}
+		if (x > WIDTH) // nowhere
+		{stop();}
+		if (y < 0) //nowhere
+		{stop();}
+		break;
+	case 2: // 3
+		if (x > WIDTH) // going to 4
+		{
+			gpGame->getGraphicsSystem()->wrapCoordinates(mPosition);
+		}
+		if (y < 0) // going to 1
+		{
+			gpGame->getGraphicsSystem()->wrapCoordinates(mPosition);
+		}
+		if (x < 0) // nowhere
+		{stop();}
+		if (y > HEIGHT) // nowhere
+		{stop();}
+		break;
+	case 3: // 4
+		if (x < 0) // going to 3
+		{
+			gpGame->getGraphicsSystem()->wrapCoordinates(mPosition);
+		}
+		if (y < 0) // going to 2
+		{
+			gpGame->getGraphicsSystem()->wrapCoordinates(mPosition);
+		}
+		if (x > WIDTH) // nowhere
+		{stop();}
+		if (y > HEIGHT) // nowhere
+		{stop();}
+		break;
+	default:
+		break;
+	}
+
+
+
+}
+
+void Player::stop()
+{
+	mVelocity.normalize();
+	mPosition = mPosition - mVelocity;
+	mVelocity = Vector2D(0, 0);
 }

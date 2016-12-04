@@ -4,6 +4,7 @@
 #include "GameMessageManager.h"
 #include "PathToMessage.h"
 #include "SwitchPathFindingMessage.h"
+#include "PlayerMoveMessage.h"
 #include "Grid.h"
 #include <string>
 #include <sstream>
@@ -37,7 +38,7 @@ void InputSystem::update()
 	static Vector2D goalPos(-50.0f, -50.0f);
 	al_get_mouse_state(&mMouse);
 	al_get_keyboard_state(&mKey);
-
+	/*
 	if (firstPress(mMouse, mPrevMouse,1))
 	{
 		if (!firstSelect)
@@ -57,7 +58,7 @@ void InputSystem::update()
 			}
 		}
 
-	}
+	}*/
 	// drawing start and end goal and letters
 	
 
@@ -66,6 +67,31 @@ void InputSystem::update()
 	{
 		gpGame->markForExit();
 	}
+	else if (firstPress(mKey, mPrevKey, ALLEGRO_KEY_UP))
+	{
+
+		GameMessage* pMessage = new PlayerMoveMessage(Vector2D(0, -10));
+		mpMessageManager->addMessage(pMessage, 0);
+	}
+	else if (firstPress(mKey, mPrevKey, ALLEGRO_KEY_DOWN))
+	{
+
+		GameMessage* pMessage = new PlayerMoveMessage(Vector2D(0, 10));
+		mpMessageManager->addMessage(pMessage, 0);
+	}
+	else if (firstPress(mKey, mPrevKey, ALLEGRO_KEY_LEFT))
+	{
+
+		GameMessage* pMessage = new PlayerMoveMessage(Vector2D(-10, 0));
+		mpMessageManager->addMessage(pMessage, 0);
+	}
+	else if (firstPress(mKey, mPrevKey, ALLEGRO_KEY_RIGHT))
+	{
+
+		GameMessage* pMessage = new PlayerMoveMessage(Vector2D(10,0));
+		mpMessageManager->addMessage(pMessage, 0);
+	}
+	/*
 	else if (firstPress(mKey, mPrevKey, ALLEGRO_KEY_B))
 	{
 
@@ -87,8 +113,8 @@ void InputSystem::update()
 		mpMessageManager->addMessage(pMessage, 0);
 		resetDraw(lastPos, goalPos);
 	}
-	
-	draw(lastPos, goalPos);
+	*/
+	//draw(lastPos, goalPos);
 
 	// assign last frames key
 	mPrevKey = mKey;

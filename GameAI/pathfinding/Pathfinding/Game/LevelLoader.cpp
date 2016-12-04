@@ -10,22 +10,7 @@ LevelLoader::LevelLoader()
 	mFiles[3] = "Level4.txt";
 }
 
-void LevelLoader::init()
-{
-	Level* newLevel;
-	Grid* newGrid = new Grid(gpGame->getGraphicsSystem()->getWidth(), gpGame->getGraphicsSystem()->getHeight(), GRID_SQUARE_SIZE);
-	
-	for (int i = 0; i < 4; ++i)
-	{
-		std::ifstream stream(mFiles[i]);
-		newGrid->load(stream);
-		newLevel = new Level(newGrid);
-		mLevels.push_back(newLevel);
-		stream.close();
-	}
-}
-
-void LevelLoader::clear()
+LevelLoader::~LevelLoader()
 {
 	while (!mLevels.empty())
 	{
@@ -35,12 +20,34 @@ void LevelLoader::clear()
 	}
 }
 
+void LevelLoader::init()
+{
+	Level* newLevel;
+	Grid* newGrid = new Grid(gpGame->getGraphicsSystem()->getWidth(), gpGame->getGraphicsSystem()->getHeight(), GRID_SQUARE_SIZE);
+	
+	for (int i = 0; i < 4; ++i)
+	{
+		newGrid = new Grid(gpGame->getGraphicsSystem()->getWidth(), gpGame->getGraphicsSystem()->getHeight(), GRID_SQUARE_SIZE);
+		std::ifstream stream(FILE_PATH + mFiles[i]);
+		newGrid->load(stream);
+		newLevel = new Level(newGrid);
+		mLevels.push_back(newLevel);
+		stream.close();
+	}
+}
+
+void LevelLoader::clear()
+{
+	
+}
+
 Level * LevelLoader::getLevel(int index)
 {
-	if (!mLevels.empty() && index < mLevels.size())
-	{
-		return mLevels[index];
-	}
+	//if (!mLevels.empty() && index < mLevels.size())
+	//{
+	Level* pLevel =	mLevels[index];
+	return pLevel;
+	//}
 	return nullptr;
 }
 
@@ -60,16 +67,20 @@ Level::Level(Grid * pGrid)
 
 	int size = mpGrid->getGridWidth() * mpGrid->getGridHeight();
 	
-	for (int i = 0; i<size; ++i)
+	for (int i = 0; i<size; i++)
 	{
 		if (mpGrid->getValueAtIndex(i) == 0)
 		{
 			// not all, make it every 3 or something
-			mpItemManager->addCoin(i);
+			if (i%3 == 0)
+			{
+				mpItemManager->addCoin(i, mpGrid);
+			}
+			
 		}
 		if (mpGrid->getValueAtIndex(i) == 2)
 		{
-			mpItemManager->addCandy(i);
+			mpItemManager->addCandy(i, mpGrid);
 		}
 	}
 

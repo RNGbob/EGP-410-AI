@@ -11,7 +11,7 @@ public:
 	Enemy(Sprite *pSprite, const Vector2D &position, float orientation, const Vector2D &velocity, float rotationVel, float maxVelocity, float maxAcceleration);
 	virtual ~Enemy();
 
-	virtual void update(float time, const std::vector<KinematicUnit*> &units);
+	virtual void update(float time);
 	void init();
 	void respawn();
 	bool isDead() { return mDead; }

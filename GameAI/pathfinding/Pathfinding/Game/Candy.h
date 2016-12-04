@@ -7,7 +7,7 @@ class Candy :public Trackable
 {
 public:
 	Candy(Sprite *pSprite, const Vector2D position);
-	~Candy() {};
+	~Candy();
 
 	void draw(GraphicsBuffer* pBuffer);
 	BoxCollider* getCollider() { return &mBox; }

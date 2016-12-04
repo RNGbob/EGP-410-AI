@@ -28,6 +28,7 @@
 #include "MapWallManager.h"
 #include "ItemManager.h"
 #include "LevelLoader.h"
+#include "Player.h"
 
 #include <fstream>
 #include <vector>
@@ -45,7 +46,7 @@ GameApp::GameApp()
 ,mpGridGraph(NULL)
 ,mpPathfinder(NULL)
 ,mpDebugDisplay(NULL)
-,mCurrentLevelIndex(1)
+,mCurrentLevelIndex(0)
 {
 }
 
@@ -87,18 +88,21 @@ bool GameApp::init()
 	//init the nodes and connections
 	mpGridGraph->init();
 	*/
+	
+	mpLevelLoader = new LevelLoader();
+	mpLevelLoader->init();
+	mpCurrentLevel = mpLevelLoader->getLevel(0);
+	
+	
 	mpUnits = new UnitManager();
 	mpUnits->init(mpSpriteManager);
 
-
+	mpPlayer = new Player(mpSpriteManager->getSprite(PLAYER_SPRITE_ID), Vector2D(128, 128), 0, Vector2D(0, 0), 0.0f, 200.0f, 10.0f);
 	//create the GridGraph for pathfinding
 	
 	mCurrentType = DepthBreadthSearch;
 
 	//mpPathfinder = new DepthFirstPathfinder(mpGridGraph);
-
-	mpLevelLoader = new LevelLoader();
-	mpLevelLoader->init();
 
 	//debug display
 	PathfindingDebugContent* pContent = new PathfindingDebugContent( mpPathfinder );
@@ -112,14 +116,14 @@ void GameApp::initAssets()
 {
 	//load buffers
 	mpGraphicsBufferManager->loadBuffer(BACKGROUND_ID, FILE_PATH + "wallpaper.bmp");
-	mpGraphicsBufferManager->loadBuffer(PLAYER_SPRITE_ID, FILE_PATH + "Player.bmp");
-	mpGraphicsBufferManager->loadBuffer(ENEMY_PURPLE_SPRITE_ID, FILE_PATH + "EnemyPurple.bmp");
-	mpGraphicsBufferManager->loadBuffer(ENEMY_GREEN_SPRITE_ID, FILE_PATH + "EnemyGreen.bmp");
-	mpGraphicsBufferManager->loadBuffer(ENEMY_ORANGE_SPRITE_ID, FILE_PATH + "EnemyOrange.bmp");
-	mpGraphicsBufferManager->loadBuffer(ENEMY_LIME_SPRITE_ID, FILE_PATH + "EnemyLime.bmp");
-	mpGraphicsBufferManager->loadBuffer(ENEMY_WEAK_SPRITE_ID, FILE_PATH + "EnemyWeak.bmp");
-	mpGraphicsBufferManager->loadBuffer(COIN_SPRITE_ID, FILE_PATH + "Coin.bmp");
-	mpGraphicsBufferManager->loadBuffer(CANDY_SPRITE_ID, FILE_PATH + "Candy.bmp");
+	mpGraphicsBufferManager->loadBuffer(PLAYER_SPRITE_ID, FILE_PATH + "Player.png");
+	mpGraphicsBufferManager->loadBuffer(ENEMY_PURPLE_SPRITE_ID, FILE_PATH + "EnemyPurple.png");
+	mpGraphicsBufferManager->loadBuffer(ENEMY_GREEN_SPRITE_ID, FILE_PATH + "EnemyGreen.png");
+	mpGraphicsBufferManager->loadBuffer(ENEMY_ORANGE_SPRITE_ID, FILE_PATH + "EnemyOrange.png");
+	mpGraphicsBufferManager->loadBuffer(ENEMY_LIME_SPRITE_ID, FILE_PATH + "EnemyLime.png");
+	mpGraphicsBufferManager->loadBuffer(ENEMY_WEAK_SPRITE_ID, FILE_PATH + "EnemyWeak.png");
+	mpGraphicsBufferManager->loadBuffer(COIN_SPRITE_ID, FILE_PATH + "Coin.png");
+	mpGraphicsBufferManager->loadBuffer(CANDY_SPRITE_ID, FILE_PATH + "Candy.png");
 
 
 	//setup sprites
@@ -184,10 +188,10 @@ void GameApp::cleanup()
 
 	delete mpGridGraph;
 	mpGridGraph = NULL;
-
+*/
 	delete mpPathfinder;
 	mpPathfinder = NULL;
-*/
+
 	delete mpDebugDisplay;
 	mpDebugDisplay = NULL;
 
@@ -196,6 +200,9 @@ void GameApp::cleanup()
 
 	delete mpUnits;
 	mpUnits = NULL;
+	
+	delete mpPlayer;
+	mpPlayer = NULL;
 	/*
 	delete mpMapWalls;
 	mpMapWalls = NULL;
@@ -203,6 +210,9 @@ void GameApp::cleanup()
 	delete mpItemManager;
 	mpItemManager = NULL;
 */
+	//delete mpCurrentLevel;
+	//mpCurrentLevel = NULL;
+
 	delete mpLevelLoader;
 	mpLevelLoader = NULL;
 
@@ -236,8 +246,9 @@ void GameApp::draw()
 	//show pathfinder visualizer
 	//mpPathfinder->drawVisualization(mpGrid, pBackBuffer);
 #endif
-	mpDebugDisplay->draw( pBackBuffer );
-
+	//mpDebugDisplay->draw( pBackBuffer );
+	mpCurrentLevel->draw(pBackBuffer);
+	mpPlayer->draw(pBackBuffer);
 	//mpUnits->draw(pBackBuffer);
 
 }
@@ -245,11 +256,13 @@ void GameApp::draw()
 void GameApp::update()
 {
 	//mpUnits->update(LOOP_TARGET_TIME/1000.0f);
+	mpPlayer->update(LOOP_TARGET_TIME / 1000.0f);
 }
 
 void GameApp::input()
 {
 	mpInput->update();
+	
 
 }
 
@@ -271,7 +284,7 @@ UnitManager * GameApp::getUnitManager()
 ItemManager * GameApp::getItemManager()
 {
 	//return mpItemManager;
-	return mpLevelLoader->getLevel(mCurrentLevelIndex)->getItemManager();
+	return mpCurrentLevel->getItemManager();
 }
 
 LevelLoader * GameApp::getLevelLoader()
@@ -281,7 +294,7 @@ LevelLoader * GameApp::getLevelLoader()
 
 Level * GameApp::getLevel()
 {
-	return mpLevelLoader->getLevel(mCurrentLevelIndex);
+	return mpCurrentLevel;
 }
 
 void GameApp::setPathFinding(GridPathfinder * newPF)
