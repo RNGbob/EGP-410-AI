@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <Trackable.h>
+#include "Vector2D.h"
 #include "Node.h"
 
 class Node;
@@ -22,6 +23,8 @@ public:
 	int getNumNodes() const { return mNodes.size(); };
 	int getNodeIndex(Node* pNode) const;
 	void push_front(Node* node) { mNodes.insert(mNodes.begin(), node); }
+	int pathSize() { return mNodes.size(); }
+	Vector2D startingDirection();
 
 	void addNode( Node* pNode );
 	void clear();//remove all nodes

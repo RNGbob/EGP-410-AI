@@ -58,6 +58,30 @@ Node* Path::getAndRemoveNextNode()
 	}
 }
 
+Vector2D Path::startingDirection()
+{
+	int indexDiff = mNodes[0]->getId() - mNodes[1]->getId();
+	
+	if (indexDiff > 0) 
+	{
+		if (abs(indexDiff)>16)
+		{return Vector2D(0,1);}
+		else
+		{return Vector2D(1, 0);}
+
+	}
+	else
+	{
+		if (abs(indexDiff)>16) 
+		{return Vector2D(0, -1);}
+		else
+		{return Vector2D(-1, 0);}
+	}
+	
+	
+	return Vector2D(0,0);
+}
+
 void Path::addNode( Node* pNode )
 {
 	mNodes.push_back( pNode );

@@ -1,5 +1,6 @@
 #pragma once
 #include "Steering.h"
+#include "Game.h"
 #include "LevelLoader.h"
 
 class KinematicUnit;
@@ -13,11 +14,12 @@ public:
 
 	virtual Steering* getSteering();
 	bool checkWalls();
+	Vector2D newDirection();
 
 private:
 	KinematicUnit* mpMover;
 	KinematicUnit* mpTarget;
 	Level* mpLevel;
-	int PFtimer;
+	int mTimer;
 	bool mFlee;
 };
