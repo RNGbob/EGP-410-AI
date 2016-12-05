@@ -13,6 +13,7 @@ public:
 	void clear();
 	void initWalls(Grid* mapGrid);
 	bool checkCollision(BoxCollider* pBox);
+	void modBoxPosisions(Vector2D delta);
 
 private:
 	std::vector<BoxCollider*> mpWallBoxes;

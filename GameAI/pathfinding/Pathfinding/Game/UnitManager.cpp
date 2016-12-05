@@ -97,7 +97,7 @@ void UnitManager::addUnit( Vector2D pos, IDType spr)
 	
 	Vector2D vel(0.0f, 0.0f);
 	// random sprite of the enemies
-	Enemy* newUnit = new Enemy(mpSpriteManager->getSprite(spr), pos, 1, vel, 0.0f, 160.0f, 10.0f);
+	Enemy* newUnit = new Enemy(mpSpriteManager->getSprite(spr), pos, 0, vel, 0.0f, 160.0f, 10.0f);
 
 	mUnitList.push_back(newUnit);
 

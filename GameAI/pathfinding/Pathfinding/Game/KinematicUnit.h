@@ -40,14 +40,15 @@ public:
 	inline void setPlayer() { mIsPlayer = true; }
 	float getDistance(KinematicUnit* other);
 	BoxCollider* getCollider() { return &mBox; }
-
+	void resetDeltaPosistion(Vector2D delta) { mDeltaPosition = delta; }
+	Vector2D& getdelta(){ return mDeltaPosition; }
 	virtual void setNewOrientation();//face the direction you are moving
 
 	//draw yourself to the indicated buffer
 	void draw( GraphicsBuffer* pBuffer );
 	//move according to the current velocities and update velocities based on current Steering
 	virtual void update(float time);
-
+	void modPosistion(Vector2D delta);
 	//initiate behaviors
 	
 	void wander();
@@ -56,7 +57,7 @@ public:
 	void inActive();
 	
 	void switchSprite(Sprite* spr);
-
+	
 protected:
 	Sprite* mpSprite;
 	Sprite* mpNormSprite;
@@ -66,6 +67,7 @@ protected:
 	float mMaxVelocity;
 	float mMaxAcceleration;
 	BoxCollider mBox;
+	Vector2D mDeltaPosition;
 
 	bool mIsPlayer;
 	bool mActive;

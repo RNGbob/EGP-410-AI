@@ -7,6 +7,7 @@
 #include "UnitManager.h"
 #include "WanderSteering.h"
 #include "SeekSteering.h"
+#include "Enemy.h"
 
 using namespace std;
 
@@ -21,6 +22,7 @@ KinematicUnit::KinematicUnit(Sprite *pSprite, const Vector2D &position, float or
 ,mMaxVelocity(maxVelocity)
 ,mMaxAcceleration(maxAcceleration)
 ,mIsPlayer(false)
+,mDeltaPosition(Vector2D(0,0))
 {
 	mBox = BoxCollider(mPosition,Vector2D(GRID_SQUARE_SIZE, GRID_SQUARE_SIZE));
 }
@@ -80,10 +82,21 @@ void KinematicUnit::update(float time)
 	//setNewOrientation();
 }
 
+void KinematicUnit::modPosistion(Vector2D delta)
+{
+	// moving position and keeping track of current offset from current level
+	mPosition += delta;
+	mDeltaPosition += delta;
+}
+
 //private - deletes old Steering before setting
 void KinematicUnit::setSteering( Steering* pSteering )
 {
-	delete mpCurrentSteering;
+	if (mpCurrentSteering != NULL && mpCurrentSteering != &gNullSteering)
+	{
+		delete mpCurrentSteering;
+	}
+	
 	mpCurrentSteering = pSteering;
 }
 
@@ -107,18 +120,22 @@ void KinematicUnit::setNewOrientation()
 
 void KinematicUnit::wander()
 {
-	WanderSteering* pWanderSteering = new WanderSteering(this);
+	Enemy* pEnemy = dynamic_cast<Enemy*>(this);
+	WanderSteering* pWanderSteering = new WanderSteering(pEnemy->getLevel(), this);
 	setSteering( pWanderSteering );
 }
 
 void KinematicUnit::seek(KinematicUnit* target)
 {
-	SeekSteering* pSeekSteering = new SeekSteering( this, target );
+	Enemy* pEnemy = dynamic_cast<Enemy*>(this);
+
+	SeekSteering* pSeekSteering = new SeekSteering(pEnemy->getLevel(), this, target );
 	setSteering( pSeekSteering );
 }
 void KinematicUnit::flee(KinematicUnit * target)
 {
-	SeekSteering* pFleeSteering = new SeekSteering(this, target, true);
+	Enemy* pEnemy = dynamic_cast<Enemy*>(this);
+	SeekSteering* pFleeSteering = new SeekSteering(pEnemy->getLevel(), this, target, true);
 	setSteering(pFleeSteering);
 }
 
@@ -140,3 +157,4 @@ void KinematicUnit::switchSprite(Sprite * spr)
 		mpSprite = spr;
 	}
 }
+

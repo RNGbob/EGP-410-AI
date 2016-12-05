@@ -16,6 +16,7 @@ public:
 	void respawn();
 	bool isDead() { return mDead; }
 	void kill() { mDead = true; }
+	Level* getLevel() { return mpLevels->getLevel(mLevelIndex); }
 
 private:
 	StateMachine* mpStateMachine;

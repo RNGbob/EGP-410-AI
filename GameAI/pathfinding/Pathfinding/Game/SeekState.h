@@ -1,11 +1,13 @@
 #pragma once
 #include "StateMachine.h"
 #include "KinematicUnit.h"
+#include "Enemy.h"
+#include "Player.h"
 
 class SeekState : public StateMachineState
 {
 public:
-	SeekState(const SM_idType& id, KinematicUnit* pMover, KinematicUnit* pTarget) 
+	SeekState(const SM_idType& id, Enemy* pMover, Player* pTarget)
 	:StateMachineState(id),
 	mpMover(pMover),
 	mpTarget(pTarget) {};
@@ -19,6 +21,6 @@ public:
 	bool PowerUp();
 
 private:
-	KinematicUnit* mpMover;
-	KinematicUnit* mpTarget;
+	Enemy* mpMover;
+	Player* mpTarget;
 };

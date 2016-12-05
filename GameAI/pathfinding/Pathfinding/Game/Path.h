@@ -18,8 +18,10 @@ public:
 	Node* getAndRemoveNextNode();
 	bool containsNode( Node* pNode ) const;
 	bool isBack(Node* pNode)const;
+	bool isEmpty() { return mNodes.empty(); }
 	int getNumNodes() const { return mNodes.size(); };
 	int getNodeIndex(Node* pNode) const;
+	void push_front(Node* node) { mNodes.insert(mNodes.begin(), node); }
 
 	void addNode( Node* pNode );
 	void clear();//remove all nodes

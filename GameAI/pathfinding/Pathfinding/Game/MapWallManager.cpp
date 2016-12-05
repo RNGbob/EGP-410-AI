@@ -60,3 +60,12 @@ bool MapWallManager::checkCollision(BoxCollider * pBox)
 	
 	return false;
 }
+
+void MapWallManager::modBoxPosisions(Vector2D delta)
+{
+	for (int i = 0; i < mpWallBoxes.size(); ++i)
+	{
+		mpWallBoxes[i]->modPos(delta);
+	}
+
+}

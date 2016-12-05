@@ -7,6 +7,7 @@
 #include "MapWallManager.h"
 #include "ItemManager.h"
 #include "GridVisualizer.h"
+#include "Astar.h"
 
 class Level : public Trackable
 {
@@ -18,8 +19,12 @@ public:
 	ItemManager* getItemManager() const { return mpItemManager; }
 	Grid* getGrid() const { return mpGrid; }
 	GridGraph* getGridGraph() const { return mpGridGraph; }
-	
+	void setIndex(int i) { mIndex = i; }
+
 	void draw(GraphicsBuffer* pBuffer);
+
+	const Path& findPath(Vector2D from, Vector2D to);
+	int getExitIndex(int cLevel);
 
 protected:
 	MapWallManager* mpMapWalls;
@@ -27,7 +32,8 @@ protected:
 	Grid* mpGrid;
 	GridGraph* mpGridGraph;
 	GridVisualizer* mpVisualizer;
-	// EnemySpawner* mpSpawner;
+	GridPathfinder* mpPathfinder;
+	int mIndex;
 
 
 };

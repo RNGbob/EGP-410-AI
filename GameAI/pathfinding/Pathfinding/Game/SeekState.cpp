@@ -5,6 +5,7 @@
 void SeekState::onEntrance()
 {
 	mpMover->seek(mpTarget);
+	std::cout << "I see ya" << std::endl;
 }
 
 void SeekState::onExit()
@@ -14,7 +15,7 @@ void SeekState::onExit()
 
 StateTransition * SeekState::update()
 {
-	Enemy* pEnemy = dynamic_cast<Enemy*>(mpMover);
+	
 	// if outside of view range transition to wander
 	// if powered up transition to flee;
 	if (inRange())
@@ -35,7 +36,7 @@ StateTransition * SeekState::update()
 			return pTransition;
 		}
 	}
-	if (pEnemy->isDead())
+	if (mpMover->isDead())
 	{
 		std::map<TransitionType, StateTransition*>::iterator iter = mTransitions.find(DEAD_TRANSITION);
 		if (iter != mTransitions.end())//found?
@@ -57,7 +58,7 @@ bool SeekState::inRange()
 
 bool SeekState::PowerUp()
 {
-	Player* pPlayer = dynamic_cast<Player*>(mpMover);
+	
 
-	return pPlayer->ifPowered();
+	return mpTarget->ifPowered();
 }

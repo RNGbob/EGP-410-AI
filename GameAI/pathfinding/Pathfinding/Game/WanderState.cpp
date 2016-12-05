@@ -5,6 +5,7 @@
 void WanderState::onEntrance()
 {
 	mpMover->wander();
+	std::cout << "something" << std::endl;
 }
 
 void WanderState::onExit()
@@ -13,7 +14,6 @@ void WanderState::onExit()
 
 StateTransition * WanderState::update()
 {
-	Enemy* pEnemy = dynamic_cast<Enemy*>(mpMover);
 	// if inside view range transition to seek
 	// if powered up transition to flee
 	if (inRange())
@@ -34,7 +34,7 @@ StateTransition * WanderState::update()
 			return pTransition;
 		}
 	}
-	if (pEnemy->isDead())
+	if (mpMover->isDead())
 	{
 		std::map<TransitionType, StateTransition*>::iterator iter = mTransitions.find(DEAD_TRANSITION);
 		if (iter != mTransitions.end())//found?
@@ -54,7 +54,6 @@ bool WanderState::inRange()
 
 bool WanderState::PowerUp()
 {
-	Player* pPlayer = dynamic_cast<Player*>(mpMover);
-
-	return pPlayer->ifPowered();
+	
+	return mpTarget->ifPowered();
 }

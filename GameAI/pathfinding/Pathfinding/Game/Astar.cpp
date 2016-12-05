@@ -86,13 +86,10 @@ const Path & Astar::findPath(Node * pFrom, Node * pTo)
 					nodesToVisit.push_back(pTempToNode);
 				}
 
-				
-
 				if (pTempToNode == pTo)
 				{
 					toNodeAdded = true;
 				}
-
 
 #ifdef VISUALIZE_PATH
 				mVisitedNodes.push_back(pTempToNode);
@@ -106,8 +103,30 @@ const Path & Astar::findPath(Node * pFrom, Node * pTo)
 	gpPerformanceTracker->stopTracking("path");
 	mTimeElapsed = gpPerformanceTracker->getElapsedTime("path");
 
-	
+	Path best = bestPath();
+	if (!best.isEmpty())
+	{
+		mPath = best;
+	}
+
 	return mPath;
+}
+Path Astar::bestPath()
+{
+	Path bestPath;
+
+	Node* prevNode = mPath.peekNextNode();
+	NODE_ID id;
+
+	while (prevNode != nullptr)
+	{
+		bestPath.push_front(prevNode);
+		id = prevNode->getPrev();
+		prevNode = mPath.getNode(id);
+
+	}
+	
+	return bestPath;
 }
 // psuedo manhattan distance, returns true if closer x or y
 bool Astar::heuristic(Node * current, Node* temp, Node* pTo)

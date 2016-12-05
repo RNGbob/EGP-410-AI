@@ -8,6 +8,7 @@ void FleeState::onEntrance()
 {
 	mpMover->flee(mpTarget);
 	mpMover->switchSprite(gpGame->getSpriteManager()->getSprite(ENEMY_WEAK_SPRITE_ID));
+	std::cout << "REEE" << std::endl;
 }
 
 void FleeState::onExit()
@@ -17,7 +18,7 @@ void FleeState::onExit()
 
 StateTransition * FleeState::update()
 {
-	Enemy* pEnemy = dynamic_cast<Enemy*>(mpMover);
+	
 	// when power up timer runs out transition to wander, which will seek regardless if close
 	if (!PowerUp())
 	{
@@ -28,7 +29,7 @@ StateTransition * FleeState::update()
 			return pTransition;
 		}
 	}
-	if (pEnemy->isDead())
+	if (mpMover->isDead())
 	{
 		std::map<TransitionType, StateTransition*>::iterator iter = mTransitions.find(DEAD_TRANSITION);
 		if (iter != mTransitions.end())//found?
@@ -42,8 +43,6 @@ StateTransition * FleeState::update()
 
 bool FleeState::PowerUp()
 {
-	Player* pPlayer = dynamic_cast<Player*>(mpMover);
 	
-	
-	return pPlayer->ifPowered();
+	return mpTarget->ifPowered();
 }

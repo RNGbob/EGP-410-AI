@@ -15,6 +15,7 @@ public:
 	Vector2D getDim()const { return mDim; }
 
 	void setPos(Vector2D pos) { mPos = pos; }
+	void modPos(Vector2D delta) { mPos += delta; }
 	bool checkCollison(BoxCollider* &other);
 	bool checkCollison(CircleCollider* &other);
 

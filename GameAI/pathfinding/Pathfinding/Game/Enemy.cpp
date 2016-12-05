@@ -45,6 +45,8 @@ mStarted(false)
 	mpStateMachine->addState(pFleeState);
 	mpStateMachine->addState(pDeadState);
 
+	mpStateMachine->setInitialStateID(0);
+
 	mSpawn = Vector2D(480, 352); // top left center square corner
 	mpLevels = pGame->getLevelLoader(); // when exists -_-
 	mLevelIndex = pGame->getCurrentLevelIndex();

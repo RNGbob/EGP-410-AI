@@ -29,6 +29,7 @@
 #include "ItemManager.h"
 #include "LevelLoader.h"
 #include "Player.h"
+#include "Enemy.h"
 
 #include <fstream>
 #include <vector>
@@ -95,11 +96,13 @@ bool GameApp::init()
 	
 	
 	mpUnits = new UnitManager();
+	mpPlayer = new Player(mpSpriteManager->getSprite(PLAYER_SPRITE_ID), Vector2D(128, 128), 0, Vector2D(0, 0), 0.0f, 200.0f, 10.0f);
 	mpUnits->init(mpSpriteManager);
 
-	mpPlayer = new Player(mpSpriteManager->getSprite(PLAYER_SPRITE_ID), Vector2D(128, 128), 0, Vector2D(0, 0), 0.0f, 200.0f, 10.0f);
-	//create the GridGraph for pathfinding
 	
+	//create the GridGraph for pathfinding
+	Enemy* pEnemy = dynamic_cast<Enemy*>(mpUnits->getUnit(0));
+	pEnemy->init();
 	mCurrentType = DepthBreadthSearch;
 
 	//mpPathfinder = new DepthFirstPathfinder(mpGridGraph);

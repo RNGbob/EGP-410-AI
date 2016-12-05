@@ -5,12 +5,13 @@ void DeadState::onEntrance()
 {
 	mpMover->inActive();
 	mTimeStart = gpGame->getCurrentTime();
+	std::cout << "Blarg, I'm dead" << std::endl;
 }
 
 void DeadState::onExit()
 {
-	Enemy* pEnemy = dynamic_cast<Enemy*>(mpMover);
-	pEnemy->respawn();
+	
+	mpMover->respawn();
 }
 
 StateTransition * DeadState::update()
