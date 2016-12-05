@@ -26,7 +26,7 @@ public:
 	void init(SpriteManager* &mpSprMan);
 	void cleanup();
 	
-	void addUnit(SteeringType steeringType, Vector2D pos, IDType spr);
+	void addUnit(Vector2D pos, IDType spr);
 	void deleteUnit(KinematicUnit* unit);
 	void deleteRandomUnit();
 

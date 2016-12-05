@@ -33,15 +33,16 @@ void UnitManager::init( SpriteManager* &mpSprMan)
 {
 	// spriteManager
 	mpSpriteManager = mpSprMan;
-
-	// create plater unit
-	Vector2D pos(100.0f, 100.0f);
-	Vector2D vel(0.0f, 0.0f);
-	//mPlayerUnit = new KinematicUnit(mpSpriteManager->getSprite(PLAYER_SPRITE_ID), pos, 1, vel, 0.0f, 200.0f, 10.0f);
-	//mPlayerUnit->setPlayer();
+	
 
 	// add 16 enemies as object pool. 
-
+	for (int i = 0; i < 4; i++)
+	{
+		addUnit(Vector2D(-2000, -2000), ENEMY_PURPLE_SPRITE_ID);
+		addUnit(Vector2D(-2000, -2000), ENEMY_GREEN_SPRITE_ID);
+		addUnit(Vector2D(-2000, -2000), ENEMY_ORANGE_SPRITE_ID);
+		addUnit(Vector2D(-2000, -2000), ENEMY_LIME_SPRITE_ID);
+	}
 
 }
 
@@ -91,7 +92,7 @@ KinematicUnit*  UnitManager::checkAllCollisions(BoxCollider* mBox)
 
 
 // may replace with object pool of enemies if capped at 4 ghosts
-void UnitManager::addUnit(SteeringType steeringType, Vector2D pos, IDType spr)
+void UnitManager::addUnit( Vector2D pos, IDType spr)
 {
 	
 	Vector2D vel(0.0f, 0.0f);

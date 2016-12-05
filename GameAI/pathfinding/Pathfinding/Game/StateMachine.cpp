@@ -3,6 +3,7 @@
 
 StateMachineState::~StateMachineState()
 {
+	
 }
 
 void StateMachineState::addTransition( StateTransition* pTransition )
@@ -10,6 +11,27 @@ void StateMachineState::addTransition( StateTransition* pTransition )
 	mTransitions[ pTransition->getTransitionType()] = pTransition;
 }
 
+void StateMachineState::clear()
+{
+	std::map<TransitionType, StateTransition*>::iterator it;
+	for (it = mTransitions.begin(); it != mTransitions.end(); it++)
+	{
+		delete it->second;
+	}
+}
+
+
+StateMachine::~StateMachine()
+{
+	std::map<SM_idType, StateMachineState*>::iterator it;
+	mStates.begin()->second->clear(); // delete transitiosn all with the first state
+
+	for (it = mStates.begin(); it != mStates.end(); it++)
+	{
+		delete it->second;
+	}
+	//delete mpCurrentState;
+}
 
 void StateMachine::addState( StateMachineState* pState )
 {

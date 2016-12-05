@@ -1,15 +1,18 @@
 #include "FleeState.h"
 #include "Enemy.h"
+#include "SpriteManager.h"
 #include "GameApp.h"
 #include "Player.h"
 
 void FleeState::onEntrance()
 {
 	mpMover->flee(mpTarget);
+	mpMover->switchSprite(gpGame->getSpriteManager()->getSprite(ENEMY_WEAK_SPRITE_ID));
 }
 
 void FleeState::onExit()
 {
+	mpMover->switchSprite(nullptr);
 }
 
 StateTransition * FleeState::update()

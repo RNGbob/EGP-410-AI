@@ -249,20 +249,19 @@ void GameApp::draw()
 	//mpDebugDisplay->draw( pBackBuffer );
 	mpCurrentLevel->draw(pBackBuffer);
 	mpPlayer->draw(pBackBuffer);
-	//mpUnits->draw(pBackBuffer);
+	mpUnits->draw(pBackBuffer);
 
 }
 
 void GameApp::update()
 {
-	//mpUnits->update(LOOP_TARGET_TIME/1000.0f);
+	mpUnits->update(LOOP_TARGET_TIME/1000.0f);
 	mpPlayer->update(LOOP_TARGET_TIME / 1000.0f);
 }
 
 void GameApp::input()
 {
 	mpInput->update();
-	
 
 }
 

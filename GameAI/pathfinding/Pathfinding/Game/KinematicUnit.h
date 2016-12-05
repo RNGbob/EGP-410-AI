@@ -55,9 +55,11 @@ public:
 	void flee(KinematicUnit* target);
 	void inActive();
 	
+	void switchSprite(Sprite* spr);
 
 protected:
 	Sprite* mpSprite;
+	Sprite* mpNormSprite;
 	Steering* mpCurrentSteering;
 	Steering* mpGroupSteering;
 	Vector2D mTarget;//used only for Kinematic seek and arrive

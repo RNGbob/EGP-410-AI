@@ -1,6 +1,7 @@
 #include "Enemy.h"
 #include "Player.h"
 #include "GameApp.h"
+#include "SpriteManager.h"
 #include "WanderState.h"
 #include "SeekState.h"
 #include "FleeState.h"
@@ -13,7 +14,7 @@ mStarted(false)
 {
 	GameApp* pGame = dynamic_cast<GameApp*>(gpGame);
 	//mpPlayer = pGame->getPlayerUnit();
-	
+	mpNormSprite = pSprite;
 	// create state machine + transitions here
 	mpStateMachine = new StateMachine;
 
@@ -30,6 +31,7 @@ mStarted(false)
 	pWanderState->addTransition(pToSeek);
 	pWanderState->addTransition(pToFlee);
 	pWanderState->addTransition(pToDead);
+	pWanderState->addTransition(pToWander); //needed so destructors delete the transitions only once;
 	pSeekState->addTransition(pToSeek);
 	pSeekState->addTransition(pToFlee);
 	pSeekState->addTransition(pToDead);
@@ -51,7 +53,8 @@ mStarted(false)
 
 Enemy::~Enemy()
 {
-
+	delete mpStateMachine;
+	mpStateMachine = NULL;
 }
 
 void Enemy::update(float time)
@@ -60,13 +63,13 @@ void Enemy::update(float time)
 	{
 		mpStateMachine->update();
 	}
-	
 	KinematicUnit::update(time);
 }
 
 void Enemy::init()
 {
 	mStarted = true;
+	respawn();
 }
 
 void Enemy::respawn()
@@ -74,3 +77,5 @@ void Enemy::respawn()
 	mDead = false;
 	mPosition = mSpawn;
 }
+
+

@@ -61,7 +61,7 @@ void Player::update(float time)
 		else
 		{
 			// some reset
-			
+			std::cout << "OW" << std::endl;
 		}
 	}
 
@@ -83,7 +83,7 @@ void Player::PowerUp()
 	mPowerUp = true;
 	mPUstart = gpGame->getCurrentTime();
 }
-
+// player moving through maps
 void Player::checkBounds(int levelIndex, GameApp* pGame)
 {
 	/*
@@ -126,7 +126,7 @@ void Player::checkBounds(int levelIndex, GameApp* pGame)
 			gpGame->getGraphicsSystem()->wrapCoordinates(mPosition);
 			mpLevel = pGame->switchLevel(3);
 		}
-		if (x > WIDTH) // nowhere
+		if (x > WIDTH - GRID_SQUARE_SIZE) // nowhere
 		{stop();}
 		if (y < 0) //nowhere
 		{stop();}
@@ -144,7 +144,7 @@ void Player::checkBounds(int levelIndex, GameApp* pGame)
 		}
 		if (x < 0) // nowhere
 		{stop();}
-		if (y > HEIGHT) // nowhere
+		if (y > HEIGHT - GRID_SQUARE_SIZE) // nowhere
 		{stop();}
 		break;
 	case 3: // 4
@@ -158,16 +158,14 @@ void Player::checkBounds(int levelIndex, GameApp* pGame)
 			gpGame->getGraphicsSystem()->wrapCoordinates(mPosition);
 			mpLevel = pGame->switchLevel(1);
 		}
-		if (x > WIDTH) // nowhere
+		if (x > WIDTH - GRID_SQUARE_SIZE) // nowhere
 		{stop();}
-		if (y > HEIGHT) // nowhere
+		if (y > HEIGHT - GRID_SQUARE_SIZE) // nowhere
 		{stop();}
 		break;
 	default:
 		break;
 	}
-
-
 
 }
 

@@ -15,6 +15,7 @@ Steering gNullSteering( gZeroVector2D, 0.0f );
 KinematicUnit::KinematicUnit(Sprite *pSprite, const Vector2D &position, float orientation, const Vector2D &velocity, float rotationVel, float maxVelocity, float maxAcceleration)
 :Kinematic( position, orientation, velocity, rotationVel )
 ,mpSprite(pSprite)
+,mpNormSprite(pSprite)
 ,mpCurrentSteering(NULL)
 ,mpGroupSteering(NULL)
 ,mMaxVelocity(maxVelocity)
@@ -26,7 +27,7 @@ KinematicUnit::KinematicUnit(Sprite *pSprite, const Vector2D &position, float or
 
 KinematicUnit::~KinematicUnit()
 {
-	if (mpCurrentSteering != NULL)
+	if (mpCurrentSteering != NULL && mpCurrentSteering != &gNullSteering)
 	{
 		delete mpCurrentSteering;
 	}
@@ -125,5 +126,17 @@ void KinematicUnit::inActive()
 {
 	setSteering(&gNullSteering);
 	mVelocity = Vector2D(0, 0);
-	mPosition = Vector2D(-100, -100);
+	mPosition = Vector2D(-2000, -2000);
+}
+
+void KinematicUnit::switchSprite(Sprite * spr)
+{
+	if (spr == nullptr)
+	{
+		mpSprite = mpNormSprite;
+	}
+	else
+	{
+		mpSprite = spr;
+	}
 }

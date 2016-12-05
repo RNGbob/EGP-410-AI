@@ -37,6 +37,7 @@ public:
 	virtual void onExit()=0;//code to run when the state is exitted
 	virtual StateTransition* update()=0;//code to run each frame - returning NULL means no transition
 
+	void clear();
 protected:
 	SM_idType mID;
 	std::map<TransitionType, StateTransition*> mTransitions;
@@ -60,7 +61,7 @@ class StateMachine:public Trackable
 {
 public:
 	StateMachine():mpCurrentState(NULL),mInitialStateID(-1){};
-	~StateMachine(){};
+	~StateMachine();
 
 	void addState( StateMachineState* pState );
 	void setInitialStateID( const SM_idType& id ){ mInitialStateID = id; };
