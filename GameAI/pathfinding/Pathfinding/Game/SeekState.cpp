@@ -58,7 +58,5 @@ bool SeekState::inRange()
 
 bool SeekState::PowerUp()
 {
-	
-
 	return mpTarget->ifPowered();
 }

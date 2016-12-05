@@ -9,7 +9,7 @@ class KinematicUnit;
 class SeekSteering :public Steering
 {
 public:
-	SeekSteering(Level* lev, KinematicUnit* pMover, KinematicUnit* pTarget, bool flee = false);
+	SeekSteering( KinematicUnit* pMover, KinematicUnit* pTarget, bool flee = false);
 	~SeekSteering() {};
 
 	virtual Steering* getSteering();
@@ -19,7 +19,6 @@ public:
 private:
 	KinematicUnit* mpMover;
 	KinematicUnit* mpTarget;
-	Level* mpLevel;
 	int mTimer;
 	bool mFlee;
 };

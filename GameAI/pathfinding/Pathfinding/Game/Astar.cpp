@@ -6,6 +6,7 @@
 #include "GameApp.h"
 #include "Grid.h"
 #include <PerformanceTracker.h>
+#include "LevelLoader.h"
 #include <list>
 #include <vector>
 #include <algorithm>
@@ -153,8 +154,8 @@ int Astar::getXdiff(int from, int to)
 {
 	GameApp* pGame = dynamic_cast<GameApp*>(gpGame);
 	
-	int fromX = from % pGame->getGrid()->getSquareSize();
-	int toX = to % pGame->getGrid()->getSquareSize();
+	int fromX = from % pGame->getLevel()->getGrid()->getSquareSize();
+	int toX = to % pGame->getLevel()->getGrid()->getSquareSize();
 	
 	int diff = abs(toX - fromX);
 
@@ -165,8 +166,8 @@ int Astar::getYdiff(int from, int to)
 {
 	GameApp* pGame = dynamic_cast<GameApp*>(gpGame);
 	
-	int fromY = from / pGame->getGrid()->getSquareSize();
-	int toY = to / pGame->getGrid()->getSquareSize();
+	int fromY = from / pGame->getLevel()->getGrid()->getSquareSize();
+	int toY = to / pGame->getLevel()->getGrid()->getSquareSize();
 
 	int diff = abs(toY - fromY);  //absolute difference of x indices
 

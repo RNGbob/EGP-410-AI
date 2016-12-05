@@ -42,8 +42,9 @@ public:
 	BoxCollider* getCollider() { return &mBox; }
 	void resetDeltaPosistion(Vector2D delta) { mDeltaPosition = delta; }
 	Vector2D& getdelta(){ return mDeltaPosition; }
+	void modDelta(Vector2D delta) { mDeltaPosition += delta; }
 	virtual void setNewOrientation();//face the direction you are moving
-
+	bool isActive() { return mActive; }
 	//draw yourself to the indicated buffer
 	void draw( GraphicsBuffer* pBuffer );
 	//move according to the current velocities and update velocities based on current Steering

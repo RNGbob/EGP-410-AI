@@ -131,7 +131,7 @@ const Path& Level::findPath(Vector2D from, Vector2D to )
 		toIndex  = mpGrid->getSquareIndexFromPixelXY((int)to.getX(), (int)to.getY());
 	}
 	
-	if (toIndex != -1)
+	if (toIndex == -1)
 	{
 		return Path();
 	}

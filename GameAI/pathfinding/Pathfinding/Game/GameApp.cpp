@@ -301,6 +301,27 @@ Level * GameApp::getLevel()
 
 Level * GameApp::switchLevel(int index)
 {
+	// move everything based off direction moving
+	Vector2D delta;
+	if ((mCurrentLevelIndex == 0 && index == 1) || (mCurrentLevelIndex == 2 && index == 3))
+	{
+		delta = Vector2D(-WIDTH,0);// right 
+	}
+	else if ((mCurrentLevelIndex == 1 && index == 0) || (mCurrentLevelIndex == 3 && index == 2))
+	{
+		delta = Vector2D(WIDTH,0 );//left
+	}
+	else if ((mCurrentLevelIndex == 0 && index == 2) || (mCurrentLevelIndex == 1 && index == 3))
+	{
+		delta = Vector2D(0, -HEIGHT);// bottom 
+	}
+	else if ((mCurrentLevelIndex == 2 && index == 0) || (mCurrentLevelIndex == 3 && index == 1))
+	{
+		delta = Vector2D(0, HEIGHT); //top
+	}
+
+	//mpUnits->getUnit(0)->modPosistion(delta); // first enemy test, switch to all active enemies
+	mpUnits->moveEnemies(delta);
 	mCurrentLevelIndex = index;
 	mpCurrentLevel = mpLevelLoader->getLevel(index);
 	

@@ -47,7 +47,7 @@ mStarted(false)
 
 	mpStateMachine->setInitialStateID(0);
 
-	mSpawn = Vector2D(480, 352); // top left center square corner
+	mSpawn = Vector2D(475, 352); // top left center square corner
 	mpLevels = pGame->getLevelLoader(); // when exists -_-
 	mLevelIndex = pGame->getCurrentLevelIndex();
 	inActive();
@@ -65,12 +65,16 @@ void Enemy::update(float time)
 	{
 		mpStateMachine->update();
 	}
+	checkBounds();
 	KinematicUnit::update(time);
 }
 
 void Enemy::init()
 {
+	GameApp* pGame = dynamic_cast<GameApp*>(gpGame);
 	mStarted = true;
+	mActive = true;
+	mLevelIndex = pGame->getCurrentLevelIndex();
 	respawn();
 }
 
@@ -78,6 +82,99 @@ void Enemy::respawn()
 {
 	mDead = false;
 	mPosition = mSpawn;
+}
+
+void Enemy::checkBounds()
+{
+	
+	float x = mPosition.getX() - mDeltaPosition.getX();
+	float y = mPosition.getY() - mDeltaPosition.getY();
+
+	switch (mLevelIndex)
+	{
+	case 0: // 1
+		if (x > WIDTH) // going to 2
+		{
+			mLevelIndex = 1;
+			mDeltaPosition+= Vector2D(WIDTH, 0);
+		}
+		if (y > HEIGHT) //going to 3
+		{
+			mLevelIndex = 2;
+			mDeltaPosition += Vector2D(0, HEIGHT);
+		}
+		if (x < 0) // nowhere
+		{
+			//stop();
+		}
+		if (y < 0) // nowhere
+		{
+			//stop();
+		}
+		break;
+	case 1: // 2
+		if (x < 0) // going to 1
+		{
+			mLevelIndex = 0;
+			mDeltaPosition += Vector2D(-WIDTH, 0);
+		}
+		if (y > HEIGHT) // going to 4
+		{
+			mLevelIndex = 3;
+			mDeltaPosition += Vector2D(0, HEIGHT);
+		}
+		if (x > WIDTH - GRID_SQUARE_SIZE) // nowhere
+		{
+			//stop();
+		}
+		if (y < 0) //nowhere
+		{
+			//stop();
+		}
+		break;
+	case 2: // 3
+		if (x > WIDTH) // going to 4
+		{
+			mLevelIndex = 3;
+			mDeltaPosition += Vector2D(WIDTH, 0);
+		}
+		if (y < 0) // going to 1
+		{
+			mLevelIndex = 0;
+			mDeltaPosition += Vector2D(0, -HEIGHT);
+		}
+		if (x < 0) // nowhere
+		{
+			//stop();
+		}
+		if (y > HEIGHT - GRID_SQUARE_SIZE) // nowhere
+		{
+			//stop();
+		}
+		break;
+	case 3: // 4
+		if (x < 0) // going to 3
+		{
+			mLevelIndex = 2;
+			mDeltaPosition += Vector2D(-WIDTH, 0);
+		}
+		if (y < 0) // going to 2
+		{
+			mLevelIndex = 1;
+			mDeltaPosition += Vector2D(0, -HEIGHT);
+		}
+		if (x > WIDTH - GRID_SQUARE_SIZE) // nowhere
+		{
+			//stop();
+		}
+		if (y > HEIGHT - GRID_SQUARE_SIZE) // nowhere
+		{
+			//stop();
+		}
+		break;
+	default:
+		break;
+	}
 }
 
 

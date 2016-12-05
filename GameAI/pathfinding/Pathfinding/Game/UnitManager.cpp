@@ -77,6 +77,18 @@ void UnitManager::changeVels1(float val)
 	}
 }
 
+void UnitManager::moveEnemies(Vector2D delta)
+{
+	for (int i = 0; i < mUnitList.size(); i++)
+	{
+		if (mUnitList[i]->isActive())
+		{
+			mUnitList[i]->modPosistion(delta);
+		}
+	}
+
+}
+
 KinematicUnit*  UnitManager::checkAllCollisions(BoxCollider* mBox)
 {
 	for (int i = 0; i < mUnitList.size(); i++)

@@ -22,9 +22,10 @@ KinematicUnit::KinematicUnit(Sprite *pSprite, const Vector2D &position, float or
 ,mMaxVelocity(maxVelocity)
 ,mMaxAcceleration(maxAcceleration)
 ,mIsPlayer(false)
+,mActive(false)
 ,mDeltaPosition(Vector2D(0,0))
 {
-	mBox = BoxCollider(mPosition,Vector2D(GRID_SQUARE_SIZE, GRID_SQUARE_SIZE));
+	mBox = BoxCollider(mPosition+Vector2D(2,2),Vector2D(GRID_SQUARE_SIZE-4, GRID_SQUARE_SIZE-4)); // slightly smaller to get through tight spots
 }
 
 KinematicUnit::~KinematicUnit()
@@ -121,7 +122,7 @@ void KinematicUnit::setNewOrientation()
 void KinematicUnit::wander()
 {
 	Enemy* pEnemy = dynamic_cast<Enemy*>(this);
-	WanderSteering* pWanderSteering = new WanderSteering(pEnemy->getLevel(), this);
+	WanderSteering* pWanderSteering = new WanderSteering( this);
 	setSteering( pWanderSteering );
 }
 
@@ -129,13 +130,13 @@ void KinematicUnit::seek(KinematicUnit* target)
 {
 	Enemy* pEnemy = dynamic_cast<Enemy*>(this);
 
-	SeekSteering* pSeekSteering = new SeekSteering(pEnemy->getLevel(), this, target );
+	SeekSteering* pSeekSteering = new SeekSteering( this, target );
 	setSteering( pSeekSteering );
 }
 void KinematicUnit::flee(KinematicUnit * target)
 {
 	Enemy* pEnemy = dynamic_cast<Enemy*>(this);
-	SeekSteering* pFleeSteering = new SeekSteering(pEnemy->getLevel(), this, target, true);
+	SeekSteering* pFleeSteering = new SeekSteering( this, target, true);
 	setSteering(pFleeSteering);
 }
 

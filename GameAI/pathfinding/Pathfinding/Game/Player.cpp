@@ -7,7 +7,7 @@ Player::Player(Sprite * pSprite, const Vector2D & position, float orientation, c
 : KinematicUnit(pSprite, position, orientation, velocity, rotationVel, maxVelocity, maxAcceleration),
 mPowerUp(false),
 mScore(0),
-mPUCount(10000),
+mPUCount(100000),
 mPUstart(0)
 {
 	setPlayer();

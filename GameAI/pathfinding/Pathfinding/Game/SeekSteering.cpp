@@ -2,11 +2,10 @@
 #include "GameApp.h"
 #include "Enemy.h"
 
-SeekSteering::SeekSteering(Level* lev, KinematicUnit * pMover, KinematicUnit * pTarget, bool flee)
+SeekSteering::SeekSteering( KinematicUnit * pMover, KinematicUnit * pTarget, bool flee)
 :mpMover(pMover),
 mpTarget(pTarget),
-mFlee(flee),
-mpLevel(lev)
+mFlee(flee)
 {
 	mTimer = gpGame->getCurrentTime();
 }
@@ -16,13 +15,20 @@ Steering * SeekSteering::getSteering()
 
 	if (checkWalls() || gpGame->getCurrentTime() - mTimer > 1000)
 	{
-		mLinear = newDirection();// *mpMover->getMaxVelocity();
+		if (checkWalls())
+		{
+			mpMover->getVelocity().normalize();
+			mpMover->setPostion(mpMover->getPosition() - (mpMover->getVelocity()*4));
+			mpMover->setVelocity(Vector2D(0, 0));
+		}
+		mLinear = newDirection() *4;// *mpMover->getMaxVelocity();
 		mTimer = gpGame->getCurrentTime();
+		if (mFlee)
+		{
+			mLinear = Vector2D(0,0)-mLinear;
+		}
 	}
-	if (mFlee)
-	{
-		mLinear = Vector2D(0,0)-mLinear;
-	}
+
 	
 	mAngular = 0;
 	
@@ -31,23 +37,25 @@ Steering * SeekSteering::getSteering()
 
 bool SeekSteering::checkWalls()
 {
-	mpMover->getCollider()->modPos(mpMover->getdelta());
+	Enemy* pEnemy = dynamic_cast<Enemy*>(mpMover);
+	
+	mpMover->getCollider()->modPos(mpMover->getdelta()*-1);
 
-
-	return mpLevel->getMapWalls()->checkCollision(mpMover->getCollider());;
+	return pEnemy->getLevel()->getMapWalls()->checkCollision(mpMover->getCollider());;
 }
 
 Vector2D SeekSteering::newDirection()
 {
 	GameApp* pGame = dynamic_cast<GameApp*>(gpGame);
+	Enemy* pEnemy = dynamic_cast<Enemy*>(mpMover);
 	Path path;
-	if (mpLevel!= pGame->getLevel())
+	if (pEnemy->getLevel() == pGame->getLevel())
 	{
-		path = mpLevel->findPath(mpMover->getPosition() + mpMover->getPosition(), mpTarget->getPosition());
+		path = pEnemy->getLevel()->findPath(mpMover->getPosition() - mpMover->getdelta(), mpTarget->getPosition());
 	}
 	else
 	{
-		path = mpLevel->findPath(mpMover->getPosition() + mpMover->getPosition(), Vector2D(-1, -1));
+		path = pEnemy->getLevel()->findPath(mpMover->getPosition() - mpMover->getdelta(), Vector2D(-1, -1));
 	}
 
 	if (path.pathSize() >= 2)

@@ -17,6 +17,7 @@ public:
 	bool isDead() { return mDead; }
 	void kill() { mDead = true; }
 	Level* getLevel() { return mpLevels->getLevel(mLevelIndex); }
+	void checkBounds();
 
 private:
 	StateMachine* mpStateMachine;

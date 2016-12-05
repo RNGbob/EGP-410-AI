@@ -33,6 +33,7 @@ public:
 	void update(float time);
 	void draw(GraphicsBuffer* gBuff);
 	void changeVels1(float val);
+	void moveEnemies(Vector2D delta);
 
 
 	KinematicUnit* getPlayer(){ return mPlayerUnit; }

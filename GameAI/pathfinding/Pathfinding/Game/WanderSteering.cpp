@@ -3,9 +3,8 @@
 #include "GameApp.h"
 #include "Enemy.h"
 
-WanderSteering::WanderSteering(Level* level,KinematicUnit * pMover)
-:mpMover(pMover),
-mpLevel(level)
+WanderSteering::WanderSteering(KinematicUnit * pMover)
+:mpMover(pMover)
 {
 	mTimer = gpGame->getCurrentTime();
 
@@ -18,9 +17,16 @@ Steering * WanderSteering::getSteering()
 
 	if (checkWalls() ||gpGame->getCurrentTime() - mTimer > 5000)
 	{
+		if (checkWalls())
+		{
+			mpMover->getVelocity().normalize();
+			mpMover->setPostion(mpMover->getPosition() - mpMover->getVelocity());
+			mpMover->setVelocity(Vector2D(0,0));
+		}
 		mLinear = newDirection();// *mpMover->getMaxVelocity();
 		mTimer = gpGame->getCurrentTime();
 	}
+	
 	
 	
 	mAngular = 0;
@@ -30,10 +36,11 @@ Steering * WanderSteering::getSteering()
 
 bool WanderSteering::checkWalls()
 {
-	mpMover->getCollider()->modPos(mpMover->getdelta());
+	Enemy* pEnemy = dynamic_cast<Enemy*>(mpMover);
+	mpMover->getCollider()->modPos(mpMover->getdelta()*-1);
 	
 	
-	return mpLevel->getMapWalls()->checkCollision(mpMover->getCollider());;
+	return pEnemy->getLevel()->getMapWalls()->checkCollision(mpMover->getCollider());;
 }
 
 Vector2D WanderSteering::newDirection()
