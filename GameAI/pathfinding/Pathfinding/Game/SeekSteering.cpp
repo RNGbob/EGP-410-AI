@@ -22,6 +22,8 @@ Steering * SeekSteering::getSteering()
 			mpMover->setVelocity(Vector2D(0, 0));
 		}
 		mLinear = newDirection() *4;// *mpMover->getMaxVelocity();
+
+
 		mTimer = gpGame->getCurrentTime();
 		if (mFlee)
 		{
@@ -64,4 +66,26 @@ Vector2D SeekSteering::newDirection()
 	}
 
 	return Vector2D(0,0);
+}
+
+Path SeekSteering::newPath()
+{
+	GameApp* pGame = dynamic_cast<GameApp*>(gpGame);
+	Enemy* pEnemy = dynamic_cast<Enemy*>(mpMover);
+	Path path;
+	if (pEnemy->getLevel() == pGame->getLevel())
+	{
+		path = pEnemy->getLevel()->findPath(mpMover->getPosition() - mpMover->getdelta(), mpTarget->getPosition());
+	}
+	else
+	{
+		path = pEnemy->getLevel()->findPath(mpMover->getPosition() - mpMover->getdelta(), Vector2D(-1, -1));
+	}
+
+	if (path.pathSize() >= 2)
+	{
+		//return path.startingDirection();
+	}
+	
+	return path;
 }

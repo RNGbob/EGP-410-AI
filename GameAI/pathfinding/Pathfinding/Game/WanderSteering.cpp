@@ -59,7 +59,7 @@ Vector2D WanderSteering::newDirection()
 		return Vector2D(0, 1);
 		break;
 	case 3:
-		return Vector2D(0, 1);
+		return Vector2D(0, -1);
 		break;
 	default:
 		break;

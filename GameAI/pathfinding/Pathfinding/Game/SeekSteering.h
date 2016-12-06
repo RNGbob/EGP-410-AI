@@ -15,6 +15,7 @@ public:
 	virtual Steering* getSteering();
 	bool checkWalls();
 	Vector2D newDirection();
+	Path newPath();
 
 private:
 	KinematicUnit* mpMover;
