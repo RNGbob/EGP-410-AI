@@ -1,19 +1,59 @@
 #include "SeekSteering.h"
 #include "GameApp.h"
 #include "Enemy.h"
+#include "Grid.h"
 
 SeekSteering::SeekSteering( KinematicUnit * pMover, KinematicUnit * pTarget, bool flee)
 :mpMover(pMover),
 mpTarget(pTarget),
-mFlee(flee)
+mFlee(flee),
+firstPass(true)
 {
 	mTimer = gpGame->getCurrentTime();
 }
 
 Steering * SeekSteering::getSteering()
 {
+	Enemy* pEnemy = dynamic_cast<Enemy*>(mpMover);
+	Grid* pGrid = pEnemy->getLevel()->getGrid();
+	static Path followPath;
+	static int pathIndex;
+	static int toIndex = 0;
+	static Vector2D target;
+	
+	if (firstPass)
+	{
+		followPath = newPath();
+		firstPass = false;
+		pathIndex = 1;
+		mLinear = Vector2D(0, 0);
+		
+	}
+	
+	if (pathIndex+1 < followPath.pathSize() && gpGame->getCurrentTime() - mTimer > 5000)// are we near path end or used one path too long?
+	{
+		if (toIndex == pGrid->getSquareIndexFromPixelXY( mpMover->getPosition().getX(), mpMover->getPosition().getY()))// are we in our target square?
+		{
+			pathIndex++;// next node 
+		}
+		
+		toIndex = followPath.peekNode(pathIndex)->getId(); 
+		target = pGrid->getULCornerOfSquare(toIndex); // next sqaure in path;
+		mLinear = target - mpMover->getPosition();
 
-	if (checkWalls() || gpGame->getCurrentTime() - mTimer > 1000)
+	}
+	else
+	{
+		followPath = newPath(); //reset path
+		pathIndex = 0;
+		mTimer = gpGame->getCurrentTime();
+	}
+
+
+	
+	/*
+	
+	if (checkWalls() || )
 	{
 		if (checkWalls())
 		{
@@ -30,8 +70,12 @@ Steering * SeekSteering::getSteering()
 			mLinear = Vector2D(0,0)-mLinear;
 		}
 	}
-
-	
+	*/
+	mLinear = Vector2D(0, 0);
+	if (mFlee)
+	{
+		mLinear =  mLinear*-1;
+	}
 	mAngular = 0;
 	
 	return this;
@@ -67,6 +111,7 @@ Vector2D SeekSteering::newDirection()
 
 	return Vector2D(0,0);
 }
+
 
 Path SeekSteering::newPath()
 {

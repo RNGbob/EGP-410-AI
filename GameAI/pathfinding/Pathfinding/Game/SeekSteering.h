@@ -22,4 +22,5 @@ private:
 	KinematicUnit* mpTarget;
 	int mTimer;
 	bool mFlee;
+	bool firstPass;
 };

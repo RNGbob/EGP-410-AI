@@ -82,6 +82,8 @@ void Enemy::respawn()
 {
 	mDead = false;
 	mPosition = mSpawn;
+
+	 // reset level index
 }
 
 void Enemy::checkBounds()
