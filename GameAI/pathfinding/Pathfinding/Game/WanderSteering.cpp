@@ -13,7 +13,7 @@ WanderSteering::WanderSteering(KinematicUnit * pMover)
 
 Steering * WanderSteering::getSteering()
 {
-	GameApp* pGame = dynamic_cast<GameApp*>(gpGame);
+	//GameApp* pGame = dynamic_cast<GameApp*>(gpGame);
 
 	if (checkWalls() ||gpGame->getCurrentTime() - mTimer > 5000)
 	{
@@ -36,11 +36,11 @@ Steering * WanderSteering::getSteering()
 
 bool WanderSteering::checkWalls()
 {
-	Enemy* pEnemy = dynamic_cast<Enemy*>(mpMover);
+	//Enemy* pEnemy = dynamic_cast<Enemy*>(mpMover);
 	mpMover->getCollider()->modPos(mpMover->getdelta()*-1);
 	
 	
-	return pEnemy->getLevel()->getMapWalls()->checkCollision(mpMover->getCollider());;
+	return mpMover->getEnemyptr()->getLevel()->getMapWalls()->checkCollision(mpMover->getCollider());;
 }
 
 Vector2D WanderSteering::newDirection()

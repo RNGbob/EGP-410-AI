@@ -119,12 +119,12 @@ void Level::draw(GraphicsBuffer * pBuffer)
 
 const Path& Level::findPath(Vector2D from, Vector2D to )
 {
-	GameApp* pGame = dynamic_cast<GameApp*>(gpGame);
+	//GameApp* pGame = dynamic_cast<GameApp*>(gpGame);
 	int fromIndex  = mpGrid->getSquareIndexFromPixelXY((int)from.getX(), (int)from.getY());
 	int toIndex;
 	if (to == Vector2D(-1,-1))// if player is in different map
 	{
-		toIndex = getExitIndex(pGame->getCurrentLevelIndex());
+		toIndex = getExitIndex(gpGameA->getCurrentLevelIndex());
 	}
 	else
 	{

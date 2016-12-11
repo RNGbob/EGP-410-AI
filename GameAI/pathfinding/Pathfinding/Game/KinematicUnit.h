@@ -15,6 +15,7 @@ Champlain College
 //forward declarations
 class Sprite;
 class GraphicsBuffer;
+class Enemy;
 
 extern Steering gNullSteering;//global object - can point to it for a "NULL" Steering
 
@@ -50,6 +51,9 @@ public:
 	//move according to the current velocities and update velocities based on current Steering
 	virtual void update(float time);
 	void modPosistion(Vector2D delta);
+	void setselfEnemy(Enemy* enemyptr);
+	Enemy* getEnemyptr();
+	
 	//initiate behaviors
 	
 	void wander();
@@ -69,6 +73,7 @@ protected:
 	float mMaxAcceleration;
 	BoxCollider mBox;
 	Vector2D mDeltaPosition;
+	Enemy* mpEnemyptr;
 
 	bool mIsPlayer;
 	bool mActive;

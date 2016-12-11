@@ -29,10 +29,10 @@ int main(void)
 {
 	gpPerformanceTracker = new PerformanceTracker();
 
-	gpGame = new GameApp();
-
+	gpGameA = new GameApp();
+	gpGame = gpGameA;
 	gpGame->init();
-	gpGameA = dynamic_cast<GameApp*>(gpGame);
+	//gpGameA = dynamic_cast<GameApp*>(gpGame);
 
 	//GraphicsBuffer* pWallpaper = new GraphicsBuffer( "wallpaper.bmp" );//should "live" someplace else
 
@@ -42,7 +42,7 @@ int main(void)
 
 	while( !shouldExit )
 	{
-
+		
 		gpGame->beginLoop();
 		gpGame->processLoop();
 		shouldExit = gpGame->endLoop();

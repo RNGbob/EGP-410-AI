@@ -11,15 +11,15 @@ mPUCount(100000),
 mPUstart(0)
 {
 	setPlayer();
-	GameApp* pGame = dynamic_cast<GameApp*>(gpGame);
+	//GameApp* pGame = dynamic_cast<GameApp*>(gpGame);
 
-	mpLevel = pGame->getLevel();
-	mpUnitManger = pGame->getUnitManager();
+	mpLevel = gpGameA->getLevel();
+	mpUnitManger = gpGameA->getUnitManager();
 }
 
 void Player::update(float time)
 {
-	GameApp* pGame = dynamic_cast<GameApp*>(gpGame);
+	//GameApp* pGame = dynamic_cast<GameApp*>(gpGame);
 	
 	// check wall collisions, if ye stop moving til input changes
 	if (mpLevel->getMapWalls()->checkCollision(&mBox) && mVelocity != Vector2D(0,0))
@@ -30,19 +30,19 @@ void Player::update(float time)
 	// check item Collisions:
 	//if coin increase score/ remove coin
 	//if candy start powerup/ remove candy
-	Candy* candy = pGame->getItemManager()->checkCandy(&mBox);
+	Candy* candy = gpGameA->getItemManager()->checkCandy(&mBox);
 	if (candy != nullptr)
 	{
 		PowerUp();
 		std::cout << "BOOM" << std::endl;
-		pGame->getItemManager()->removeCandy(candy);
+		gpGameA->getItemManager()->removeCandy(candy);
 	}
-	Coin* coin = pGame->getItemManager()->checkCoins(&mBox);
+	Coin* coin = gpGameA->getItemManager()->checkCoins(&mBox);
 	if (coin != nullptr)
 	{
 		mScore++;
 		//std::cout << "CREAM" << std::endl;
-		pGame->getItemManager()->removeCoin(coin);
+		gpGameA->getItemManager()->removeCoin(coin);
 	}
 
 	// check enemy,  if hit:
@@ -55,8 +55,8 @@ void Player::update(float time)
 		{
 			// or remove enemy unit
 			//mpUnitManger->deleteUnit(kUnit);
-			Enemy* pEnemy = dynamic_cast<Enemy*>(kUnit);
-			pEnemy->kill();
+			//Enemy* pEnemy = dynamic_cast<Enemy*>(kUnit);
+			kUnit->getEnemyptr()->kill();
 		}
 		else
 		{
@@ -73,7 +73,7 @@ void Player::update(float time)
 	}
 	//gpGame->getGraphicsSystem()->wrapCoordinates(mPosition);
 
-	checkBounds(pGame->getCurrentLevelIndex(), pGame);
+	checkBounds(gpGameA->getCurrentLevelIndex(), gpGameA);
 
 	KinematicUnit::update(time);
 }
@@ -172,6 +172,6 @@ void Player::checkBounds(int levelIndex, GameApp* pGame)
 void Player::stop()
 {
 	mVelocity.normalize();
-	mPosition = mPosition - mVelocity;
+	mPosition = mPosition - (mVelocity*10);
 	mVelocity = Vector2D(0, 0);
 }

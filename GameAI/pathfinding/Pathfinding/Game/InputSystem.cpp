@@ -70,25 +70,25 @@ void InputSystem::update()
 	else if (firstPress(mKey, mPrevKey, ALLEGRO_KEY_UP))
 	{
 
-		GameMessage* pMessage = new PlayerMoveMessage(Vector2D(0, -10));
+		GameMessage* pMessage = new PlayerMoveMessage(Vector2D(0, -100));
 		mpMessageManager->addMessage(pMessage, 0);
 	}
 	else if (firstPress(mKey, mPrevKey, ALLEGRO_KEY_DOWN))
 	{
 
-		GameMessage* pMessage = new PlayerMoveMessage(Vector2D(0, 10));
+		GameMessage* pMessage = new PlayerMoveMessage(Vector2D(0, 100));
 		mpMessageManager->addMessage(pMessage, 0);
 	}
 	else if (firstPress(mKey, mPrevKey, ALLEGRO_KEY_LEFT))
 	{
 
-		GameMessage* pMessage = new PlayerMoveMessage(Vector2D(-10, 0));
+		GameMessage* pMessage = new PlayerMoveMessage(Vector2D(-100, 0));
 		mpMessageManager->addMessage(pMessage, 0);
 	}
 	else if (firstPress(mKey, mPrevKey, ALLEGRO_KEY_RIGHT))
 	{
 
-		GameMessage* pMessage = new PlayerMoveMessage(Vector2D(10,0));
+		GameMessage* pMessage = new PlayerMoveMessage(Vector2D(100,0));
 		mpMessageManager->addMessage(pMessage, 0);
 	}
 	/*

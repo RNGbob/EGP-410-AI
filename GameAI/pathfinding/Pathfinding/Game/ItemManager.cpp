@@ -23,15 +23,15 @@ ItemManager::~ItemManager()
 
 void ItemManager::addCoin(int gridIndex, Grid* pGrid)
 {
-	GameApp* pGame = dynamic_cast<GameApp*>(gpGame);
-	Coin* newCoin = new Coin(pGame->getSpriteManager()->getSprite(COIN_SPRITE_ID), pGrid->getULCornerOfSquare(gridIndex));
+	//GameApp* pGame = dynamic_cast<GameApp*>(gpGame);
+	Coin* newCoin = new Coin(gpGameA->getSpriteManager()->getSprite(COIN_SPRITE_ID), pGrid->getULCornerOfSquare(gridIndex));
 	mCoins.push_back(newCoin);
 }
 
 void ItemManager::addCandy(int gridIndex, Grid* pGrid)
 {
-	GameApp* pGame = dynamic_cast<GameApp*>(gpGame);
-	Candy* newCandy = new Candy(pGame->getSpriteManager()->getSprite(CANDY_SPRITE_ID), pGrid->getULCornerOfSquare(gridIndex));
+	//GameApp* pGame = dynamic_cast<GameApp*>(gpGame);
+	Candy* newCandy = new Candy(gpGameA->getSpriteManager()->getSprite(CANDY_SPRITE_ID), pGrid->getULCornerOfSquare(gridIndex));
 	mCandies.push_back(newCandy);
 }
 

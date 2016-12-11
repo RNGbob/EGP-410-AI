@@ -20,6 +20,10 @@ public:
 private:
 	KinematicUnit* mpMover;
 	KinematicUnit* mpTarget;
+	Path mfollowPath;
+	int mpathIndex;
+	int mtoIndex;
+	Vector2D mtarget;
 	int mTimer;
 	bool mFlee;
 	bool firstPass;

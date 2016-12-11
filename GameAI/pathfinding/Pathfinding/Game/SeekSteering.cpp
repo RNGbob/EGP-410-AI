@@ -14,68 +14,57 @@ firstPass(true)
 
 Steering * SeekSteering::getSteering()
 {
-	Enemy* pEnemy = dynamic_cast<Enemy*>(mpMover);
-	Grid* pGrid = pEnemy->getLevel()->getGrid();
-	static Path followPath;
-	static int pathIndex;
-	static int toIndex = 0;
-	static Vector2D target;
+	//Enemy* pEnemy = dynamic_cast<Enemy*>(mpMover);
+	Grid* pGrid = mpMover->getEnemyptr()->getLevel()->getGrid();
 	
 	if (firstPass)
 	{
-		followPath = newPath();
+		mfollowPath = newPath();
 		firstPass = false;
-		pathIndex = 1;
+		mpathIndex = 0;
+		mtoIndex = mfollowPath.peekNode(mpathIndex)->getId();
 		mLinear = Vector2D(0, 0);
 		
 	}
 	
-	if (pathIndex+1 < followPath.pathSize() && gpGame->getCurrentTime() - mTimer > 5000)// are we near path end or used one path too long?
+	if (mpathIndex+2 <= mfollowPath.pathSize() && gpGame->getCurrentTime() - mTimer < 5000 )// are we near path end or used one path too long?!checkWalls()
 	{
-		if (toIndex == pGrid->getSquareIndexFromPixelXY( mpMover->getPosition().getX(), mpMover->getPosition().getY()))// are we in our target square?
-		{
-			pathIndex++;// next node 
-		}
 		
-		toIndex = followPath.peekNode(pathIndex)->getId(); 
-		target = pGrid->getULCornerOfSquare(toIndex); // next sqaure in path;
-		mLinear = target - mpMover->getPosition();
+		if (mtoIndex == pGrid->getSquareIndexFromPixelXY( (mpMover->getPosition() - mpMover->getdelta()).getX() + 2, (mpMover->getPosition() - mpMover->getdelta()).getY() + 2) //pGrid->getULCornerOfSquare(mtoIndex) == mpMover->getPosition()
+			&& mtoIndex == pGrid->getSquareIndexFromPixelXY( (mpMover->getPosition() - mpMover->getdelta()).getX() + 30, (mpMover->getPosition() - mpMover->getdelta()).getY() +30)
+			)// are we in our target square? 							   
+			
+		{
+			mpathIndex++;// next node 
+		}
+		std::cout << mtoIndex  
+		<< "   " << pGrid->getSquareIndexFromPixelXY((mpMover->getPosition() - mpMover->getdelta()).getX() +2 , (mpMover->getPosition() - mpMover->getdelta()).getY() +2 )
+		<< "   " << pGrid->getSquareIndexFromPixelXY((mpMover->getPosition() - mpMover->getdelta()).getX() + 28, (mpMover->getPosition() - mpMover->getdelta()).getY() + 28) << std::endl;
+		mtoIndex = mfollowPath.peekNode(mpathIndex)->getId(); 
+		mtarget = pGrid->getULCornerOfSquare(mtoIndex) ; // next sqaure in path;
+		mLinear = mtarget - mpMover->getPosition();//pGrid->getULCornerOfSquare(pGrid->getSquareIndexFromPixelXY(mpMover->getPosition().getX() , mpMover->getPosition().getY() ));// +Vector2D(-32, -32);
 
 	}
 	else
-	{
-		followPath = newPath(); //reset path
-		pathIndex = 0;
+	{ 
+		//reset path
+		mfollowPath = newPath();
+		if (mfollowPath.pathSize() > 0)
+		{
+			mpathIndex = 0;
+			mtoIndex = mfollowPath.peekNode(mpathIndex)->getId();
+		}
 		mTimer = gpGame->getCurrentTime();
+		//mLinear = Vector2D(0, 0);
 	}
 
 
-	
-	/*
-	
-	if (checkWalls() || )
-	{
-		if (checkWalls())
-		{
-			mpMover->getVelocity().normalize();
-			mpMover->setPostion(mpMover->getPosition() - (mpMover->getVelocity()*4));
-			mpMover->setVelocity(Vector2D(0, 0));
-		}
-		mLinear = newDirection() *4;// *mpMover->getMaxVelocity();
-
-
-		mTimer = gpGame->getCurrentTime();
-		if (mFlee)
-		{
-			mLinear = Vector2D(0,0)-mLinear;
-		}
-	}
-	*/
-	mLinear = Vector2D(0, 0);
 	if (mFlee)
 	{
 		mLinear =  mLinear*-1;
 	}
+	mLinear.normalize();
+	mLinear *= mpMover->getMaxVelocity();
 	mAngular = 0;
 	
 	return this;
@@ -83,25 +72,25 @@ Steering * SeekSteering::getSteering()
 
 bool SeekSteering::checkWalls()
 {
-	Enemy* pEnemy = dynamic_cast<Enemy*>(mpMover);
+	//Enemy* pEnemy = dynamic_cast<Enemy*>(mpMover);
 	
 	mpMover->getCollider()->modPos(mpMover->getdelta()*-1);
 
-	return pEnemy->getLevel()->getMapWalls()->checkCollision(mpMover->getCollider());;
+	return mpMover->getEnemyptr()->getLevel()->getMapWalls()->checkCollision(mpMover->getCollider());;
 }
 
 Vector2D SeekSteering::newDirection()
 {
-	GameApp* pGame = dynamic_cast<GameApp*>(gpGame);
-	Enemy* pEnemy = dynamic_cast<Enemy*>(mpMover);
+	//GameApp* pGame = dynamic_cast<GameApp*>(gpGame);
+	//Enemy* = dynamic_cast<Enemy*>(mpMover);
 	Path path;
-	if (pEnemy->getLevel() == pGame->getLevel())
+	if (mpMover->getEnemyptr()->getLevel() == gpGameA->getLevel())
 	{
-		path = pEnemy->getLevel()->findPath(mpMover->getPosition() - mpMover->getdelta(), mpTarget->getPosition());
+		path = mpMover->getEnemyptr()->getLevel()->findPath(mpMover->getPosition() - mpMover->getdelta(), mpTarget->getPosition());
 	}
 	else
 	{
-		path = pEnemy->getLevel()->findPath(mpMover->getPosition() - mpMover->getdelta(), Vector2D(-1, -1));
+		path = mpMover->getEnemyptr()->getLevel()->findPath(mpMover->getPosition() - mpMover->getdelta(), Vector2D(-1, -1));
 	}
 
 	if (path.pathSize() >= 2)
@@ -115,22 +104,19 @@ Vector2D SeekSteering::newDirection()
 
 Path SeekSteering::newPath()
 {
-	GameApp* pGame = dynamic_cast<GameApp*>(gpGame);
-	Enemy* pEnemy = dynamic_cast<Enemy*>(mpMover);
+	//GameApp* pGame = dynamic_cast<GameApp*>(gpGame);
+	//Enemy* = dynamic_cast<Enemy*>(mpMover);
 	Path path;
-	if (pEnemy->getLevel() == pGame->getLevel())
+	if (mpMover->getEnemyptr()->getLevel() == gpGameA->getLevel())
 	{
-		path = pEnemy->getLevel()->findPath(mpMover->getPosition() - mpMover->getdelta(), mpTarget->getPosition());
+		path = mpMover->getEnemyptr()->getLevel()->findPath(mpMover->getPosition() - mpMover->getdelta(), mpTarget->getPosition());
 	}
 	else
 	{
-		path = pEnemy->getLevel()->findPath(mpMover->getPosition() - mpMover->getdelta(), Vector2D(-1, -1));
+		path = mpMover->getEnemyptr()->getLevel()->findPath(mpMover->getPosition() - mpMover->getdelta(), Vector2D(-1, -1));
 	}
 
-	if (path.pathSize() >= 2)
-	{
-		//return path.startingDirection();
-	}
+	
 	
 	return path;
 }

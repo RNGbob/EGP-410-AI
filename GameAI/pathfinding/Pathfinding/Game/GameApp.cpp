@@ -101,8 +101,8 @@ bool GameApp::init()
 
 	
 	//create the GridGraph for pathfinding
-	Enemy* pEnemy = dynamic_cast<Enemy*>(mpUnits->getUnit(0));
-	pEnemy->init();
+	//Enemy*  = dynamic_cast<Enemy*>(mpUnits->getUnit(0));
+	mpUnits->getUnit(0)->getEnemyptr()->init();
 	mCurrentType = DepthBreadthSearch;
 
 	//mpPathfinder = new DepthFirstPathfinder(mpGridGraph);
@@ -232,7 +232,7 @@ void GameApp::processLoop()
 	draw();
 	update();
 	input();
-	
+	//std::cout << "do this to me" << std::endl;
 	mpMessageManager->processMessagesForThisframe();
 	
 	//should be last thing in processLoop
@@ -270,6 +270,7 @@ void GameApp::input()
 
 bool GameApp::endLoop()
 {
+	mpLoopTimer->sleepUntilElapsed(LOOP_TARGET_TIME);
 	return Game::endLoop();
 }
 

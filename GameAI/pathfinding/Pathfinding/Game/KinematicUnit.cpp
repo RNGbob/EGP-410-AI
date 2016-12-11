@@ -90,6 +90,16 @@ void KinematicUnit::modPosistion(Vector2D delta)
 	mDeltaPosition += delta;
 }
 
+void KinematicUnit::setselfEnemy(Enemy * enemyptr)
+{
+	mpEnemyptr = enemyptr;
+}
+
+Enemy * KinematicUnit::getEnemyptr()
+{
+	return mpEnemyptr;
+}
+
 //private - deletes old Steering before setting
 void KinematicUnit::setSteering( Steering* pSteering )
 {
@@ -121,21 +131,21 @@ void KinematicUnit::setNewOrientation()
 
 void KinematicUnit::wander()
 {
-	Enemy* pEnemy = dynamic_cast<Enemy*>(this);
+	
 	WanderSteering* pWanderSteering = new WanderSteering( this);
 	setSteering( pWanderSteering );
 }
 
 void KinematicUnit::seek(KinematicUnit* target)
 {
-	Enemy* pEnemy = dynamic_cast<Enemy*>(this);
+	
 
 	SeekSteering* pSeekSteering = new SeekSteering( this, target );
 	setSteering( pSeekSteering );
 }
 void KinematicUnit::flee(KinematicUnit * target)
 {
-	Enemy* pEnemy = dynamic_cast<Enemy*>(this);
+	
 	SeekSteering* pFleeSteering = new SeekSteering( this, target, true);
 	setSteering(pFleeSteering);
 }

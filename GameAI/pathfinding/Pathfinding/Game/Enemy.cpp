@@ -12,16 +12,18 @@ Enemy::Enemy(Sprite *pSprite, const Vector2D &position, float orientation, const
 mDead(false),
 mStarted(false)
 {
-	GameApp* pGame = dynamic_cast<GameApp*>(gpGame);
+	//GameApp* pGame = dynamic_cast<GameApp*>(gpGame);
+	mpEnemyptr = this;
+
 	//mpPlayer = pGame->getPlayerUnit();
 	mpNormSprite = pSprite;
 	// create state machine + transitions here
 	mpStateMachine = new StateMachine;
 
-	StateMachineState* pWanderState = new WanderState(0, this, pGame->getPlayerUnit());
-	StateMachineState* pSeekState = new SeekState(1, this, pGame->getPlayerUnit());
-	StateMachineState* pFleeState = new FleeState(2, this, pGame->getPlayerUnit());
-	StateMachineState* pDeadState = new DeadState(3, this, pGame->getPlayerUnit());
+	StateMachineState* pWanderState = new WanderState(0, this, gpGameA->getPlayerUnit());
+	StateMachineState* pSeekState = new SeekState(1, this, gpGameA->getPlayerUnit());
+	StateMachineState* pFleeState = new FleeState(2, this, gpGameA->getPlayerUnit());
+	StateMachineState* pDeadState = new DeadState(3, this, gpGameA->getPlayerUnit());
 
 	StateTransition* pToWander = new StateTransition(WANDER_TRANSITION,0);
 	StateTransition* pToSeek = new StateTransition(SEEK_TRANSITION, 1);
@@ -47,9 +49,10 @@ mStarted(false)
 
 	mpStateMachine->setInitialStateID(0);
 
-	mSpawn = Vector2D(475, 352); // top left center square corner
-	mpLevels = pGame->getLevelLoader(); // when exists -_-
-	mLevelIndex = pGame->getCurrentLevelIndex();
+	 // top left center square corner
+	mpLevels = gpGameA->getLevelLoader(); // when exists -_-
+	mLevelIndex = gpGameA->getCurrentLevelIndex();
+	//mSpawn = mpLevels
 	inActive();
 }
 
@@ -71,10 +74,11 @@ void Enemy::update(float time)
 
 void Enemy::init()
 {
-	GameApp* pGame = dynamic_cast<GameApp*>(gpGame);
+	//GameApp* pGame = dynamic_cast<GameApp*>(gpGame);
 	mStarted = true;
 	mActive = true;
-	mLevelIndex = pGame->getCurrentLevelIndex();
+	mLevelIndex = gpGameA->getCurrentLevelIndex();
+	mSpawn = getLevel()->getGrid()->getULCornerOfSquare((32 * 12) + 10);// +Vector2D(2, 2);
 	respawn();
 }
 

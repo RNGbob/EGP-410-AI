@@ -41,7 +41,8 @@ const Path & Astar::findPath(Node * pFrom, Node * pTo)
 
 	mPath.clear();
 
-	Node* pCurrentNode = NULL;
+	Node* pCurrentNode = NULL; 
+	pCurrentNode = nodesToVisit.front();
 	bool toNodeAdded = false;
 
 	while (pCurrentNode != pTo && nodesToVisit.size() > 0)
@@ -152,10 +153,10 @@ bool Astar::heuristic(Node * current, Node* temp, Node* pTo)
 
 int Astar::getXdiff(int from, int to)
 {
-	GameApp* pGame = dynamic_cast<GameApp*>(gpGame);
+	//GameApp* pGame = dynamic_cast<GameApp*>(gpGame);
 	
-	int fromX = from % pGame->getLevel()->getGrid()->getSquareSize();
-	int toX = to % pGame->getLevel()->getGrid()->getSquareSize();
+	int fromX = from % gpGameA->getLevel()->getGrid()->getSquareSize();
+	int toX = to % gpGameA->getLevel()->getGrid()->getSquareSize();
 	
 	int diff = abs(toX - fromX);
 
@@ -164,10 +165,10 @@ int Astar::getXdiff(int from, int to)
 
 int Astar::getYdiff(int from, int to)
 {
-	GameApp* pGame = dynamic_cast<GameApp*>(gpGame);
+	//GameApp* pGame = dynamic_cast<GameApp*>(gpGame);
 	
-	int fromY = from / pGame->getLevel()->getGrid()->getSquareSize();
-	int toY = to / pGame->getLevel()->getGrid()->getSquareSize();
+	int fromY = from / gpGameA->getLevel()->getGrid()->getSquareSize();
+	int toY = to / gpGameA->getLevel()->getGrid()->getSquareSize();
 
 	int diff = abs(toY - fromY);  //absolute difference of x indices
 

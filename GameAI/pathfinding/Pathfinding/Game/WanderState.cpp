@@ -49,7 +49,7 @@ StateTransition * WanderState::update()
 
 bool WanderState::inRange()
 {
-	return false;
+	return true;
 }
 
 bool WanderState::PowerUp()
