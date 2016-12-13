@@ -3,11 +3,12 @@
 #include "Enemy.h"
 #include "Grid.h"
 
-SeekSteering::SeekSteering( KinematicUnit * pMover, KinematicUnit * pTarget, bool flee)
+SeekSteering::SeekSteering(KinematicUnit * pMover, KinematicUnit * pTarget, bool flee)
 :mpMover(pMover),
 mpTarget(pTarget),
 mFlee(flee),
-firstPass(true)
+firstPass(true),
+mPathFound(false)
 {
 	mTimer = gpGame->getCurrentTime();
 }
@@ -22,12 +23,23 @@ Steering * SeekSteering::getSteering()
 		mfollowPath = newPath();
 		firstPass = false;
 		mpathIndex = 0;
-		mtoIndex = mfollowPath.peekNode(mpathIndex)->getId();
+		if (mfollowPath.pathSize() > 0)
+		{
+			mpathIndex = 0;
+			mtoIndex = mfollowPath.peekNode(mpathIndex)->getId();
+			mPathFound = true;
+		}
+		else
+		{
+			mPathFound = false;
+		}
+		
+		//mtoIndex = mfollowPath.peekNode(mpathIndex)->getId();
 		mLinear = Vector2D(0, 0);
 		
 	}
 	
-	if (mpathIndex+1 < mfollowPath.pathSize() && gpGame->getCurrentTime() - mTimer < 5000 )// are we near path end or used one path too long?!checkWalls()
+	if (mpathIndex+1 < mfollowPath.pathSize() && mPathFound) //&& gpGame->getCurrentTime() - mTimer < 10000 )// are we near path end or used one path too long?
 	{
 		
 		if (mtoIndex == pGrid->getSquareIndexFromPixelXY( (mpMover->getPosition() - mpMover->getdelta()).getX() + 2, (mpMover->getPosition() - mpMover->getdelta()).getY() + 2) //pGrid->getULCornerOfSquare(mtoIndex) == mpMover->getPosition()
@@ -49,20 +61,22 @@ Steering * SeekSteering::getSteering()
 	{ 
 		//reset path
 		mfollowPath = newPath();
+		mpathIndex = 0;
 		if (mfollowPath.pathSize() > 0)
 		{
-			mpathIndex = 0;
+			
 			mtoIndex = mfollowPath.peekNode(mpathIndex)->getId();
+			mPathFound = true;
 		}
+		else
+		{
+			mPathFound = false;
+		}
+		
 		mTimer = gpGame->getCurrentTime();
 		//mLinear = Vector2D(0, 0);
 	}
 
-
-	if (mFlee)
-	{
-		mLinear =  mLinear*-1;
-	}
 	mLinear.normalize();
 	mLinear *= mpMover->getMaxVelocity();
 	mAngular = 0;

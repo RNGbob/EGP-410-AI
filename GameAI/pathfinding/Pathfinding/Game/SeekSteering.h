@@ -27,4 +27,5 @@ private:
 	int mTimer;
 	bool mFlee;
 	bool firstPass;
+	bool mPathFound;
 };
