@@ -40,6 +40,7 @@ const Path & Astar::findPath(Node * pFrom, Node * pTo)
 #endif
 
 	mPath.clear();
+	mBest.clear();
 
 	Node* pCurrentNode = NULL; 
 	pCurrentNode = nodesToVisit.front();
@@ -105,37 +106,37 @@ const Path & Astar::findPath(Node * pFrom, Node * pTo)
 	gpPerformanceTracker->stopTracking("path");
 	mTimeElapsed = gpPerformanceTracker->getElapsedTime("path");
 
+	bestPath();
+	//Path best;
 	
-	Path best;
-	if (!mPath.isEmpty())
+	if (!mBest.isEmpty())
 	{
-		bestPath(best);
-	}
-	if (!best.isEmpty())
-	{
-		mPath = best;
+		return mBest;
 	}
 
 	return mPath;
 }
-void Astar::bestPath(Path &best)
+void Astar::bestPath()
 {
-	std::vector<Node*> reverse;
-	Node* prevNode = mPath.peekNextNode();
-	NODE_ID id = BAD_NODE_ID;
-	/**/
-	while (prevNode != nullptr && prevNode != NULL)
+	if (!mPath.isEmpty())
 	{
-		reverse.push_back(prevNode);
-		//bestPath.push_front(prevNode);
-		id = prevNode->getPrev();
-		prevNode = mPath.getNode(id);
+		std::vector<Node*> reverse;
+		Node* prevNode = mPath.peekNextNode();
+		NODE_ID id = BAD_NODE_ID;
+		/**/
+		while (prevNode != nullptr && prevNode !=NULL)
+		{
+			reverse.push_back(prevNode);
+			//bestPath.push_front(prevNode);
+			id = prevNode->getPrev();
+			prevNode = mPath.getNode(id);
 
-	}
-	while (!reverse.empty())
-	{
-		best.addNode(reverse.back());
-		reverse.pop_back();
+		}
+		while (!reverse.empty())
+		{
+			mBest.addNode(reverse.back());
+			reverse.pop_back();
+		}
 	}
 	
 }

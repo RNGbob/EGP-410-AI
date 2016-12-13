@@ -27,7 +27,7 @@ Steering * SeekSteering::getSteering()
 		
 	}
 	
-	if (mpathIndex+2 <= mfollowPath.pathSize() && gpGame->getCurrentTime() - mTimer < 5000 )// are we near path end or used one path too long?!checkWalls()
+	if (mpathIndex+1 < mfollowPath.pathSize() && gpGame->getCurrentTime() - mTimer < 5000 )// are we near path end or used one path too long?!checkWalls()
 	{
 		
 		if (mtoIndex == pGrid->getSquareIndexFromPixelXY( (mpMover->getPosition() - mpMover->getdelta()).getX() + 2, (mpMover->getPosition() - mpMover->getdelta()).getY() + 2) //pGrid->getULCornerOfSquare(mtoIndex) == mpMover->getPosition()

@@ -24,7 +24,7 @@ Node * Path::getNode(NODE_ID id)// const
 {
 	if (!mNodes.empty()&& id != BAD_NODE_ID)
 	{
-		for each (Node* node in mNodes)
+		/*for each (Node* node in mNodes)
 		{
 			if (node->getId() == id)
 			{
@@ -32,15 +32,23 @@ Node * Path::getNode(NODE_ID id)// const
 			}
 		}
 		
-		/*
-	for (int i = 0; i<mNodes.size(); i++)
-	{
-		if (mNodes[i]->getId() == id)
+		
+		for (int i = 0; i<mNodes.size(); i++)
 		{
-			Node* rNode = mNodes[i];
-			return rNode;
+			if (mNodes[i]->getId() == id)
+			{
+				Node* rNode = mNodes[i];
+				return rNode;
+			}
+		}*/
+
+		for (std::vector<Node*>::iterator iter = mNodes.begin(); iter != mNodes.end(); iter++)
+		{
+			if ((*iter)->getId() == id)
+			{
+				return (*iter);
+			}
 		}
-	}*/
 	}
 	
 	return nullptr;
