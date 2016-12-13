@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <deque>
 #include <Trackable.h>
 #include "Vector2D.h"
 #include "Node.h"
@@ -14,7 +15,7 @@ public:
 	~Path();
 
 	Node* peekNode( int index ) const;
-	Node* getNode(NODE_ID id) const;
+	Node* getNode(NODE_ID id);//const;
 	Node* peekNextNode() const;
 	Node* getAndRemoveNextNode();
 	bool containsNode( Node* pNode ) const;
@@ -22,7 +23,7 @@ public:
 	bool isEmpty() { return mNodes.empty(); }
 	int getNumNodes() const { return mNodes.size(); };
 	int getNodeIndex(Node* pNode) const;
-	void push_front(Node* node) { mNodes.insert(mNodes.begin(), node); }
+	//void push_front(Node* node) { mNodes.push_front(node); }
 	int pathSize() { return mNodes.size(); }
 	Vector2D startingDirection();
 

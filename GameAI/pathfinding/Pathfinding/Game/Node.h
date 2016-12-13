@@ -13,7 +13,7 @@ public:
 	~Node();
 
 	const NODE_ID& getId() const {return mId;};
-	NODE_ID& getPrev()  { return mPrev; } const
+	NODE_ID getPrev()  { return mPrev; } 
 	void setPrevious(NODE_ID prev) { mPrev = prev; }
 
 private:

@@ -20,15 +20,29 @@ Node* Path::peekNode( int index ) const
 	}
 }
 
-Node * Path::getNode(NODE_ID id) const
+Node * Path::getNode(NODE_ID id)// const
 {
-	for (unsigned int i = 0; i<mNodes.size(); i++)
+	if (!mNodes.empty()&& id != BAD_NODE_ID)
+	{
+		for each (Node* node in mNodes)
+		{
+			if (node->getId() == id)
+			{
+				return node;
+			}
+		}
+		
+		/*
+	for (int i = 0; i<mNodes.size(); i++)
 	{
 		if (mNodes[i]->getId() == id)
 		{
-			return mNodes[i];
+			Node* rNode = mNodes[i];
+			return rNode;
 		}
+	}*/
 	}
+	
 	return nullptr;
 }
 

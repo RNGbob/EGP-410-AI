@@ -17,7 +17,7 @@ public:
 
 	const Path& findPath(Node* pFrom, Node* pTo);
 	const std::string getPathType() { return "A*"; }
-	Path bestPath();
+	void bestPath(Path &best);
 
 	bool heuristic(Node* current, Node* temp, Node* pTo);
 	int getXdiff(int from, int to);

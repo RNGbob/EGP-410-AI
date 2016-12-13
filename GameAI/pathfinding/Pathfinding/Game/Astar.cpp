@@ -105,7 +105,12 @@ const Path & Astar::findPath(Node * pFrom, Node * pTo)
 	gpPerformanceTracker->stopTracking("path");
 	mTimeElapsed = gpPerformanceTracker->getElapsedTime("path");
 
-	Path best = bestPath();
+	
+	Path best;
+	if (!mPath.isEmpty())
+	{
+		bestPath(best);
+	}
 	if (!best.isEmpty())
 	{
 		mPath = best;
@@ -113,22 +118,26 @@ const Path & Astar::findPath(Node * pFrom, Node * pTo)
 
 	return mPath;
 }
-Path Astar::bestPath()
+void Astar::bestPath(Path &best)
 {
-	Path bestPath;
-
+	std::vector<Node*> reverse;
 	Node* prevNode = mPath.peekNextNode();
-	NODE_ID id;
-
-	while (prevNode != nullptr)
+	NODE_ID id = BAD_NODE_ID;
+	/**/
+	while (prevNode != nullptr && prevNode != NULL)
 	{
-		bestPath.push_front(prevNode);
+		reverse.push_back(prevNode);
+		//bestPath.push_front(prevNode);
 		id = prevNode->getPrev();
 		prevNode = mPath.getNode(id);
 
 	}
+	while (!reverse.empty())
+	{
+		best.addNode(reverse.back());
+		reverse.pop_back();
+	}
 	
-	return bestPath;
 }
 // psuedo manhattan distance, returns true if closer x or y
 bool Astar::heuristic(Node * current, Node* temp, Node* pTo)

@@ -37,9 +37,9 @@ Steering * SeekSteering::getSteering()
 		{
 			mpathIndex++;// next node 
 		}
-		std::cout << mtoIndex  
-		<< "   " << pGrid->getSquareIndexFromPixelXY((mpMover->getPosition() - mpMover->getdelta()).getX() +2 , (mpMover->getPosition() - mpMover->getdelta()).getY() +2 )
-		<< "   " << pGrid->getSquareIndexFromPixelXY((mpMover->getPosition() - mpMover->getdelta()).getX() + 28, (mpMover->getPosition() - mpMover->getdelta()).getY() + 28) << std::endl;
+		//std::cout << mtoIndex  
+		//<< "   " << pGrid->getSquareIndexFromPixelXY((mpMover->getPosition() - mpMover->getdelta()).getX() +2 , (mpMover->getPosition() - mpMover->getdelta()).getY() +2 )
+		//<< "   " << pGrid->getSquareIndexFromPixelXY((mpMover->getPosition() - mpMover->getdelta()).getX() + 28, (mpMover->getPosition() - mpMover->getdelta()).getY() + 28) << std::endl;
 		mtoIndex = mfollowPath.peekNode(mpathIndex)->getId(); 
 		mtarget = pGrid->getULCornerOfSquare(mtoIndex) ; // next sqaure in path;
 		mLinear = mtarget - mpMover->getPosition();//pGrid->getULCornerOfSquare(pGrid->getSquareIndexFromPixelXY(mpMover->getPosition().getX() , mpMover->getPosition().getY() ));// +Vector2D(-32, -32);
