@@ -48,7 +48,9 @@ GameApp::GameApp()
 ,mpPathfinder(NULL)
 ,mpDebugDisplay(NULL)
 ,mCurrentLevelIndex(0)
+,mNumEnemies(1)
 {
+	
 }
 
 GameApp::~GameApp()
@@ -96,7 +98,7 @@ bool GameApp::init()
 	
 	
 	mpUnits = new UnitManager();
-	mpPlayer = new Player(mpSpriteManager->getSprite(PLAYER_SPRITE_ID), Vector2D(130, 130), 0, Vector2D(0, 0), 0.0f, 200.0f, 10.0f);
+	mpPlayer = new Player(mpSpriteManager->getSprite(PLAYER_SPRITE_ID), mpCurrentLevel->getPlayerSpawn(), 0, Vector2D(0, 0), 0.0f, 200.0f, 10.0f);
 	mpUnits->init(mpSpriteManager);
 
 	
@@ -112,6 +114,7 @@ bool GameApp::init()
 	mpDebugDisplay = new DebugDisplay( Vector2D(0,12), pContent );
 
 	mpMasterTimer->start();
+	mtimer = gpGame->getCurrentTime();
 	return true;
 }
 
@@ -249,17 +252,25 @@ void GameApp::draw()
 	//show pathfinder visualizer
 	//mpPathfinder->drawVisualization(mpGrid, pBackBuffer);
 #endif
-	//mpDebugDisplay->draw( pBackBuffer );
+	
 	mpCurrentLevel->draw(pBackBuffer);
 	mpPlayer->draw(pBackBuffer);
 	mpUnits->draw(pBackBuffer);
-
+	mpDebugDisplay->draw( pBackBuffer );
 }
 
 void GameApp::update()
 {
 	mpUnits->update(LOOP_TARGET_TIME/1000.0f);
 	mpPlayer->update(LOOP_TARGET_TIME / 1000.0f);
+	if (((gpGame->getCurrentTime() -mtimer)) >=  10000 && mNumEnemies < 12 )
+	{
+		mtimer = gpGame->getCurrentTime();
+		mpUnits->getUnit(mNumEnemies)->getEnemyptr()->init();
+		mNumEnemies++;
+	}
+
+
 }
 
 void GameApp::input()
@@ -337,6 +348,23 @@ void GameApp::setPathFinding(GridPathfinder * newPF)
 	mpPathfinder = newPF;
 	PathfindingDebugContent* pContent = new PathfindingDebugContent(mpPathfinder);
 	mpDebugDisplay = new DebugDisplay(Vector2D(0, 12), pContent);
+
+
+}
+
+void GameApp::restart()
+{
+	for (int i = 0; i < mNumEnemies; i++)
+	{
+		mpUnits->getUnit(i)->getEnemyptr()->reset();
+	}
+	
+	mpLevelLoader->reload();
+	mpPlayer->reset();
+	mpUnits->getUnit(0)->getEnemyptr()->init();
+	mNumEnemies = 1;
+	
+
 
 
 }

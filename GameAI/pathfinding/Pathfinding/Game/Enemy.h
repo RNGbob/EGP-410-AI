@@ -19,6 +19,7 @@ public:
 	Level* getLevel() { return mpLevels->getLevel(mLevelIndex); }
 	int getLevelIndex() { return mLevelIndex; }
 	void checkBounds();
+	void reset();
 
 private:
 	StateMachine* mpStateMachine;

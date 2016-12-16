@@ -7,7 +7,7 @@ Player::Player(Sprite * pSprite, const Vector2D & position, float orientation, c
 : KinematicUnit(pSprite, position, orientation, velocity, rotationVel, maxVelocity, maxAcceleration),
 mPowerUp(false),
 mScore(0),
-mPUCount(100000),
+mPUCount(10000),
 mPUstart(0)
 {
 	setPlayer();
@@ -61,6 +61,7 @@ void Player::update(float time)
 		else
 		{
 			// some reset
+			gpGameA->restart();
 			std::cout << "OW" << std::endl;
 		}
 	}
@@ -174,4 +175,11 @@ void Player::stop()
 	mVelocity.normalize();
 	mPosition = mPosition - (mVelocity*10);
 	mVelocity = Vector2D(0, 0);
+}
+
+void Player::reset()
+{
+	mScore = 0;
+	mPosition = mpLevel->getPlayerSpawn();
+
 }

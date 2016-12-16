@@ -7,7 +7,7 @@ WanderSteering::WanderSteering(KinematicUnit * pMover)
 :mpMover(pMover)
 {
 	mTimer = gpGame->getCurrentTime();
-
+	mLinear = newDirection()* mpMover->getMaxVelocity()*.5;
 
 }
 
@@ -19,11 +19,11 @@ Steering * WanderSteering::getSteering()
 	{
 		if (checkWalls())
 		{
-			mpMover->getVelocity().normalize();
-			mpMover->setPostion(mpMover->getPosition() - mpMover->getVelocity());
+			mLinear.normalize();
+			mpMover->setPostion(mpMover->getPosition() - (mLinear*10));
 			mpMover->setVelocity(Vector2D(0,0));
 		}
-		mLinear = newDirection();// *mpMover->getMaxVelocity();
+		mLinear = newDirection()* mpMover->getMaxVelocity()*.5;// *mpMover->getMaxVelocity();
 		mTimer = gpGame->getCurrentTime();
 	}
 	

@@ -53,7 +53,7 @@ StateTransition * SeekState::update()
 // bigger range than wander->seek
 bool SeekState::inRange()
 {
-	return false;
+	return mpMover->getLevelIndex() != gpGameA->getCurrentLevelIndex();
 }
 
 bool SeekState::PowerUp()

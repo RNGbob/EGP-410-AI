@@ -20,7 +20,10 @@ public:
 	Grid* getGrid() const { return mpGrid; }
 	GridGraph* getGridGraph() const { return mpGridGraph; }
 	void setIndex(int i) { mIndex = i; }
+	Vector2D getPlayerSpawn() { return mPlayerSpawn; }
+	Vector2D getEnemySpawn() { return mEnemySpawn; }
 
+	void reload();
 	void draw(GraphicsBuffer* pBuffer);
 
 	const Path& findPath(Vector2D from, Vector2D to);
@@ -33,6 +36,8 @@ protected:
 	GridGraph* mpGridGraph;
 	GridVisualizer* mpVisualizer;
 	GridPathfinder* mpPathfinder;
+	Vector2D mPlayerSpawn;
+	Vector2D mEnemySpawn;
 	int mIndex;
 
 
@@ -47,6 +52,7 @@ public:
 
 	void init();
 	void clear();
+	void reload();
 
 	std::string getFileName(int index) { return mFiles[index]; }
 	Level* getLevel(int index);

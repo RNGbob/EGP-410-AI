@@ -49,7 +49,7 @@ StateTransition * WanderState::update()
 
 bool WanderState::inRange()
 {
-	return true;
+	return mpMover->getLevelIndex() == gpGameA->getCurrentLevelIndex();
 }
 
 bool WanderState::PowerUp()

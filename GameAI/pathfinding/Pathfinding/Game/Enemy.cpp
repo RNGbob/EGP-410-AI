@@ -34,7 +34,7 @@ mStarted(false)
 	pWanderState->addTransition(pToFlee);
 	pWanderState->addTransition(pToDead);
 	pWanderState->addTransition(pToWander); //needed so destructors delete the transitions only once;
-	pSeekState->addTransition(pToSeek);
+	pSeekState->addTransition(pToWander);
 	pSeekState->addTransition(pToFlee);
 	pSeekState->addTransition(pToDead);
 	pFleeState->addTransition(pToWander);
@@ -78,7 +78,7 @@ void Enemy::init()
 	mStarted = true;
 	mActive = true;
 	mLevelIndex = gpGameA->getCurrentLevelIndex();
-	mSpawn = getLevel()->getGrid()->getULCornerOfSquare((32 * 12) + 16);// +Vector2D(2, 2);
+	mSpawn = getLevel()->getEnemySpawn();// +Vector2D(2, 2);
 	respawn();
 }
 
@@ -86,7 +86,7 @@ void Enemy::respawn()
 {
 	mDead = false;
 	mDeltaPosition = Vector2D(0, 0);
-	mPosition = mSpawn;
+	mPosition = getLevel()->getEnemySpawn(); //mSpawn;
 
 	 // reset level index
 }
@@ -182,6 +182,17 @@ void Enemy::checkBounds()
 	default:
 		break;
 	}
+}
+
+void Enemy::reset()
+{
+	mpStateMachine->start();
+	mStarted = false;
+	mDeltaPosition = Vector2D(0, 0);
+	mPosition = Vector2D(-2000, -2000);
+
+
+
 }
 
 

@@ -51,7 +51,7 @@ Steering * SeekSteering::getSteering()
 	}
 	
 	
-	if (mpathIndex < mfollowPath.pathSize() && mPathFound) //&& gpGame->getCurrentTime() - mTimer < 10000 )// are we near path end or used one path too long?
+	if ((mpathIndex+1 < mfollowPath.pathSize() && mpathIndex < 8 )&& mPathFound) //&& gpGame->getCurrentTime() - mTimer < 10000 )// are we near path end or used one path too long?
 	{
 		
 		
@@ -143,7 +143,7 @@ Path SeekSteering::newPath()
 		}
 		else
 		{
-			path = mpMover->getEnemyptr()->getLevel()->findPath(mpMover->getPosition() - mpMover->getdelta(), Vector2D(50,50));
+			path = mpMover->getEnemyptr()->getLevel()->findPath(mpMover->getPosition() - mpMover->getdelta(), Vector2D(64,64));
 		}
 		
 	}

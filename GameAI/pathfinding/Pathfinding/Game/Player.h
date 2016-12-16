@@ -12,12 +12,14 @@ public:
 	~Player() {};
 
 	void setLevel(Level* level) { mpLevel = level; }
+	int getScore() { return mScore; }
 	bool ifPowered() { return mPowerUp; }
 
 	virtual void update(float time);
 	void PowerUp();
 	void checkBounds(int LevelIndex,GameApp* pGame );
 	void stop();
+	void reset();
 	
 
 private:

@@ -42,6 +42,15 @@ void LevelLoader::clear()
 	
 }
 
+void LevelLoader::reload()
+{
+	mLevels[0]->reload();
+	mLevels[1]->reload();
+	mLevels[2]->reload();
+	mLevels[3]->reload();
+
+}
+
 Level * LevelLoader::getLevel(int index)
 {
 	//if (!mLevels.empty() && index < mLevels.size())
@@ -73,7 +82,7 @@ Level::Level(Grid * pGrid)
 		if (mpGrid->getValueAtIndex(i) == 0)
 		{
 			// not all, make it every 3 or something
-			if (i%5 == 0)
+			if (i%7 == 0)
 			{
 				mpItemManager->addCoin(i, mpGrid);
 			}
@@ -83,6 +92,15 @@ Level::Level(Grid * pGrid)
 		{
 			mpItemManager->addCandy(i, mpGrid);
 		}
+		if (mpGrid->getValueAtIndex(i) == 3)
+		{
+			mPlayerSpawn = mpGrid->getULCornerOfSquare(i) + Vector2D(2, 2);
+		}
+		if (mpGrid->getValueAtIndex(i) == 4)
+		{
+			mEnemySpawn = mpGrid->getULCornerOfSquare(i) + Vector2D(2, 2);
+		}
+
 	}
 	mpPathfinder = new Astar(mpGridGraph);// will always be A*
 
@@ -108,6 +126,31 @@ Level::~Level()
 
 	delete mpPathfinder;
 	mpPathfinder = NULL;
+}
+
+void Level::reload()
+{
+	mpItemManager->clear();
+
+	int size = mpGrid->getGridWidth() * mpGrid->getGridHeight();
+
+	for (int i = 0; i<size; i++)
+	{
+		if (mpGrid->getValueAtIndex(i) == 0)
+		{
+			// not all, make it every 3 or something
+			if (i % 7 == 0)
+			{
+				mpItemManager->addCoin(i, mpGrid);
+			}
+
+		}
+		if (mpGrid->getValueAtIndex(i) == 2)
+		{
+			mpItemManager->addCandy(i, mpGrid);
+		}
+
+	}
 }
 
 void Level::draw(GraphicsBuffer * pBuffer)

@@ -89,6 +89,8 @@ public:
 
 	Level* switchLevel(int index);
 	void setPathFinding(GridPathfinder* newPF);
+	void restart();
+
 
 	void setDepthBreadth();
 	void setDijkstra();
@@ -109,6 +111,8 @@ private:
 	LevelLoader* mpLevelLoader;
 	Level* mpCurrentLevel;
 	int mCurrentLevelIndex;
+	int mNumEnemies;
+	int mtimer;
 
 	//contained in Level, remove later
 	MapWallManager* mpMapWalls;
