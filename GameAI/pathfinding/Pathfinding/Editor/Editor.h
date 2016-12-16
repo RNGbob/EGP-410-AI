@@ -3,6 +3,7 @@
 #include "Game.h"
 #include "GraphicsSystem.h"
 #include <fstream>
+#include <vector>
 
 /*Editor - class to hold all application related info.
 
@@ -43,9 +44,18 @@ public:
 	void loadGrid( std::ifstream& theStream );
 	void clearGrid();
 
+	void setPlayerSpawn();
+	void setEnemySpawn();
+	void draw();
+	bool shift(ALLEGRO_KEYBOARD_STATE keyState);
+	bool firstPress(ALLEGRO_MOUSE_STATE& now, ALLEGRO_MOUSE_STATE& last, int mouseButton);
+
 private:
 	Grid* mpGrid;
 	GridVisualizer* mpGridVisualizer;
+	ALLEGRO_MOUSE_STATE prevKey;
 	char mLevelIndex;
+	int PlayerIndex;
+	int EnemyIndex;
 
 };

@@ -73,7 +73,7 @@ Level::Level(Grid * pGrid)
 		if (mpGrid->getValueAtIndex(i) == 0)
 		{
 			// not all, make it every 3 or something
-			if (i%3 == 0)
+			if (i%5 == 0)
 			{
 				mpItemManager->addCoin(i, mpGrid);
 			}
@@ -128,7 +128,7 @@ const Path& Level::findPath(Vector2D from, Vector2D to )
 	}
 	else
 	{
-		toIndex  = mpGrid->getSquareIndexFromPixelXY((int)to.getX(), (int)to.getY());
+		toIndex = mpGrid->getSquareIndexFromPixelXY((int)to.getX(), (int)to.getY());
 	}
 	
 	if (toIndex == -1)
@@ -147,11 +147,11 @@ int Level::getExitIndex(int cLevel)
 {
 	if ((mIndex == 0 && cLevel == 1) || (mIndex == 2 && cLevel == 3))
 	{
-		return 384;// right gate node
+		return 415;// right gate node
 	}
 	else if ((mIndex == 1 && cLevel == 0) || (mIndex == 3 && cLevel == 2))
 	{
-		return 352; //left gate node
+		return 385; //left gate node
 	}
 	else if ((mIndex == 0 && cLevel == 2) || (mIndex == 1 && cLevel == 3))
 	{

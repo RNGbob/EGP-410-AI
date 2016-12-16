@@ -26,6 +26,7 @@ private:
 	Vector2D mtarget;
 	int mTimer;
 	bool mFlee;
+	bool mDiffLevel;
 	bool firstPass;
 	bool mPathFound;
 };

@@ -46,6 +46,8 @@ const Path & Astar::findPath(Node * pFrom, Node * pTo)
 	pCurrentNode = nodesToVisit.front();
 	bool toNodeAdded = false;
 
+	
+
 	while (pCurrentNode != pTo && nodesToVisit.size() > 0)
 	{
 

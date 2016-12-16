@@ -8,7 +8,8 @@ SeekSteering::SeekSteering(KinematicUnit * pMover, KinematicUnit * pTarget, bool
 mpTarget(pTarget),
 mFlee(flee),
 firstPass(true),
-mPathFound(false)
+mPathFound(false),
+mDiffLevel(false)
 {
 	mTimer = gpGame->getCurrentTime();
 }
@@ -36,25 +37,38 @@ Steering * SeekSteering::getSteering()
 		
 		//mtoIndex = mfollowPath.peekNode(mpathIndex)->getId();
 		mLinear = Vector2D(0, 0);
-		
+	}
+	//rest pathfinder on level swich
+	if (!mDiffLevel && mpMover->getEnemyptr()->getLevelIndex()!= gpGameA->getCurrentLevelIndex())
+	{
+		mDiffLevel = true;
+		mPathFound = false;
+	}
+	else if (mDiffLevel && mpMover->getEnemyptr()->getLevelIndex() == gpGameA->getCurrentLevelIndex())
+	{
+		mDiffLevel = false;
+		mPathFound = false;
 	}
 	
-	if (mpathIndex+1 < mfollowPath.pathSize() && mPathFound) //&& gpGame->getCurrentTime() - mTimer < 10000 )// are we near path end or used one path too long?
+	
+	if (mpathIndex < mfollowPath.pathSize() && mPathFound) //&& gpGame->getCurrentTime() - mTimer < 10000 )// are we near path end or used one path too long?
 	{
 		
-		if (mtoIndex == pGrid->getSquareIndexFromPixelXY( (mpMover->getPosition() - mpMover->getdelta()).getX() + 2, (mpMover->getPosition() - mpMover->getdelta()).getY() + 2) //pGrid->getULCornerOfSquare(mtoIndex) == mpMover->getPosition()
-			&& mtoIndex == pGrid->getSquareIndexFromPixelXY( (mpMover->getPosition() - mpMover->getdelta()).getX() + 30, (mpMover->getPosition() - mpMover->getdelta()).getY() +30)
-			)// are we in our target square? 							   
-			
-		{
-			mpathIndex++;// next node 
-		}
+		
 		//std::cout << mtoIndex  
 		//<< "   " << pGrid->getSquareIndexFromPixelXY((mpMover->getPosition() - mpMover->getdelta()).getX() +2 , (mpMover->getPosition() - mpMover->getdelta()).getY() +2 )
 		//<< "   " << pGrid->getSquareIndexFromPixelXY((mpMover->getPosition() - mpMover->getdelta()).getX() + 28, (mpMover->getPosition() - mpMover->getdelta()).getY() + 28) << std::endl;
 		mtoIndex = mfollowPath.peekNode(mpathIndex)->getId(); 
 		mtarget = pGrid->getULCornerOfSquare(mtoIndex) ; // next sqaure in path;
 		mLinear = mtarget - mpMover->getPosition();//pGrid->getULCornerOfSquare(pGrid->getSquareIndexFromPixelXY(mpMover->getPosition().getX() , mpMover->getPosition().getY() ));// +Vector2D(-32, -32);
+
+		if (mtoIndex == pGrid->getSquareIndexFromPixelXY( (int)(mpMover->getPosition() - mpMover->getdelta()).getX() + 2, (int)(mpMover->getPosition() - mpMover->getdelta()).getY() + 2) //pGrid->getULCornerOfSquare(mtoIndex) == mpMover->getPosition()
+			&& mtoIndex == pGrid->getSquareIndexFromPixelXY( (int)(mpMover->getPosition() - mpMover->getdelta()).getX() + 28, (int)(mpMover->getPosition() - mpMover->getdelta()).getY() +28)
+			)// are we in our target square? 							   
+			
+		{
+			mpathIndex++;// next node 
+		}
 
 	}
 	else
@@ -121,9 +135,17 @@ Path SeekSteering::newPath()
 	//GameApp* pGame = dynamic_cast<GameApp*>(gpGame);
 	//Enemy* = dynamic_cast<Enemy*>(mpMover);
 	Path path;
-	if (mpMover->getEnemyptr()->getLevel() == gpGameA->getLevel())
+	if (!mDiffLevel)
 	{
-		path = mpMover->getEnemyptr()->getLevel()->findPath(mpMover->getPosition() - mpMover->getdelta(), mpTarget->getPosition());
+		if (!mFlee)
+		{
+			path = mpMover->getEnemyptr()->getLevel()->findPath(mpMover->getPosition() - mpMover->getdelta(), mpTarget->getPosition());
+		}
+		else
+		{
+			path = mpMover->getEnemyptr()->getLevel()->findPath(mpMover->getPosition() - mpMover->getdelta(), Vector2D(50,50));
+		}
+		
 	}
 	else
 	{

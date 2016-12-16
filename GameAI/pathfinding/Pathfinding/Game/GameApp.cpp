@@ -96,7 +96,7 @@ bool GameApp::init()
 	
 	
 	mpUnits = new UnitManager();
-	mpPlayer = new Player(mpSpriteManager->getSprite(PLAYER_SPRITE_ID), Vector2D(128, 128), 0, Vector2D(0, 0), 0.0f, 200.0f, 10.0f);
+	mpPlayer = new Player(mpSpriteManager->getSprite(PLAYER_SPRITE_ID), Vector2D(130, 130), 0, Vector2D(0, 0), 0.0f, 200.0f, 10.0f);
 	mpUnits->init(mpSpriteManager);
 
 	

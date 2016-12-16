@@ -78,13 +78,14 @@ void Enemy::init()
 	mStarted = true;
 	mActive = true;
 	mLevelIndex = gpGameA->getCurrentLevelIndex();
-	mSpawn = getLevel()->getGrid()->getULCornerOfSquare((32 * 12) + 10);// +Vector2D(2, 2);
+	mSpawn = getLevel()->getGrid()->getULCornerOfSquare((32 * 12) + 16);// +Vector2D(2, 2);
 	respawn();
 }
 
 void Enemy::respawn()
 {
 	mDead = false;
+	mDeltaPosition = Vector2D(0, 0);
 	mPosition = mSpawn;
 
 	 // reset level index

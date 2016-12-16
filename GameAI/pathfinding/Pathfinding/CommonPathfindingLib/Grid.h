@@ -9,6 +9,8 @@ class Vector2D;
 const int CLEAR_VALUE = 0;
 const int BLOCKING_VALUE = 1;
 const int POWER_UP_VALUE = 2;
+const int PLAYER_SPAWN_VALUE = 3;
+const int ENEMY_SPAWN_VALUE = 4;
 
 class Grid:public Trackable
 {

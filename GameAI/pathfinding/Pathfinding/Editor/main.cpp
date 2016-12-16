@@ -34,6 +34,8 @@ int main(void)
 
 	gpGame->init();
 
+	
+	
 	bool shouldExit = false;
 
 	while( !shouldExit )
