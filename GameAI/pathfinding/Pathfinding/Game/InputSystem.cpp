@@ -4,6 +4,7 @@
 #include "GameMessageManager.h"
 #include "PathToMessage.h"
 #include "SwitchPathFindingMessage.h"
+#include "PlayerMoveMessage.h"
 #include "Grid.h"
 #include <string>
 #include <sstream>
@@ -37,28 +38,8 @@ void InputSystem::update()
 	static Vector2D goalPos(-50.0f, -50.0f);
 	al_get_mouse_state(&mMouse);
 	al_get_keyboard_state(&mKey);
+	
 
-	if (firstPress(mMouse, mPrevMouse,1))
-	{
-		if (!firstSelect)
-		{
-			lastPos = Vector2D(mMouse.x, mMouse.y);
-			firstSelect = true;
-		}
-		else
-		{
-			Vector2D pos(mMouse.x, mMouse.y);
-			if (lastPos.getX() != pos.getX() || lastPos.getY() != pos.getY())
-			{
-				GameMessage* pMessage = new PathToMessage(lastPos, pos);
-				mpMessageManager->addMessage(pMessage, 0);
-				firstSelect = false;
-				goalPos = Vector2D(mMouse.x, mMouse.y);
-			}
-		}
-
-	}
-	// drawing start and end goal and letters
 	
 
 
@@ -66,29 +47,31 @@ void InputSystem::update()
 	{
 		gpGame->markForExit();
 	}
-	else if (firstPress(mKey, mPrevKey, ALLEGRO_KEY_B))
+	else if (firstPress(mKey, mPrevKey, ALLEGRO_KEY_UP))
 	{
 
-		GameMessage* pMessage = new SwitchPathFindingMessage(DepthBreadthSearch);
+		GameMessage* pMessage = new PlayerMoveMessage(Vector2D(0, -100));
 		mpMessageManager->addMessage(pMessage, 0);
-		resetDraw(lastPos, goalPos);
 	}
-	else if (firstPress( mKey, mPrevKey,ALLEGRO_KEY_D))
+	else if (firstPress(mKey, mPrevKey, ALLEGRO_KEY_DOWN))
 	{
-		
-		GameMessage* pMessage = new SwitchPathFindingMessage(DijkstraPath);
+
+		GameMessage* pMessage = new PlayerMoveMessage(Vector2D(0, 100));
 		mpMessageManager->addMessage(pMessage, 0);
-		resetDraw(lastPos, goalPos);
 	}
-	else if (firstPress(mKey, mPrevKey, ALLEGRO_KEY_A))
+	else if (firstPress(mKey, mPrevKey, ALLEGRO_KEY_LEFT))
 	{
-		
-		GameMessage* pMessage = new SwitchPathFindingMessage(AstarPath);
+
+		GameMessage* pMessage = new PlayerMoveMessage(Vector2D(-100, 0));
 		mpMessageManager->addMessage(pMessage, 0);
-		resetDraw(lastPos, goalPos);
 	}
-	
-	draw(lastPos, goalPos);
+	else if (firstPress(mKey, mPrevKey, ALLEGRO_KEY_RIGHT))
+	{
+
+		GameMessage* pMessage = new PlayerMoveMessage(Vector2D(100,0));
+		mpMessageManager->addMessage(pMessage, 0);
+	}
+
 
 	// assign last frames key
 	mPrevKey = mKey;

@@ -4,6 +4,8 @@
 #include "Trackable.h"
 #include "Vector2D.h"
 
+const std::string FILE_PATH = "../Assets/";
+
 class GraphicsBuffer;
 
 class GraphicsSystem:public Trackable

@@ -25,6 +25,8 @@ extern Game* gpGame;
 extern GameApp* gpGameA;
 
 const IDType BACKGROUND_SPRITE_ID = 0;
+const int WIDTH = 1024;
+const int HEIGHT = 768;
 
 class Game:public Trackable
 {

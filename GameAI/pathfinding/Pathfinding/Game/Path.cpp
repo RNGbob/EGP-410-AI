@@ -20,15 +20,37 @@ Node* Path::peekNode( int index ) const
 	}
 }
 
-Node * Path::getNode(NODE_ID id) const
+Node * Path::getNode(NODE_ID id)// const
 {
-	for (unsigned int i = 0; i<mNodes.size(); i++)
+	if (!mNodes.empty()&& id != BAD_NODE_ID)
 	{
-		if (mNodes[i]->getId() == id)
+		/*for each (Node* node in mNodes)
 		{
-			return mNodes[i];
+			if (node->getId() == id)
+			{
+				return node;
+			}
+		}
+		
+		
+		for (int i = 0; i<mNodes.size(); i++)
+		{
+			if (mNodes[i]->getId() == id)
+			{
+				Node* rNode = mNodes[i];
+				return rNode;
+			}
+		}*/
+
+		for (std::vector<Node*>::iterator iter = mNodes.begin(); iter != mNodes.end(); iter++)
+		{
+			if ((*iter)->getId() == id)
+			{
+				return (*iter);
+			}
 		}
 	}
+	
 	return nullptr;
 }
 
@@ -56,6 +78,30 @@ Node* Path::getAndRemoveNextNode()
 	{
 		return NULL;
 	}
+}
+
+Vector2D Path::startingDirection()
+{
+	int indexDiff = mNodes[0]->getId() - mNodes[1]->getId();
+	
+	if (indexDiff > 0) 
+	{
+		if (abs(indexDiff)>16)
+		{return Vector2D(0,-1);}
+		else
+		{return Vector2D(-1, 0);}
+
+	}
+	else
+	{
+		if (abs(indexDiff)>16) 
+		{return Vector2D(0, 1);}
+		else
+		{return Vector2D(1, 0);}
+	}
+	
+	
+	return Vector2D(0,0);
 }
 
 void Path::addNode( Node* pNode )

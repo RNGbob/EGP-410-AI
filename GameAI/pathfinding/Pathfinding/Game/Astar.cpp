@@ -6,6 +6,7 @@
 #include "GameApp.h"
 #include "Grid.h"
 #include <PerformanceTracker.h>
+#include "LevelLoader.h"
 #include <list>
 #include <vector>
 #include <algorithm>
@@ -39,9 +40,13 @@ const Path & Astar::findPath(Node * pFrom, Node * pTo)
 #endif
 
 	mPath.clear();
+	mBest.clear();
 
-	Node* pCurrentNode = NULL;
+	Node* pCurrentNode = NULL; 
+	pCurrentNode = nodesToVisit.front();
 	bool toNodeAdded = false;
+
+	
 
 	while (pCurrentNode != pTo && nodesToVisit.size() > 0)
 	{
@@ -86,13 +91,10 @@ const Path & Astar::findPath(Node * pFrom, Node * pTo)
 					nodesToVisit.push_back(pTempToNode);
 				}
 
-				
-
 				if (pTempToNode == pTo)
 				{
 					toNodeAdded = true;
 				}
-
 
 #ifdef VISUALIZE_PATH
 				mVisitedNodes.push_back(pTempToNode);
@@ -106,8 +108,39 @@ const Path & Astar::findPath(Node * pFrom, Node * pTo)
 	gpPerformanceTracker->stopTracking("path");
 	mTimeElapsed = gpPerformanceTracker->getElapsedTime("path");
 
+	bestPath();
+	//Path best;
 	
+	if (!mBest.isEmpty())
+	{
+		return mBest;
+	}
+
 	return mPath;
+}
+void Astar::bestPath()
+{
+	if (!mPath.isEmpty())
+	{
+		std::vector<Node*> reverse;
+		Node* prevNode = mPath.peekNextNode();
+		NODE_ID id = BAD_NODE_ID;
+		/**/
+		while (prevNode != nullptr && prevNode !=NULL)
+		{
+			reverse.push_back(prevNode);
+			//bestPath.push_front(prevNode);
+			id = prevNode->getPrev();
+			prevNode = mPath.getNode(id);
+
+		}
+		while (!reverse.empty())
+		{
+			mBest.addNode(reverse.back());
+			reverse.pop_back();
+		}
+	}
+	
 }
 // psuedo manhattan distance, returns true if closer x or y
 bool Astar::heuristic(Node * current, Node* temp, Node* pTo)
@@ -132,10 +165,10 @@ bool Astar::heuristic(Node * current, Node* temp, Node* pTo)
 
 int Astar::getXdiff(int from, int to)
 {
-	GameApp* pGame = dynamic_cast<GameApp*>(gpGame);
+	//GameApp* pGame = dynamic_cast<GameApp*>(gpGame);
 	
-	int fromX = from % pGame->getGrid()->getSquareSize();
-	int toX = to % pGame->getGrid()->getSquareSize();
+	int fromX = from % gpGameA->getLevel()->getGrid()->getSquareSize();
+	int toX = to % gpGameA->getLevel()->getGrid()->getSquareSize();
 	
 	int diff = abs(toX - fromX);
 
@@ -144,10 +177,10 @@ int Astar::getXdiff(int from, int to)
 
 int Astar::getYdiff(int from, int to)
 {
-	GameApp* pGame = dynamic_cast<GameApp*>(gpGame);
+	//GameApp* pGame = dynamic_cast<GameApp*>(gpGame);
 	
-	int fromY = from / pGame->getGrid()->getSquareSize();
-	int toY = to / pGame->getGrid()->getSquareSize();
+	int fromY = from / gpGameA->getLevel()->getGrid()->getSquareSize();
+	int toY = to / gpGameA->getLevel()->getGrid()->getSquareSize();
 
 	int diff = abs(toY - fromY);  //absolute difference of x indices
 

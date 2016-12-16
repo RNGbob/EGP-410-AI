@@ -17,10 +17,12 @@ public:
 
 	const Path& findPath(Node* pFrom, Node* pTo);
 	const std::string getPathType() { return "A*"; }
+	void bestPath();
 
 	bool heuristic(Node* current, Node* temp, Node* pTo);
 	int getXdiff(int from, int to);
 	int getYdiff(int from, int to);
 
 private:
+	Path mBest;
 };

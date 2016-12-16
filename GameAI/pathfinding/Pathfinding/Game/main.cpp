@@ -29,12 +29,12 @@ int main(void)
 {
 	gpPerformanceTracker = new PerformanceTracker();
 
-	gpGame = new GameApp();
-
+	gpGameA = new GameApp();
+	gpGame = gpGameA;
 	gpGame->init();
-	gpGameA = dynamic_cast<GameApp*>(gpGame);
+	//gpGameA = dynamic_cast<GameApp*>(gpGame);
 
-	GraphicsBuffer* pWallpaper = new GraphicsBuffer( "wallpaper.bmp" );//should "live" someplace else
+	//GraphicsBuffer* pWallpaper = new GraphicsBuffer( "wallpaper.bmp" );//should "live" someplace else
 
 
 
@@ -42,23 +42,14 @@ int main(void)
 
 	while( !shouldExit )
 	{
-		//get current keyboard state
-		//ALLEGRO_KEYBOARD_STATE keyState;
-		//al_get_keyboard_state( &keyState );
-
-		//if escape key was down then exit the loop
-		//if( al_key_down( &keyState, ALLEGRO_KEY_ESCAPE ) )
-		//{
-			//gpGame->markForExit();
-		//}
-
+		
 		gpGame->beginLoop();
 		gpGame->processLoop();
 		shouldExit = gpGame->endLoop();
 	}
 
 	//cleanup
-	delete pWallpaper;
+	//delete pWallpaper;
 	gpGame->cleanup();
 	delete gpGame;
 	delete gpPerformanceTracker;
