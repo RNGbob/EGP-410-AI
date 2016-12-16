@@ -8,7 +8,7 @@ void FleeState::onEntrance()
 {
 	mpMover->flee(mpTarget);
 	mpMover->switchSprite(gpGame->getSpriteManager()->getSprite(ENEMY_WEAK_SPRITE_ID));
-	std::cout << "REEE" << std::endl;
+	//std::cout << "REEE" << std::endl;
 }
 
 void FleeState::onExit()

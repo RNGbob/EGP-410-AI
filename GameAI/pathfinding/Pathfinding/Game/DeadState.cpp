@@ -5,7 +5,7 @@ void DeadState::onEntrance()
 {
 	mpMover->inActive();
 	mTimeStart = gpGame->getCurrentTime();
-	std::cout << "Blarg, I'm dead" << std::endl;
+	//std::cout << "Blarg, I'm dead" << std::endl;
 }
 
 void DeadState::onExit()

@@ -5,7 +5,7 @@
 void WanderState::onEntrance()
 {
 	mpMover->wander();
-	std::cout << "something" << std::endl;
+	//std::cout << "something" << std::endl;
 }
 
 void WanderState::onExit()

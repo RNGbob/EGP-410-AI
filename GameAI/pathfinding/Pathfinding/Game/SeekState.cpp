@@ -5,7 +5,7 @@
 void SeekState::onEntrance()
 {
 	mpMover->seek(mpTarget);
-	std::cout << "I see ya" << std::endl;
+	//std::cout << "I see ya" << std::endl;
 }
 
 void SeekState::onExit()
